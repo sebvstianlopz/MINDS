@@ -1,0 +1,677 @@
+<title>MINDS Storefront</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap">
+<style>
+/* Layout: a plain white notebook page. Full-bleed photo opener with a white "page" panel; 4-up product grids; one blue mantra band; square corners, hairline graphite rules. */
+:root {
+  --paper: #FFFFFF;
+  --wash: #F2F4F7;
+  --ink: #15171C;
+  --pencil: #555B66;
+  --rule: #D6DAE1;
+  --pen: #2741C2;
+  --pen-deep: #1C2F94;
+  --on-pen: #FFFFFF;
+  --display: "Oswald", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --max: 1320px;
+  --section: clamp(56px, 8vw, 112px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-color: var(--rule) var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--paper); }
+::selection { background: var(--pen); color: var(--on-pen); }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; }
+button, input, select { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.wrap { max-width: calc(var(--max) + 64px); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+@media (min-width: 750px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+.muted { color: var(--pencil); }
+.num { font-variant-numeric: tabular-nums; }
+.icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 26px; border: 1.5px solid var(--pen); background: var(--pen); color: var(--on-pen); font: 600 14px/1 var(--body); letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+.btn:hover { background: var(--pen-deep); border-color: var(--pen-deep); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+.btn.block { width: 100%; }
+.btn[disabled] { background: var(--wash); border-color: var(--rule); color: var(--pencil); cursor: not-allowed; }
+.link { font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 5px; }
+.link:hover { color: var(--pen); }
+
+/* Announcement + header */
+.announce { background: var(--wash); font-size: 13px; letter-spacing: .02em; }
+.announce .wrap { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 40px; text-align: center; }
+.announce a { font-weight: 600; }
+@media (max-width: 599px) { .announce .wide { display: none; } }
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--paper); border-bottom: 1px solid var(--rule); }
+header.site .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 72px; }
+.brand { display: flex; align-items: center; gap: 40px; min-width: 0; }
+.logo img { height: 30px; width: auto; }
+nav.main { display: flex; gap: 28px; }
+nav.main a { text-decoration: none; font-weight: 500; font-size: 15px; padding: 8px 0; border-bottom: 1.5px solid transparent; }
+nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: var(--ink); }
+.tools { display: flex; gap: 4px; align-items: center; }
+.iconbtn { display: inline-grid; place-items: center; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; text-decoration: none; position: relative; }
+.iconbtn:hover { color: var(--pen); }
+.count { position: absolute; top: 6px; right: 4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--pen); color: var(--on-pen); font: 600 11px/18px var(--body); text-align: center; }
+.burger { display: none; }
+@media (max-width: 899px) {
+  header.site .wrap { display: grid; grid-template-columns: 88px 1fr 88px; gap: 0; min-height: 60px; }
+  .brand { justify-content: center; }
+  .tools { justify-self: end; }
+  .burger { display: inline-grid; }
+  nav.main { display: none; }
+  .logo { justify-self: center; }
+  .logo img { height: 24px; }
+}
+.drawer-nav { position: fixed; inset: 0; z-index: 80; display: none; }
+.drawer-nav.open { display: block; }
+.drawer-nav .panel { position: absolute; inset: 0 auto 0 0; width: min(86vw, 360px); background: var(--paper); padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 24px max(24px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 4px; }
+.drawer-nav .panel a { font: 600 26px/1.2 var(--display); text-transform: uppercase; text-decoration: none; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.scrim { position: absolute; inset: 0; background: rgba(21, 23, 28, .35); }
+
+/* Hero */
+.hero { position: relative; background: var(--wash); }
+.hero figure { margin: 0; height: clamp(520px, 72vw, 820px); max-height: calc(100vh - 112px); min-height: 520px; overflow: hidden; }
+.hero figure img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.hero .page { position: absolute; left: 0; right: 0; bottom: 0; }
+.hero .panel { background: var(--paper); padding: 36px 40px 40px; max-width: 520px; display: grid; gap: 18px; margin-bottom: 40px; }
+.hero h1 { font-size: clamp(44px, 5.4vw, 80px); line-height: .94; }
+.hero p { font-size: 17px; max-width: 40ch; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+@media (max-width: 749px) {
+  .hero figure { height: auto; max-height: none; min-height: 0; aspect-ratio: 4 / 5; }
+  .hero .page { position: static; }
+  .hero .panel { max-width: none; margin: 0; padding: 28px 0 8px; background: var(--paper); }
+  .hero { background: var(--paper); }
+  .ctas .btn { flex: 1 1 180px; }
+}
+
+/* Sections */
+section.band { padding-block: var(--section); }
+section.band.wash { background: var(--wash); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin-bottom: clamp(28px, 4vw, 48px); }
+.sec-head h2 { font-size: clamp(34px, 4.4vw, 56px); }
+.sec-head .sub { margin-top: 10px; }
+
+/* Product grid + card */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; }
+@media (max-width: 989px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 749px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; } }
+.card { display: grid; gap: 12px; text-decoration: none; min-width: 0; }
+.card .media { position: relative; aspect-ratio: 4 / 5; background: var(--paper); border: 1px solid var(--rule); overflow: hidden; }
+.card .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8%; transition: opacity .35s ease; }
+.card .media img.model { object-fit: cover; padding: 0; }
+.card .media img.alt { opacity: 0; }
+@media (hover: hover) { .card:hover .media img.alt { opacity: 1; } .card:hover .media img.first.has-alt { opacity: 0; } }
+.card .meta { display: grid; gap: 2px; }
+.card .t { font-weight: 600; font-size: 15px; line-height: 1.3; }
+.card:hover .t { text-decoration: underline; text-underline-offset: 3px; }
+.card .c { font-size: 14px; color: var(--pencil); }
+.card .p { font-size: 15px; margin-top: 4px; }
+.tag { position: absolute; top: 10px; left: 10px; background: var(--paper); border: 1px solid var(--ink); font: 600 11px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 6px 8px; }
+
+/* Shop by piece */
+.pieces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 749px) { .pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+.piece { display: grid; gap: 14px; text-decoration: none; }
+.piece .media { aspect-ratio: 1; background: var(--paper); display: grid; place-items: center; overflow: hidden; }
+.piece .media img { width: 82%; height: 82%; object-fit: contain; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.piece:hover .media img { transform: scale(1.04); }
+.piece .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-top: 1.5px solid var(--ink); padding-top: 12px; }
+.piece h3 { font-size: clamp(20px, 2.2vw, 28px); }
+
+/* Feature product */
+.feature { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.feature .media { background: var(--wash); aspect-ratio: 1; display: grid; place-items: center; }
+.feature .media img { width: 84%; height: 84%; object-fit: contain; mix-blend-mode: multiply; }
+.feature .info { display: grid; gap: 18px; max-width: 480px; }
+.feature h2 { font-size: clamp(38px, 4.6vw, 60px); }
+@media (max-width: 849px) { .feature { grid-template-columns: minmax(0, 1fr); } }
+
+/* Variant pills */
+fieldset.sizes { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bottom: 10px; display: flex; gap: 16px; align-items: baseline; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { position: relative; }
+.pill input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.pill span { display: grid; place-items: center; min-width: 56px; height: 44px; padding: 0 14px; border: 1px solid var(--rule); font-size: 14px; font-weight: 500; }
+.pill input:hover + span { border-color: var(--ink); }
+.pill input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.pill input:focus-visible + span { outline: 2px solid var(--pen); outline-offset: 2px; }
+.pill input:disabled + span { color: var(--pencil); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--rule) 9px 10px); cursor: not-allowed; }
+.pill input:disabled { cursor: not-allowed; }
+.pickup { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+.pickup .icon { color: var(--pen); margin-top: 1px; }
+.textbtn { background: none; border: 0; padding: 0; cursor: pointer; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; color: var(--pencil); }
+.textbtn:hover { color: var(--pen); }
+
+/* Mantra */
+.mantra { padding-block: clamp(80px, 12vw, 168px); border-top: 1px solid var(--rule); }
+.mantra p { font: 700 clamp(34px, 6.6vw, 92px)/.98 var(--display); text-transform: uppercase; color: var(--pen); letter-spacing: 0; }
+.mantra p span { display: block; }
+.mantra p span:nth-child(2) { padding-left: 1.2em; }
+.mantra p span:nth-child(3) { padding-left: 2.4em; }
+.mantra p span:nth-child(4) { padding-left: 3.6em; }
+@media (max-width: 749px) { .mantra p span { padding-left: 0 !important; } }
+
+/* Visit */
+.visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.visit .media { aspect-ratio: 4 / 5; overflow: hidden; background: var(--wash); }
+.visit .media img { width: 100%; height: 100%; object-fit: cover; }
+.visit .info { display: grid; gap: 22px; max-width: 500px; }
+.visit h2 { font-size: clamp(38px, 4.6vw, 60px); }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 6px 24px; margin: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 16px 0; }
+.hours dt { font-weight: 600; } .hours dd { margin: 0; }
+@media (max-width: 849px) { .visit { grid-template-columns: minmax(0, 1fr); } .visit .media { aspect-ratio: 4 / 3; } }
+
+/* Stores */
+.stores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 989px) { .stores { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; } }
+.store { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.store .media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--wash); margin-bottom: 6px; }
+.store .media img { width: 100%; height: 100%; object-fit: cover; }
+.store h3 { font-size: 22px; }
+.store .h { font-size: 14px; }
+
+/* Newsletter + footer */
+.news { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; }
+.news h2 { font-size: clamp(34px, 4.4vw, 56px); }
+.news form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; }
+.news label { grid-column: 1 / -1; font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.news input { height: 52px; border: 1.5px solid var(--ink); border-right: 0; padding: 0 16px; background: var(--paper); min-width: 0; border-radius: 0; }
+.news input::placeholder { color: var(--pencil); }
+.news .btn { min-height: 52px; }
+.news .msg { grid-column: 1 / -1; margin-top: 10px; font-size: 14px; min-height: 22px; }
+@media (max-width: 749px) { .news { grid-template-columns: minmax(0, 1fr); } }
+footer.site { border-top: 1px solid var(--rule); padding-block: 56px 40px; font-size: 14px; }
+.fcols { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; }
+.fcols h3 { font: 600 13px/1 var(--body); letter-spacing: .08em; margin-bottom: 14px; }
+.fcols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.fcols a { text-decoration: none; } .fcols a:hover { text-decoration: underline; }
+.social { display: flex; gap: 4px; margin-top: 18px; margin-left: -10px; }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--pencil); }
+@media (max-width: 749px) { .fcols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fcols > div:first-child { grid-column: 1 / -1; } }
+
+/* Collection */
+.crumbs { font-size: 13px; color: var(--pencil); padding-top: 28px; display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { text-decoration: none; } .crumbs a:hover { text-decoration: underline; }
+.coll-head { padding-block: 20px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; }
+.coll-head h1 { font-size: clamp(44px, 6vw, 80px); }
+.filters { position: sticky; top: calc(72px + env(safe-area-inset-top, 0px)); z-index: 20; background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+.filters .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; min-height: 64px; padding-block: 10px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { height: 38px; padding: 0 14px; border: 1px solid var(--rule); background: var(--paper); cursor: pointer; font-size: 14px; font-weight: 500; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ctl { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.ctl select, .ctl input[type="search"] { height: 38px; border: 1px solid var(--rule); background: var(--paper); padding: 0 10px; border-radius: 0; }
+.ctl input[type="search"] { width: 180px; }
+.ctl input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--pen); }
+.push { margin-left: auto; }
+@media (max-width: 899px) { .filters { top: calc(60px + env(safe-area-inset-top, 0px)); } .push { margin-left: 0; } .ctl input[type="search"] { width: 140px; } }
+.empty { padding: 64px 0; text-align: center; display: grid; gap: 16px; justify-items: center; }
+
+/* Product page */
+.pdp { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); padding-block: 24px var(--section); align-items: start; }
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.gallery .slot { aspect-ratio: 4 / 5; background: var(--paper); border: 1px solid var(--rule); display: grid; place-items: center; overflow: hidden; }
+.gallery .slot:first-child { grid-column: 1 / -1; aspect-ratio: 1; }
+.gallery .slot img { width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+.gallery .slot img.model { object-fit: cover; padding: 0; }
+.gallery .need { border-style: dashed; background: var(--wash); color: var(--pencil); text-align: center; padding: 16px; font-size: 13px; gap: 8px; align-content: center; }
+.buy { position: sticky; top: calc(96px + env(safe-area-inset-top, 0px)); display: grid; gap: 22px; }
+.buy h1 { font-size: clamp(38px, 4.4vw, 58px); }
+.buy .price { font-size: 22px; font-weight: 500; }
+.buy .desc { font-size: 15px; max-width: 60ch; display: grid; gap: 10px; }
+details { border-top: 1px solid var(--rule); }
+details:last-of-type { border-bottom: 1px solid var(--rule); }
+summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 600; font-size: 15px; }
+summary::-webkit-details-marker { display: none; }
+summary .icon { transition: transform .2s ease; }
+details[open] summary .icon { transform: rotate(45deg); }
+details > div { padding-bottom: 18px; font-size: 15px; color: var(--pencil); display: grid; gap: 8px; }
+@media (max-width: 849px) { .pdp { grid-template-columns: minmax(0, 1fr); } .buy { position: static; } .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+
+/* Dialog + cart drawer */
+dialog { border: 0; padding: 0; max-width: min(560px, calc(100vw - 32px)); width: 100%; background: var(--paper); color: var(--ink); }
+dialog::backdrop { background: rgba(21, 23, 28, .4); }
+dialog .in { padding: 28px; display: grid; gap: 18px; }
+dialog h2 { font-size: 32px; }
+.sizetable { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sizetable th, .sizetable td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--rule); }
+.sizetable td { color: var(--pencil); }
+.cart { position: fixed; inset: 0; z-index: 90; display: none; }
+.cart.open { display: block; }
+.cart .sheet { position: absolute; inset: 0 0 0 auto; width: min(100vw, 440px); background: var(--paper); display: grid; grid-template-rows: auto 1fr auto; box-shadow: -12px 0 40px rgba(21, 23, 28, .12); padding-top: env(safe-area-inset-top, 0px); padding-right: env(safe-area-inset-right, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); animation: slide .35s cubic-bezier(.2, .8, .2, 1); }
+@keyframes slide { from { transform: translateX(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.cart .top { display: flex; justify-content: space-between; align-items: center; padding: 16px 16px 16px 24px; border-bottom: 1px solid var(--rule); }
+.cart .top h2 { font-size: 26px; }
+.cart .items { overflow-y: auto; padding: 8px 24px; }
+.line { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.line img { width: 84px; aspect-ratio: 4 / 5; object-fit: contain; border: 1px solid var(--rule); padding: 6px; }
+.line .t { font-weight: 600; font-size: 14px; }
+.line .c { font-size: 13px; color: var(--pencil); }
+.line .rm { margin-top: 8px; }
+.cart .foot { padding: 20px 24px 24px; border-top: 1px solid var(--rule); display: grid; gap: 14px; }
+.sum { display: flex; justify-content: space-between; font-weight: 600; font-size: 16px; }
+.note { font-size: 13px; color: var(--pencil); }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 12px 18px; font-size: 14px; z-index: 95; opacity: 0; pointer-events: none; transition: opacity .25s ease; max-width: calc(100vw - 32px); }
+.toast.show { opacity: 1; }
+
+/* Route fade: one calm moment */
+main { animation: in .45s cubic-bezier(.2, .8, .2, 1); }
+@keyframes in { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9.5 5.5 4h13L20 9.5M4 9.5V20h16V9.5M4 9.5h16"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4V8Z"/><circle cx="12" cy="13" r="3.3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".6"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.6 2.2 4.3 5 4.5"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V20H14v-5.5h2.5V11H14V8.5Z"/></symbol>
+</svg>
+
+<a class="sr" href="#main">Skip to content</a>
+<div class="announce"><div class="wrap"><p>Order online, pick up at The Florida Mall<span class="wide">. Usually ready in 24 hours</span>. <a href="#visit">Store hours</a></p></div></div>
+<header class="site">
+  <div class="wrap">
+    <button class="iconbtn burger" type="button" aria-label="Open menu" data-act="nav-open"><svg class="icon"><use href="#i-menu"/></svg></button>
+    <div class="brand">
+      <a class="logo" href="#home" aria-label="MINDS home"><img src="img/logo.webp" alt="MINDS" width="200" height="60"></a>
+      <nav class="main" aria-label="Main">
+        <a href="#new">New arrivals</a>
+        <a href="#shop">Shop all</a>
+        <a href="#shop-caps">Caps</a>
+        <a href="#visit">Stores</a>
+      </nav>
+    </div>
+    <div class="tools">
+      <a class="iconbtn" href="#shop-search" aria-label="Search"><svg class="icon"><use href="#i-search"/></svg></a>
+      <button class="iconbtn" type="button" aria-label="Cart, 0 items" data-act="cart-open" id="cartBtn"><svg class="icon"><use href="#i-bag"/></svg><span class="count" id="cartCount" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+<div class="drawer-nav" id="navDrawer" aria-hidden="true">
+  <div class="scrim" data-act="nav-close"></div>
+  <nav class="panel" aria-label="Mobile">
+    <div style="display:flex;justify-content:flex-end;margin:-8px -12px 8px 0"><button class="iconbtn" type="button" aria-label="Close menu" data-act="nav-close"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <a href="#new" data-act="nav-close">New arrivals</a>
+    <a href="#shop" data-act="nav-close">Shop all</a>
+    <a href="#shop-caps" data-act="nav-close">Caps</a>
+    <a href="#visit" data-act="nav-close">Stores</a>
+  </nav>
+</div>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <img src="img/logo.webp" alt="MINDS" style="height:26px;width:auto">
+        <p class="muted" style="margin-top:16px;max-width:34ch">Streetwear designed by MINDS. Five stores across Florida and Puerto Rico.</p>
+        <div class="social">
+          <a class="iconbtn" href="https://www.instagram.com/" aria-label="MINDS on Instagram"><svg class="icon"><use href="#i-ig"/></svg></a>
+          <a class="iconbtn" href="https://www.tiktok.com/" aria-label="MINDS on TikTok"><svg class="icon"><use href="#i-tt"/></svg></a>
+          <a class="iconbtn" href="https://www.facebook.com/" aria-label="MINDS on Facebook"><svg class="icon"><use href="#i-fb"/></svg></a>
+        </div>
+      </div>
+      <div><h3>Shop</h3><ul><li><a href="#new">New arrivals</a></li><li><a href="#shop">Shop all</a></li><li><a href="#shop-shorts">Shorts</a></li><li><a href="#shop-caps">Caps</a></li></ul></div>
+      <div><h3>Help</h3><ul><li><a href="https://mindsstreet.com/policies/shipping-policy">Shipping</a></li><li><a href="https://mindsstreet.com/policies/refund-policy">Returns</a></li><li><a href="https://mindsstreet.com/pages/faqs">FAQ</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li class="num">787-564-7822</li><li>info@mindsstreet.com</li><li><a href="#visit">Store hours</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 MINDS</span><span>Prototype of a proposed redesign. Not the live store.</span></div>
+  </div>
+</footer>
+
+<div class="cart" id="cart" aria-hidden="true">
+  <div class="scrim" data-act="cart-close"></div>
+  <aside class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="top"><h2 id="cartTitle">Your bag</h2><button class="iconbtn" type="button" aria-label="Close bag" data-act="cart-close"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div class="items" id="cartItems"></div>
+    <div class="foot" id="cartFoot"></div>
+  </aside>
+</div>
+
+<dialog id="sizeGuide" aria-labelledby="sgTitle">
+  <div class="in">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h2 id="sgTitle">Size guide</h2><button class="iconbtn" type="button" aria-label="Close size guide" data-act="sg-close"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <p class="muted">Measurements in inches, taken flat. MINDS adds its real chart here.</p>
+    <div style="overflow-x:auto">
+      <table class="sizetable num">
+        <thead><tr><th scope="col">Size</th><th scope="col">Chest</th><th scope="col">Length</th><th scope="col">Waist</th></tr></thead>
+        <tbody><tr><th scope="row">S</th><td>[add]</td><td>[add]</td><td>[add]</td></tr><tr><th scope="row">M</th><td>[add]</td><td>[add]</td><td>[add]</td></tr><tr><th scope="row">L</th><td>[add]</td><td>[add]</td><td>[add]</td></tr><tr><th scope="row">XL</th><td>[add]</td><td>[add]</td><td>[add]</td></tr></tbody>
+      </table>
+    </div>
+    <p style="font-size:14px">Between sizes? Try it on at MINDS Orlando, The Florida Mall.</p>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  const MAPS = {
+    fl: "https://maps.app.goo.gl/Z8xRcBwgskSYdBRv9",
+    pr: "https://maps.app.goo.gl/CxHkRxXoy6xGcjtBA",
+    mia: "https://maps.app.goo.gl/rPhwWJNuZBtxtmti6",
+    kis: "https://maps.app.goo.gl/Xnip5r3WobEkPy8A6",
+    wyn: "https://maps.app.goo.gl/2gc3LzxMXF6mmVm38"
+  };
+  const ALPHA = ["S", "M", "L", "XL", "XXL"];
+  const WAIST = ["30", "32", "34", "36", "38", "40"];
+  // [handle, name, color, price, category, published, sizes, soldOut, secondImage, firstIsModel]
+  const RAW = [
+    ["minds-jorts", "Recon Cargo 3/4 Shorts", "Camo", 120, "Shorts", "2026-11-15", WAIST, ["30"]],
+    ["minds-pants-9", "Recon Cargo Pants", "Camo", 140, "Pants", "2026-11-15", WAIST, []],
+    ["minds-noir-femme-top", "Femme Noir Top", "Black", 75, "Tops", "2026-11-09", ["XS", "S", "M", "L", "XL", "2XL"], [], "minds-noir-femme-top-1", true],
+    ["minds-femme-noir-top-2", "Femme Noir Short", "Black", 75, "Shorts", "2026-11-09", ["XS", "S", "M", "L", "XL", "2XL"], ["XL"], "minds-femme-noir-top-2-1", true],
+    ["minds-shorts-1", "Orbit 3/4 Studs", "Green", 110, "Shorts", "2026-11-09", ALPHA, []],
+    ["minds-tracksuit-top", "Tracksuit Top", "Cobalt", 140, "Outerwear", "2026-11-07", ALPHA, []],
+    ["minds-nylon-pants", "Nylon Pants", "Cobalt", 110, "Pants", "2026-11-06", ALPHA, ["XXL"]],
+    ["ydb-db", "Outlaw Cap", "Black", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-outlaw-cap", "Outlaw Cap", "Grey", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["ysbudfjlb", "Outlaw Cap", "Cobalt", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-archive-cap", "Archive Cap", "Brown", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-archive-cap-1", "Archive Cap", "Red", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-archive-cap-2", "Archive Cap", "Black", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-archive-cap-3", "Archive Cap", "Cream", 55, "Caps", "2026-11-11", ["One size"], []],
+    ["minds-femme-noir-top", "Femme Noir Top", "Sky Blue", 75, "Tops", "2026-11-08", ["XS", "S", "M", "L"], []],
+    ["minds-femme-noir-short", "Femme Noir Short", "Sky Blue", 75, "Shorts", "2026-11-08", ["XS", "S", "M", "L"], []],
+    ["minds-nylon-pants-3", "Nylon Pants", "Black", 110, "Pants", "2026-11-09", ALPHA, []],
+    ["minds-short-5", "Orbit 3/4 Studs", "Black", 110, "Shorts", "2026-11-09", ALPHA, []],
+    ["minds-3-4-rhinestone-shorts-1", "Orbit 3/4 Studs", "Brown", 110, "Shorts", "2026-11-09", ALPHA, []],
+    ["minds-3-4-rhinestone-shorts", "Orbit 3/4 Studs", "Cobalt", 110, "Shorts", "2026-11-06", ALPHA, []],
+    ["minds-short-6", "Orbit 3/4 Studs", "Coral", 110, "Shorts", "2026-11-06", ALPHA, []],
+    ["minds-short-7", "Orbit 3/4 Studs", "Heather Grey", 110, "Shorts", "2026-11-06", ALPHA, []],
+    ["endlesshine-blue", "Endless Shine Tee", "Lavender", 80, "Tops", "2026-11-09", ALPHA, ["S"]],
+    ["endlesshine-purple", "Endless Shine Tee", "Cobalt", 80, "Tops", "2026-11-09", ALPHA, ["S"]],
+    ["minds-endless-shine-tee-3", "Endless Shine Tee", "Black", 80, "Tops", "2026-11-09", ALPHA, ["S"]],
+    ["minds-tracksuit-top-1", "Tracksuit Top", "Forest", 140, "Outerwear", "2026-11-06", ALPHA, []],
+    ["minds-tracksuit-top-2", "Tracksuit Top", "Brown / Mint", 140, "Outerwear", "2026-11-06", ALPHA, ["S"]],
+    ["minds-tracksuit-short", "Tracksuit Short", "Cobalt", 110, "Shorts", "2026-11-07", ALPHA, []],
+    ["minds-tracksuit-short-1", "Tracksuit Short", "Forest", 110, "Shorts", "2026-11-06", ALPHA, []],
+    ["minds-tracksuit-short-2", "Tracksuit Short", "Brown / Mint", 110, "Shorts", "2026-11-06", ALPHA, ["S"]],
+    ["minds-legacy-croc-jacket", "Legacy Croc Jacket", "Black", 300, "Outerwear", "2026-09-04", ALPHA, []],
+    ["forever-minds-tee", "Forever Minds Tee", "Heather", 80, "Tops", "2026-10-23", ALPHA, []]
+  ];
+  const P = RAW.map(r => ({ h: r[0], name: r[1], color: r[2], price: r[3], cat: r[4], date: r[5], sizes: r[6], sold: r[7], alt: r[8] || null, model: !!r[9] }));
+  const byH = Object.fromEntries(P.map(p => [p.h, p]));
+  const NEW = ["minds-jorts", "minds-pants-9", "minds-noir-femme-top", "minds-femme-noir-top-2", "minds-shorts-1", "minds-tracksuit-top", "minds-nylon-pants", "ydb-db"].map(h => byH[h]);
+  const DESC = {
+    "minds-legacy-croc-jacket": ["A statement piece built around presence. A textured croc-inspired finish, a clean bomber silhouette and MINDS branding across the chest.", "Full-zip closure, structured collar and ribbed details."],
+    "minds-jorts": ["A camouflage cargo short with an oversized fit, multiple cargo pockets and the MINDS webbing belt."],
+    "minds-noir-femme-top": ["Stretch. Runs true to size. Model is wearing size M."],
+    "minds-femme-noir-top-2": ["Stretch. Runs true to size. Model is wearing size M."]
+  };
+  const money = n => "$" + n;
+  const img = h => "img/" + h + "-0.webp";
+  const ico = (id, cls) => '<svg class="icon' + (cls ? " " + cls : "") + '" aria-hidden="true"><use href="#i-' + id + '"/></svg>';
+
+  function card(p, opts) {
+    const first = '<img class="first' + (p.alt ? " has-alt" : "") + (p.model ? " model" : "") + '" src="' + img(p.h) + '" alt="' + p.name + ", " + p.color + '" loading="lazy" width="720" height="900">';
+    const second = p.alt ? '<img class="alt" src="img/' + p.alt + '.webp" alt="" loading="lazy" width="720" height="900">' : "";
+    const tag = opts && opts.tagNew ? '<span class="tag">New</span>' : "";
+    return '<a class="card" href="#p-' + p.h + '">' +
+      '<div class="media">' + first + second + tag + '</div>' +
+      '<div class="meta"><span class="t">' + p.name + '</span><span class="c">' + p.color + '</span><span class="p num">' + money(p.price) + '</span></div></a>';
+  }
+  function sizePicker(p, id) {
+    const pills = p.sizes.map((s, i) => {
+      const dis = p.sold.indexOf(s) > -1;
+      return '<label class="pill"><input type="radio" name="' + id + '" value="' + s + '"' + (dis ? " disabled" : "") + '><span>' + s + (dis ? '<span class="sr"> (sold out)</span>' : "") + '</span></label>';
+    }).join("");
+    const guide = p.sizes[0] === "One size" ? "" : '<button class="textbtn" type="button" data-act="sg-open">Size guide</button>';
+    return '<fieldset class="sizes"><legend>Size ' + guide + '</legend><div class="pills">' + pills + '</div></fieldset>';
+  }
+  const pickupLine = '<p class="pickup">' + ico("store") + '<span><strong>Pick up at MINDS Orlando</strong>, The Florida Mall.<br><span class="muted">Usually ready in 24 hours.</span></span></p>';
+
+  function home() {
+    const jacket = byH["minds-legacy-croc-jacket"];
+    return '' +
+    '<section class="hero" aria-labelledby="heroTitle">' +
+      '<figure><img src="img/hero.webp" alt="Model in the MINDS green satin set, seated beside a speaker and palms" width="1200" height="1800"></figure>' +
+      '<div class="page"><div class="wrap"><div class="panel">' +
+        '<h1 id="heroTitle">The new season is in.</h1>' +
+        '<p>Recon Cargo, Femme Noir and Orbit Studs just landed. Shop them here or try them on at The Florida Mall.</p>' +
+        '<div class="ctas"><a class="btn" href="#new">Shop new arrivals</a><a class="btn ghost" href="#visit">Visit The Florida Mall</a></div>' +
+      '</div></div></div>' +
+    '</section>' +
+    '<section class="band" id="new-arrivals" aria-labelledby="naTitle"><div class="wrap">' +
+      '<div class="sec-head"><div><h2 id="naTitle">New arrivals</h2><p class="sub muted">Updated Nov 15</p></div><a class="link" href="#new">Shop all new</a></div>' +
+      '<div class="grid">' + NEW.map(p => card(p)).join("") + '</div>' +
+    '</div></section>' +
+    '<section class="band wash" aria-labelledby="pcTitle"><div class="wrap">' +
+      '<div class="sec-head"><h2 id="pcTitle">Shop by piece</h2></div>' +
+      '<div class="pieces">' +
+        piece("Shorts", "minds-3-4-rhinestone-shorts") + piece("Pants", "minds-nylon-pants-3") + piece("Tops", "endlesshine-purple") + piece("Caps", "minds-archive-cap-1") +
+      '</div>' +
+    '</div></section>' +
+    '<section class="band" aria-labelledby="ftTitle"><div class="wrap feature">' +
+      '<div class="media"><img src="' + img(jacket.h) + '" alt="Legacy Croc Jacket in black, front view" loading="lazy" width="900" height="900"></div>' +
+      '<form class="info" data-buy="' + jacket.h + '">' +
+        '<h2 id="ftTitle">Legacy Croc Jacket</h2>' +
+        '<p class="num" style="font-size:22px">' + money(jacket.price) + '</p>' +
+        '<p class="muted">Croc-textured bomber with a structured collar and MINDS script across the chest.</p>' +
+        sizePicker(jacket, "ft-size") +
+        '<button class="btn block" type="submit">Add to bag</button>' +
+        pickupLine +
+        '<a class="link" href="#p-' + jacket.h + '">Full details</a>' +
+      '</form>' +
+    '</div></section>' +
+    '<section class="mantra" aria-label="The MINDS mantra"><div class="wrap"><p><span>Reset your mindset,</span><span>focus on your vision</span><span>and the world</span><span>will be yours.</span></p></div></section>' +
+    visitBlock() +
+    storesBlock() +
+    newsBlock();
+  }
+  function piece(label, h) {
+    const n = P.filter(p => p.cat === label).length;
+    return '<a class="piece" href="#shop-' + label.toLowerCase() + '"><div class="media"><img src="' + img(h) + '" alt="" loading="lazy" width="600" height="600"></div><div class="row"><h3>' + label + '</h3><span class="muted num">' + n + ' styles</span></div></a>';
+  }
+  function visitBlock() {
+    return '<section class="band wash" id="visit-orlando" aria-labelledby="vTitle"><div class="wrap visit">' +
+      '<div class="media"><img src="img/store-fl.webp" alt="MINDS store front at The Florida Mall, Orlando" loading="lazy" width="1000" height="1250"></div>' +
+      '<div class="info">' +
+        '<h2 id="vTitle">Visit MINDS Orlando</h2>' +
+        '<p style="font-size:17px">The Florida Mall, Orlando, FL. Try on the new season, or pick up your online order. Usually ready in 24 hours.</p>' +
+        '<dl class="hours num"><dt>Mon to Sat</dt><dd>9:00am to 8:00pm</dd><dt>Sunday</dt><dd>11:00am to 7:00pm</dd></dl>' +
+        '<div class="ctas"><a class="btn" href="' + MAPS.fl + '">' + ico("pin") + 'Get directions</a><a class="btn ghost" href="#new">Shop for pickup</a></div>' +
+      '</div>' +
+    '</div></section>';
+  }
+  function storesBlock() {
+    const s = (img_, name, place, hours, map) => '<article class="store"><div class="media"><img src="img/' + img_ + '.webp" alt="MINDS ' + name + ' store front" loading="lazy" width="800" height="600"></div><h3>' + name + '</h3><p class="muted">' + place + '</p><p class="h num">' + hours + '</p><a class="link" href="' + map + '">Directions</a></article>';
+    return '<section class="band" aria-labelledby="sTitle"><div class="wrap">' +
+      '<div class="sec-head"><h2 id="sTitle">More MINDS stores</h2></div>' +
+      '<div class="stores">' +
+        s("store-kis", "Kissimmee", "Plaza del Sol", "Mon to Sat 10am to 8pm<br>Sun 11am to 7pm", MAPS.kis) +
+        s("store-mia", "Miami", "Miami International Mall", "Mon to Sat 10am to 9pm<br>Sun 11am to 7pm", MAPS.mia) +
+        s("store-wyn", "Wynwood", "Miami", "See hours on Google Maps", MAPS.wyn) +
+        s("store-pr", "San Juan", "Plaza las Américas, Puerto Rico", "Mon to Sat 9am to 9pm<br>Sun 11am to 7pm", MAPS.pr) +
+      '</div></div></section>';
+  }
+  function newsBlock() {
+    return '<section class="band wash" aria-labelledby="nlTitle"><div class="wrap news">' +
+      '<div><h2 id="nlTitle">Join the MINDS list</h2><p class="muted" style="margin-top:12px;font-size:17px">Take 10% off your first order and get new arrivals by email.</p></div>' +
+      '<form id="newsForm" novalidate><label for="nlEmail">Email</label><input id="nlEmail" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn" type="submit">Subscribe</button><p class="msg" id="nlMsg" role="status"></p></form>' +
+    '</div></section>';
+  }
+
+  const CATS = ["All", "Shorts", "Pants", "Tops", "Outerwear", "Caps"];
+  const st = { cat: "All", inStock: false, sort: "new", q: "", newOnly: false };
+  function shop() {
+    const title = st.newOnly ? "New arrivals" : (st.cat === "All" ? "Shop all" : st.cat);
+    return '<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span aria-hidden="true">/</span><span>' + title + '</span></nav>' +
+      '<div class="coll-head"><h1>' + title + '</h1><p class="muted num" id="resultCount"></p></div></div>' +
+      '<div class="filters"><div class="wrap">' +
+        '<div class="chips" role="group" aria-label="Category">' + CATS.map(c => '<button class="chip" type="button" data-cat="' + c + '" aria-pressed="' + (st.cat === c) + '">' + c + '</button>').join("") + '</div>' +
+        '<label class="ctl"><input type="checkbox" id="fStock"' + (st.inStock ? " checked" : "") + '> In stock in all sizes</label>' +
+        '<label class="ctl push"><span class="sr">Search</span>' + ico("search") + '<input type="search" id="fQ" placeholder="Search" value="' + st.q + '"></label>' +
+        '<label class="ctl">Sort <select id="fSort"><option value="new"' + (st.sort === "new" ? " selected" : "") + '>Newest</option><option value="low"' + (st.sort === "low" ? " selected" : "") + '>Price, low to high</option><option value="high"' + (st.sort === "high" ? " selected" : "") + '>Price, high to low</option></select></label>' +
+      '</div></div>' +
+      '<div class="wrap" style="padding-bottom:var(--section)"><div class="grid" id="results"></div></div>';
+  }
+  function renderResults() {
+    let list = P.slice();
+    if (st.newOnly) list = list.filter(p => p.date >= "2026-11-06");
+    if (st.cat !== "All") list = list.filter(p => p.cat === st.cat);
+    if (st.inStock) list = list.filter(p => p.sold.length === 0);
+    if (st.q) { const q = st.q.toLowerCase(); list = list.filter(p => (p.name + " " + p.color + " " + p.cat).toLowerCase().indexOf(q) > -1); }
+    list.sort(st.sort === "low" ? (a, b) => a.price - b.price : st.sort === "high" ? (a, b) => b.price - a.price : (a, b) => b.date.localeCompare(a.date));
+    const res = document.getElementById("results");
+    document.getElementById("resultCount").textContent = list.length + (list.length === 1 ? " product" : " products");
+    res.innerHTML = list.length ? list.map(p => card(p)).join("") :
+      '<div class="empty" style="grid-column:1/-1"><h2 style="font-size:32px">Nothing matches yet</h2><p class="muted">Try another category or clear the search.</p><button class="btn ghost" type="button" data-act="clear">Clear filters</button></div>';
+  }
+
+  function product(p) {
+    const imgs = ['<div class="slot"><img class="' + (p.model ? "model" : "") + '" src="' + img(p.h) + '" alt="' + p.name + ", " + p.color + ', main view" width="900" height="900"></div>'];
+    if (p.alt) imgs.push('<div class="slot"><img src="img/' + p.alt + '.webp" alt="' + p.name + ", " + p.color + ', product view" loading="lazy" width="720" height="900"></div>');
+    const need = ["Back view", "Detail close-up", "On model"];
+    while (imgs.length < 4) imgs.push('<div class="slot need">' + ico("camera") + '<span>' + need[imgs.length - 1] + '<br>photo needed</span></div>');
+    const desc = (DESC[p.h] || ["Designed by MINDS. Full product description goes here."]).map(t => "<p>" + t + "</p>").join("");
+    const related = P.filter(x => x.cat === p.cat && x.h !== p.h).slice(0, 4);
+    return '<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span aria-hidden="true">/</span><a href="#shop-' + p.cat.toLowerCase() + '">' + p.cat + '</a><span aria-hidden="true">/</span><span>' + p.name + '</span></nav>' +
+      '<div class="pdp"><div class="gallery">' + imgs.join("") + '</div>' +
+      '<form class="buy" data-buy="' + p.h + '">' +
+        '<div style="display:grid;gap:10px"><h1>' + p.name + '</h1><p class="muted">' + p.color + '</p></div>' +
+        '<p class="price num">' + money(p.price) + ' <span class="muted" style="font-size:14px;font-weight:400">Shipping calculated at checkout</span></p>' +
+        sizePicker(p, "pdp-size") +
+        '<button class="btn block" type="submit">Add to bag</button>' +
+        pickupLine +
+        '<div class="desc">' + desc + '</div>' +
+        '<div><details><summary>Size and fit' + ico("plus") + '</summary><div><p>Size chart and fit notes go here, the same table as the size guide.</p></div></details>' +
+        '<details><summary>Shipping and returns' + ico("plus") + '</summary><div><p>Pick up at MINDS Orlando, or ship. Shipping is calculated at checkout.</p><p><a href="https://mindsstreet.com/policies/refund-policy">Read the return policy</a></p></div></details>' +
+        '<details><summary>Try it on in Orlando' + ico("plus") + '</summary><div><p>MINDS Orlando, The Florida Mall. Mon to Sat 9:00am to 8:00pm, Sun 11:00am to 7:00pm.</p><p><a href="' + MAPS.fl + '">Get directions</a></p></div></details></div>' +
+      '</form></div></div>' +
+      (related.length ? '<section class="band wash" aria-labelledby="relTitle"><div class="wrap"><div class="sec-head"><h2 id="relTitle">More ' + p.cat.toLowerCase() + '</h2><a class="link" href="#shop-' + p.cat.toLowerCase() + '">Shop all ' + p.cat.toLowerCase() + '</a></div><div class="grid">' + related.map(x => card(x)).join("") + '</div></div></section>' : "");
+  }
+
+  // Cart
+  const bag = [];
+  function renderBag() {
+    const n = bag.reduce((a, l) => a + l.qty, 0);
+    const c = document.getElementById("cartCount");
+    c.textContent = n; c.hidden = n === 0;
+    document.getElementById("cartBtn").setAttribute("aria-label", "Bag, " + n + (n === 1 ? " item" : " items"));
+    const items = document.getElementById("cartItems"), foot = document.getElementById("cartFoot");
+    if (!bag.length) {
+      items.innerHTML = '<div class="empty"><p style="font-weight:600">Your bag is empty</p><p class="muted">New arrivals are a good place to start.</p><a class="btn ghost" href="#new" data-act="cart-close">Shop new arrivals</a></div>';
+      foot.innerHTML = ""; return;
+    }
+    items.innerHTML = bag.map((l, i) => { const p = byH[l.h]; return '<div class="line"><img src="' + img(p.h) + '" alt=""><div><p class="t">' + p.name + '</p><p class="c">' + p.color + ' · ' + l.size + (l.qty > 1 ? ' · Qty ' + l.qty : "") + '</p><button class="textbtn rm" type="button" data-rm="' + i + '">Remove</button></div><p class="num">' + money(p.price * l.qty) + '</p></div>'; }).join("");
+    const total = bag.reduce((a, l) => a + byH[l.h].price * l.qty, 0);
+    foot.innerHTML = '<div class="sum num"><span>Subtotal</span><span>' + money(total) + '</span></div>' +
+      '<p class="pickup" style="margin:0">' + ico("store") + '<span>Choose <strong>pickup at MINDS Orlando</strong> or shipping at checkout.</span></p>' +
+      '<button class="btn block" type="button" data-act="checkout">Check out</button>';
+  }
+  let lastFocus = null;
+  function openCart() { lastFocus = document.activeElement; const c = document.getElementById("cart"); c.classList.add("open"); c.setAttribute("aria-hidden", "false"); renderBag(); c.querySelector(".top .iconbtn").focus(); }
+  function closeCart() { const c = document.getElementById("cart"); c.classList.remove("open"); c.setAttribute("aria-hidden", "true"); if (lastFocus) lastFocus.focus(); }
+  function openNav() { const d = document.getElementById("navDrawer"); d.classList.add("open"); d.setAttribute("aria-hidden", "false"); d.querySelector(".iconbtn").focus(); }
+  function closeNav() { const d = document.getElementById("navDrawer"); d.classList.remove("open"); d.setAttribute("aria-hidden", "true"); }
+  let toastT;
+  function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600); }
+
+  // Router
+  const main = document.getElementById("main");
+  function route() {
+    const h = (location.hash || "#home").slice(1);
+    let html, title = "MINDS", current = "";
+    if (h.indexOf("p-") === 0 && byH[h.slice(2)]) { const p = byH[h.slice(2)]; html = product(p); title = p.name + " · MINDS"; }
+    else if (h === "new" || h.indexOf("shop") === 0) {
+      st.newOnly = h === "new";
+      const sub = h.split("-")[1];
+      const map = { shorts: "Shorts", pants: "Pants", tops: "Tops", outerwear: "Outerwear", caps: "Caps" };
+      st.cat = map[sub] || "All";
+      if (sub !== "search") st.q = "";
+      html = shop(); current = h === "new" ? "#new" : (st.cat === "Caps" ? "#shop-caps" : "#shop");
+      title = (st.newOnly ? "New arrivals" : st.cat === "All" ? "Shop all" : st.cat) + " · MINDS";
+    } else { html = home(); current = h === "visit" ? "#visit" : ""; }
+    main.style.animation = "none"; void main.offsetWidth; main.style.animation = "";
+    main.innerHTML = html;
+    document.title = title === "MINDS" ? "MINDS Storefront" : title;
+    document.querySelectorAll("nav.main a").forEach(a => a.getAttribute("href") === current ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+    if (document.getElementById("results")) {
+      renderResults();
+      if (h === "shop-search") { const q = document.getElementById("fQ"); q.focus(); }
+    }
+    if (h === "visit") { const v = document.getElementById("visit-orlando"); if (v) v.scrollIntoView(); }
+    else window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-act],[data-cat],[data-rm]");
+    if (!t) return;
+    if (t.dataset.cat) {
+      st.cat = t.dataset.cat;
+      document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.cat === st.cat));
+      const h1 = document.querySelector(".coll-head h1"); if (h1) h1.textContent = st.newOnly ? "New arrivals" : (st.cat === "All" ? "Shop all" : st.cat);
+      renderResults(); return;
+    }
+    if (t.dataset.rm) { bag.splice(+t.dataset.rm, 1); renderBag(); return; }
+    const a = t.dataset.act;
+    if (a === "cart-open") openCart();
+    else if (a === "cart-close") closeCart();
+    else if (a === "nav-open") openNav();
+    else if (a === "nav-close") closeNav();
+    else if (a === "sg-open") document.getElementById("sizeGuide").showModal();
+    else if (a === "sg-close") document.getElementById("sizeGuide").close();
+    else if (a === "clear") { st.cat = "All"; st.q = ""; st.inStock = false; route(); }
+    else if (a === "checkout") toast("Prototype only. On the live store this opens Shopify checkout.");
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (document.getElementById("cart").classList.contains("open")) closeCart();
+    if (document.getElementById("navDrawer").classList.contains("open")) closeNav();
+  });
+  document.addEventListener("change", e => {
+    if (e.target.id === "fStock") { st.inStock = e.target.checked; renderResults(); }
+    if (e.target.id === "fSort") { st.sort = e.target.value; renderResults(); }
+  });
+  document.addEventListener("input", e => { if (e.target.id === "fQ") { st.q = e.target.value.trim(); renderResults(); } });
+  document.addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.target;
+    if (f.id === "newsForm") {
+      const v = f.querySelector("input").value.trim(), m = document.getElementById("nlMsg");
+      m.textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "Prototype only. On the live store this signs you up for 10% off." : "Enter an email address like name@example.com.";
+      return;
+    }
+    if (f.dataset.buy) {
+      const p = byH[f.dataset.buy];
+      let size = p.sizes.length === 1 ? p.sizes[0] : (f.querySelector("input[type=radio]:checked") || {}).value;
+      if (!size) { toast("Choose a size first."); const first = f.querySelector("input[type=radio]:not(:disabled)"); if (first) first.focus(); return; }
+      const ex = bag.find(l => l.h === p.h && l.size === size);
+      ex ? ex.qty++ : bag.push({ h: p.h, size: size, qty: 1 });
+      renderBag(); openCart();
+    }
+  });
+  renderBag();
+  route();
+})();
+</script>
