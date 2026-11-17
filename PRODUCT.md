@@ -40,6 +40,14 @@ MINDS is its own label. Every piece is designed by MINDS and sold in MINDS store
 ## Evidence on Hand
 - Product and campaign photography on the live site, plus photos of each store's front.
 - The 17 Nov 2026 audit and baseline screenshots in `audit/2026-11-17/`.
+- **Store hours and directions:** taken from the "Visit our stores" section of the live homepage (https://mindsstreet.com/) on 17 Nov 2026.
+  - Florida Mall: Mon–Sat 9am–8pm, Sun 11am–7pm.
+  - Plaza las Américas: Mon–Sat 9am–9pm, Sun 11am–7pm.
+  - International Mall: Mon–Sat 10am–9pm, Sun 11am–7pm.
+  - Plaza del Sol: Mon–Sat 10am–8pm, Sun 11am–7pm.
+  - Wynwood: no hours listed.
+- **Social profiles,** from the live site footer: Instagram @minds_tm, TikTok @minds__tm, and a Facebook profile page.
+- **Hero photo:** the campaign hero (`IMG_3110.png`) is only 1290px wide at its source. A full-bleed desktop hero needs a wider (≥2560px) landscape campaign frame.
 - **What doesn't exist yet, and must not be invented:** testimonials, review counts, press, sales figures and drop names.
 
 ## Product Principles
