@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "prototype/index.html"
+        ],
+        "createdAt": "2026-11-17T20:25:39.942Z",
+        "reason": "Claude triage: the .announce bar's text sits inside .wrap with padding-block 10px and min-height 40px, so it is inset ~10px from the hairline border-bottom; the detector measures the padded .wrap box, not the text"
+      }
+    ]
+  }
+}

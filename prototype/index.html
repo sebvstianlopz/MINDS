@@ -236,7 +236,7 @@ summary::-webkit-details-marker { display: none; }
 summary .icon { transition: transform .2s ease; }
 details[open] summary .icon { transform: rotate(45deg); }
 details > div { padding-bottom: 18px; font-size: 15px; color: var(--pencil); display: grid; gap: 8px; }
-@media (max-width: 849px) { .pdp { grid-template-columns: minmax(0, 1fr); } .buy { position: static; } .gallery { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; margin-right: calc(-1 * var(--gutter-r)); padding-right: var(--gutter-r); } .gallery .slot { flex: 0 0 86%; scroll-snap-align: start; } .gallery .slot:first-child { aspect-ratio: 4 / 5; } }
+@media (max-width: 849px) { .pdp { grid-template-columns: minmax(0, 1fr); } .buy { position: static; } .gallery { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; margin-right: calc(-1 * var(--gutter-r)); padding-right: var(--gutter-r); } .gallery .slot { flex: 0 0 78%; scroll-snap-align: start; aspect-ratio: auto; height: min(36svh, 320px); } .gallery .slot:first-child { aspect-ratio: auto; } .pdp-crumbs { display: none; } .pdp { padding-top: 16px; } }
 
 /* Dialog + cart drawer */
 dialog { border: 0; padding: 0; max-width: min(560px, calc(100vw - 32px)); width: 100%; background: var(--paper); color: var(--ink); }
@@ -548,7 +548,7 @@ main { animation: in .45s cubic-bezier(.2, .8, .2, 1); }
     while (imgs.length < 4) imgs.push('<div class="slot need">' + ico("camera") + '<span>' + need[imgs.length - 1] + '<br>photo needed</span></div>');
     const desc = (DESC[p.h] || ["Designed by MINDS. Full product description goes here."]).map(t => "<p>" + t + "</p>").join("");
     const related = P.filter(x => x.cat === p.cat && x.h !== p.h).slice(0, 4);
-    return '<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span aria-hidden="true">/</span><a href="#shop-' + p.cat.toLowerCase() + '">' + p.cat + '</a><span aria-hidden="true">/</span><span>' + p.name + '</span></nav>' +
+    return '<div class="wrap"><nav class="crumbs pdp-crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span aria-hidden="true">/</span><a href="#shop-' + p.cat.toLowerCase() + '">' + p.cat + '</a><span aria-hidden="true">/</span><span>' + p.name + '</span></nav>' +
       '<div class="pdp"><div class="gallery">' + imgs.join("") + '</div>' +
       '<form class="buy" data-buy="' + p.h + '">' +
         '<div style="display:grid;gap:10px"><h1>' + p.name + '</h1><p class="muted">' + p.color + '</p></div>' +
