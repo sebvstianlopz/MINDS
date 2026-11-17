@@ -35,7 +35,8 @@ For all work on this project, use every available skill and plugin that improves
 - **Stripe** MCP: products, prices, checkout.
 - **Supabase** MCP: database, auth, orders.
 - **Canva** MCP: social and marketing images, product graphics.
-- **Hostinger** (proxy-connected), **Cloudflare** and **Webflow** MCPs: hosting and deploy options.
+- **Cloudflare** and **Webflow** MCPs: hosting and deploy options.
+- **Never use the Hostinger connection for this project.** It belongs to an unrelated client, not to MINDS or the owner. Don't read from it, deploy to it or reference it.
 - **Figma** plugin: currently fails to connect from the cloud environment (proxy 403). Use it once it's reachable.
 
 ## Conventions
