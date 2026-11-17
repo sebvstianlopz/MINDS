@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T21:00:00Z",
+  "title": "Design System: MINDS",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Wash",
+        "canonical": "#F2F4F7",
+        "oklch": "oklch(96.6% 0.005 258)",
+        "tonalRamp": [
+          "#0B0B0C",
+          "#242526",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#A3A5A7",
+          "#C8C9CB",
+          "#EEEEEF"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Graphite Ink",
+        "canonical": "#15171C",
+        "oklch": "oklch(20.5% 0.010 268)",
+        "tonalRamp": [
+          "#0B0B0D",
+          "#242528",
+          "#404247",
+          "#5F6167",
+          "#808289",
+          "#A3A5AB",
+          "#C7C9CD",
+          "#EDEEF1"
+        ]
+      },
+      "pencil": {
+        "role": "neutral",
+        "displayName": "Pencil",
+        "canonical": "#555B66",
+        "oklch": "oklch(47.0% 0.019 263)",
+        "tonalRamp": [
+          "#0A0B0E",
+          "#22252B",
+          "#3D424B",
+          "#5B616D",
+          "#7C838E",
+          "#A0A5AF",
+          "#C5C9D0",
+          "#ECEEF3"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#D6DAE1",
+        "oklch": "oklch(88.7% 0.011 262)",
+        "tonalRamp": [
+          "#0A0B0D",
+          "#232528",
+          "#3F4247",
+          "#5E6167",
+          "#7F8289",
+          "#A2A5AB",
+          "#C7C9CD",
+          "#EDEEF1"
+        ]
+      },
+      "pen": {
+        "role": "primary",
+        "displayName": "Ballpoint Blue",
+        "canonical": "#2741C2",
+        "oklch": "oklch(44.8% 0.202 268)",
+        "tonalRamp": [
+          "#030725",
+          "#0E1C5B",
+          "#1E3398",
+          "#3150D1",
+          "#4F75F9",
+          "#789EFF",
+          "#A9C7FF",
+          "#DCEEFF"
+        ]
+      },
+      "pen-deep": {
+        "role": "primary",
+        "displayName": "Deep Ballpoint",
+        "canonical": "#1C2F94",
+        "oklch": "oklch(36.6% 0.166 268)",
+        "tonalRamp": [
+          "#040921",
+          "#121F52",
+          "#243989",
+          "#3A56BE",
+          "#587AE5",
+          "#81A0FA",
+          "#AFC7FF",
+          "#E0EEFF"
+        ]
+      },
+      "on-pen": {
+        "role": "primary",
+        "displayName": "On Pen",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 in the white page panel; collection titles."
+      },
+      "display-mantra": {
+        "displayName": "Display Mantra",
+        "purpose": "The mantra band only, in ballpoint blue."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section heads."
+      },
+      "headline-feature": {
+        "displayName": "Headline Feature",
+        "purpose": "Featured product name, Visit MINDS Orlando, product page H1."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Store names, category tiles, dialog and drawer titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text; descriptions to 60ch."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "The one supporting line under a hero or section headline, 40ch."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Chips, pills, notes, card colors, footer."
+      },
+      "product-name": {
+        "displayName": "Product Name",
+        "purpose": "Card titles."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Button labels and text links, uppercase."
+      },
+      "label-small": {
+        "displayName": "Label Small",
+        "purpose": "New tag and footer column heads, uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "drawer",
+        "value": "-12px 0 40px rgba(21, 23, 28, .12)",
+        "purpose": "Cart drawer only; Spotlight Drawers shadow settings."
+      }
+    ],
+    "scrims": [
+      {
+        "name": "scrim-drawer",
+        "value": "rgba(21, 23, 28, .35)",
+        "purpose": "Behind the menu and cart drawers."
+      },
+      {
+        "name": "scrim-dialog",
+        "value": "rgba(21, 23, 28, .4)",
+        "purpose": "Behind the size-guide dialog."
+      }
+    ],
+    "motion": [
+      {
+        "name": "route-fade",
+        "value": ".45s cubic-bezier(.2, .8, .2, 1); from opacity .4, translateY(6px)",
+        "purpose": "The one calm fade on route change."
+      },
+      {
+        "name": "drawer-slide",
+        "value": ".35s cubic-bezier(.2, .8, .2, 1); from translateX(24px), opacity .6",
+        "purpose": "Cart drawer entrance."
+      },
+      {
+        "name": "image-swap",
+        "value": "opacity .35s ease",
+        "purpose": "Second product image on hover (hover-capable devices only)."
+      },
+      {
+        "name": "tile-zoom",
+        "value": "transform .5s cubic-bezier(.2, .7, .2, 1); scale 1.04",
+        "purpose": "Category tile image on hover."
+      },
+      {
+        "name": "state-change",
+        "value": ".2s ease",
+        "purpose": "Button fills, accordion icon rotation."
+      },
+      {
+        "name": "toast",
+        "value": "opacity .25s ease",
+        "purpose": "Add-to-bag confirmation."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "All animation and transition removed under prefers-reduced-motion."
+      }
+    ],
+    "focus": {
+      "value": "2px solid var(--pen); outline-offset 3px (2px on size pills)",
+      "purpose": "Every interactive element."
+    },
+    "breakpoints": [
+      {
+        "name": "announce-short",
+        "value": "599px max"
+      },
+      {
+        "name": "md",
+        "value": "750px",
+        "note": "Spotlight breakpoint; gutters 16px to 32px, hero panel overlays photo"
+      },
+      {
+        "name": "stack",
+        "value": "850px",
+        "note": "two-part features and PDP stack below"
+      },
+      {
+        "name": "nav",
+        "value": "900px",
+        "note": "inline menu below becomes drawer"
+      },
+      {
+        "name": "lg",
+        "value": "990px",
+        "note": "Spotlight breakpoint; 4-up grids below become 2-up"
+      }
+    ],
+    "spotlight": {
+      "colorSchemes": {
+        "scheme-1": {
+          "Background": "paper",
+          "Text": "ink",
+          "Solid button background": "pen",
+          "Solid button label": "on-pen",
+          "Outline button": "ink",
+          "Shadow": "ink"
+        },
+        "scheme-2": {
+          "Background": "wash",
+          "Text": "ink",
+          "note": "image-led sections"
+        },
+        "scheme-mantra": {
+          "Background": "paper",
+          "Text": "pen"
+        },
+        "scheme-inverse": {
+          "Background": "ink",
+          "Text": "paper",
+          "note": "toast and selected states where exposed"
+        }
+      },
+      "fonts": {
+        "Headings": "Oswald",
+        "Body": "Archivo"
+      },
+      "cornerRadius": "0 on buttons, inputs, variant pills, cards, media, badges",
+      "shadows": "0 everywhere except Drawers",
+      "sectionDividers": "on, rule color",
+      "customCssNeeded": [
+        "uppercase headings and 0.06em button tracking",
+        "mantra 14ch measure",
+        "pencil secondary text value",
+        "pen-deep hover value"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ballpoint-blue solid action: Shop new arrivals, Add to bag, Get directions, Checkout.",
+      "html": "<button class=\"ds-btn\" type=\"button\">Shop new arrivals</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;} .ds-btn:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);} .ds-btn:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} @media (prefers-reduced-motion: reduce){.ds-btn{transition:none;}}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Ink-outline secondary action beside a primary, e.g. Visit The Florida Mall.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Visit The Florida Mall</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;background:transparent;color:var(--ink, #15171C);border-color:var(--ink, #15171C);} .ds-btn-ghost:hover{background:var(--ink, #15171C);color:var(--paper, #FFFFFF);} .ds-btn-ghost:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;}"
+    },
+    {
+      "name": "Filter Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Collection category filters; selected fills ink.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\">Shorts</button><button class=\"ds-chip\" aria-pressed=\"false\">Caps</button></div>",
+      "css": ".ds-chips{display:flex;gap:6px;flex-wrap:wrap;} .ds-chip{height:38px;padding:0 14px;border:1px solid var(--rule, #D6DAE1);background:var(--paper, #FFFFFF);color:var(--ink, #15171C);font:500 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);border-radius:0;cursor:pointer;} .ds-chip:hover{border-color:var(--ink, #15171C);} .ds-chip[aria-pressed=\"true\"]{background:var(--ink, #15171C);color:var(--paper, #FFFFFF);border-color:var(--ink, #15171C);} .ds-chip:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;}"
+    },
+    {
+      "name": "Size Pills",
+      "kind": "custom",
+      "refersTo": "size-pill",
+      "description": "Variant picker; selected fills ink, sold-out is hatched and unselectable.",
+      "html": "<div class=\"ds-pills\"><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\"><span>S</span></label><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\" checked><span>M</span></label><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\" disabled><span>L</span></label></div>",
+      "css": ".ds-pills{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-pill{position:relative;} .ds-pill input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;} .ds-pill span{display:grid;place-items:center;min-width:56px;height:44px;padding:0 14px;border:1px solid var(--rule, #D6DAE1);font-size:14px;font-weight:500;color:var(--ink, #15171C);} .ds-pill input:hover + span{border-color:var(--ink, #15171C);} .ds-pill input:checked + span{border-color:var(--ink, #15171C);background:var(--ink, #15171C);color:var(--paper, #FFFFFF);} .ds-pill input:focus-visible + span{outline:2px solid var(--pen, #2741C2);outline-offset:2px;} .ds-pill input:disabled + span{color:var(--pencil, #555B66);background:repeating-linear-gradient(135deg,transparent 0 9px,var(--rule, #D6DAE1) 9px 10px);} .ds-pill input:disabled{cursor:not-allowed;}"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "product-tag",
+      "description": "4:5 white hairline well, contained packshot, New tag, name / color / tabular price.",
+      "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-media\"><svg viewBox=\"0 0 40 50\" width=\"100%\" height=\"100%\" aria-hidden=\"true\"><rect x=\"10\" y=\"8\" width=\"20\" height=\"34\" fill=\"#D6DAE1\"/></svg><span class=\"ds-tag\">New</span></div><span class=\"ds-card-t\">Recon Cargo Pant</span><span class=\"ds-card-c\">Black</span><span class=\"ds-card-p\">$120.00</span></a>",
+      "css": ".ds-card{display:grid;gap:2px;width:220px;text-decoration:none;color:var(--ink, #15171C);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-card-media{position:relative;aspect-ratio:4/5;background:var(--paper, #FFFFFF);border:1px solid var(--rule, #D6DAE1);overflow:hidden;margin-bottom:10px;padding:8%;} .ds-tag{position:absolute;top:10px;left:10px;background:var(--paper, #FFFFFF);border:1px solid var(--ink, #15171C);font:600 11px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;} .ds-card-t{font-weight:600;font-size:15px;line-height:1.3;} .ds-card:hover .ds-card-t{text-decoration:underline;text-underline-offset:3px;} .ds-card:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-card-c{font-size:14px;color:var(--pencil, #555B66);} .ds-card-p{font-size:15px;margin-top:4px;font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Email Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Newsletter field: 1.5px ink stroke joined to a primary Subscribe button.",
+      "html": "<form class=\"ds-news\"><label for=\"ds-em\">Email</label><input id=\"ds-em\" type=\"email\" placeholder=\"you@example.com\"><button type=\"button\">Subscribe</button></form>",
+      "css": ".ds-news{display:grid;grid-template-columns:minmax(0,1fr) auto;font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);max-width:420px;} .ds-news label{grid-column:1/-1;font-weight:600;font-size:14px;margin-bottom:8px;color:var(--ink, #15171C);} .ds-news input{height:52px;border:1.5px solid var(--ink, #15171C);border-right:0;padding:0 16px;background:var(--paper, #FFFFFF);color:var(--ink, #15171C);font:400 16px var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);border-radius:0;min-width:0;} .ds-news input::placeholder{color:var(--pencil, #555B66);} .ds-news input:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-news button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;min-height:52px;} .ds-news button:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "description": "Sticky white header with hairline bottom, inline menu, ink underline on hover and current, blue icon hover, square blue cart count.",
+      "html": "<header class=\"ds-nav\"><strong class=\"ds-logo\">MINDS</strong><nav><a href=\"#\" aria-current=\"page\">New arrivals</a><a href=\"#\">Shop all</a><a href=\"#\">Caps</a><a href=\"#\">Stores</a></nav><button class=\"ds-icon\" aria-label=\"Cart, 2 items\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 8h14l-1 12H6L5 8Z\"/><path d=\"M9 8V6.5a3 3 0 0 1 6 0V8\"/></svg><span class=\"ds-count\">2</span></button></header>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:40px;min-height:72px;padding:0 32px;background:var(--paper, #FFFFFF);border-bottom:1px solid var(--rule, #D6DAE1);color:var(--ink, #15171C);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-logo{font:700 26px/1 var(--display, 'Oswald', 'Arial Narrow', sans-serif);letter-spacing:.01em;} .ds-nav nav{display:flex;gap:28px;flex:1;} .ds-nav nav a{color:inherit;text-decoration:none;font-weight:500;font-size:15px;padding:8px 0;border-bottom:1.5px solid transparent;} .ds-nav nav a:hover,.ds-nav nav a[aria-current=\"page\"]{border-bottom-color:var(--ink, #15171C);} .ds-nav a:focus-visible,.ds-icon:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-icon{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;background:none;border:0;color:inherit;cursor:pointer;} .ds-icon:hover{color:var(--pen, #2741C2);} .ds-count{position:absolute;top:6px;right:4px;min-width:18px;height:18px;padding:0 5px;border-radius:0;background:var(--pen, #2741C2);color:#FFFFFF;font:600 11px/18px var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);text-align:center;}"
+    },
+    {
+      "name": "Mantra Band",
+      "kind": "custom",
+      "description": "The brand line in ballpoint-blue Oswald at display size on white, under one hairline.",
+      "html": "<section class=\"ds-mantra\"><p>Reset your mindset, focus on your vision and the world will be yours.</p></section>",
+      "css": ".ds-mantra{padding:80px 32px;border-top:1px solid var(--rule, #D6DAE1);background:var(--paper, #FFFFFF);} .ds-mantra p{margin:0;font:700 clamp(38px,6.6vw,92px)/.98 var(--display, 'Oswald', 'Arial Narrow', sans-serif);text-transform:uppercase;color:var(--pen, #2741C2);letter-spacing:0;max-width:14ch;text-wrap:balance;}"
+    },
+    {
+      "name": "Cart Drawer",
+      "kind": "custom",
+      "description": "Right-hand sheet carrying the system's only shadow; slides in 24px.",
+      "html": "<aside class=\"ds-cart\"><div class=\"ds-cart-top\"><h2>Your bag</h2></div><div class=\"ds-cart-foot\"><div class=\"ds-sum\"><span>Subtotal</span><span>$120.00</span></div><button class=\"ds-cart-btn\" type=\"button\">Checkout</button></div></aside>",
+      "css": ".ds-cart{width:340px;background:var(--paper, #FFFFFF);color:var(--ink, #15171C);box-shadow:-12px 0 40px rgba(21,23,28,.12);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);animation:ds-slide .35s cubic-bezier(.2,.8,.2,1);} @keyframes ds-slide{from{transform:translateX(24px);opacity:.6;}to{transform:none;opacity:1;}} .ds-cart-top{padding:16px 24px;border-bottom:1px solid var(--rule, #D6DAE1);} .ds-cart-top h2{margin:0;font:700 26px/1 var(--display, 'Oswald', 'Arial Narrow', sans-serif);text-transform:uppercase;letter-spacing:.01em;} .ds-cart-foot{padding:20px 24px 24px;display:grid;gap:14px;} .ds-sum{display:flex;justify-content:space-between;font-weight:600;font-variant-numeric:tabular-nums;} .ds-cart-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;width:100%;} .ds-cart-btn:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);} .ds-cart-btn:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} @media (prefers-reduced-motion: reduce){.ds-cart{animation:none;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Mindset Journal",
+    "overview": "The storefront is MINDS's own notebook. Every surface is a plain white page written in graphite ink, divided by hairline rules, with one ballpoint blue that appears only where the visitor can act, plus once at full size for the mantra. The clothes carry the brand; the page stays quiet around them. Headings are set in bold, uppercase Oswald so they echo the condensed logo. Reading text is set in Archivo.\n\nDensity is that of a well-kept retail page: 4-up product grids on desktop, 2-up on phones, generous section spacing, and images sitting in white, hairline-bordered wells. The world is flat. Depth comes from rules and from the photography, never from cards lifting off the page. The single shadow in the system belongs to the cart drawer, the one surface that genuinely slides over the page.\n\nThe system was built to be carried by Shopify's Spotlight 13 theme settings: color schemes, the Shopify font library (Oswald and Archivo), square buttons and cards, and section dividers. Each section below notes the Spotlight setting a token maps to where one exists, and says so plainly where one does not.",
+    "keyCharacteristics": [
+      "White paper (#FFFFFF) and graphite ink (#15171C), with ballpoint blue (#2741C2) reserved for actions, focus and the mantra.",
+      "Oswald 700 uppercase for every heading; Archivo 400 to 600 for everything read.",
+      "1px graphite hairlines (#D6DAE1) separate sections, rows and image wells.",
+      "Square corners everywhere (0px), including badges and the cart count.",
+      "Flat surfaces; one drawer shadow.",
+      "Motion is one calm route fade, a hover swap to the second product image, and nothing under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Ballpoint Rule",
+        "body": "Blue marks what can be done: a button, a focus ring, a hover, the cart count, and the store icon on the pickup line (the in-store action). Its one non-action use is the mantra. If a blue element is neither an action, a pointer to one, nor the mantra, it is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Graphite Hairline Rule",
+        "body": "Sections, rows and wells are separated by 1px rule lines, not by alternating fills. A section that needs separation gets a top hairline on white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Logo Voice Rule",
+        "body": "Every heading is Oswald 700 uppercase. Nothing read at length (descriptions, hours, notes) is ever set in Oswald.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Price Rule",
+        "body": "Prices, counts, hours and phone numbers use tabular figures so columns of numbers line up.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Shadow Rule",
+        "body": "Cards, buttons, dialogs, the sticky header and the toast stay flat. Only the cart drawer casts a shadow. Spotlight: buttons, cards, inputs, pills and popups all at shadow opacity 0.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Page Rule",
+        "body": "Nothing on the page is rounded. Curves belong only inside icon drawings and photography.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** keep ballpoint blue (#2741C2) for pressable things, focus, hover and the mantra, and nowhere else.",
+      "**Do** separate sections with a 1px hairline (#D6DAE1) on white rather than alternating background fills.",
+      "**Do** set every heading in Oswald 700 uppercase and every reading line in Archivo.",
+      "**Do** keep all corners at 0px, including badges, pills and the cart count.",
+      "**Do** pair one solid primary with at most one ghost button in any button group.",
+      "**Do** contain packshots at 8% padding inside white 4:5 hairline wells, and let model and campaign photos fill their frames.",
+      "**Do** give text fields a 1.5px ink stroke so the field edge reads at full contrast.",
+      "**Do** stop every animation and transition under prefers-reduced-motion.",
+      "**Do** apply uppercase headings, label tracking and the mantra's measure through the theme editor's Custom CSS field when Spotlight has no setting for them, and note each such rule for the owner."
+    ],
+    "donts": [
+      "**Don't** add shadows to cards, buttons, dialogs or the header; the cart drawer's is the only one.",
+      "**Don't** use blue as a decorative fill, a section background, or for headings and running text other than the mantra.",
+      "**Don't** round any surface corner.",
+      "**Don't** use Oswald for descriptions, hours or notes.",
+      "**Don't** rely on a hairline (#D6DAE1) as the only visible edge of a text field or select."
+    ]
+  }
+}
