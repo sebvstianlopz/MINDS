@@ -58,7 +58,7 @@ MINDS is its own label. Every piece is designed by MINDS and sold in MINDS store
   - Plaza del Sol: Mon–Sat 10am–8pm, Sun 11am–7pm.
   - Wynwood: no hours listed.
 - **Social profiles,** from the live site footer: Instagram @minds_tm, TikTok @minds__tm, and a Facebook profile page.
-- **Hero photo:** the campaign hero (`IMG_3110.png`) is only 1290px wide at its source. A full-bleed desktop hero needs a wider (≥2560px) landscape campaign frame.
+- **Hero photo:** since 22 Nov, the hero uses the owner-supplied studio campaign frame (`prototype/img/hero-studio.webp`, 1536 × 1024). It's sharp on a 1440px screen. For large and high-density displays, a version at least 2560px wide is still the target.
 - **What doesn't exist yet, and must not be invented:** testimonials, review counts, press, sales figures and drop names.
 
 ## Product Principles

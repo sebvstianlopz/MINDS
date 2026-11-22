@@ -94,13 +94,13 @@ nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: var(--g
 .scrim { position: absolute; inset: 0; background: rgba(15, 25, 18, .45); }
 
 /* Hero: opposing scroll type. Pinned frame inside a 250svh runway; two rows travel in opposite directions with scroll progress. */
-.tempo { position: relative; background: var(--green); }
+.tempo { position: relative; background: var(--green); --hero-field: #A98C6B; }
 .tempo-runway { position: relative; height: 250svh; }
-.tempo-frame { position: sticky; top: calc(var(--hdr) + env(safe-area-inset-top, 0px)); height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); min-height: 520px; overflow: hidden; background: var(--green); container-type: inline-size; }
-.tempo-photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 58% 30%; }
-.tempo-frame[data-wide] .tempo-photo { left: auto; right: 0; width: auto; aspect-ratio: 1290 / 1720; }
-.tempo-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(15, 25, 18, .66) 0%, rgba(15, 25, 18, 0) 46%), linear-gradient(to right, rgba(15, 25, 18, .2), rgba(15, 25, 18, 0) 55%); }
-.tempo-frame[data-wide] .tempo-shade { background: linear-gradient(to right, rgba(15, 25, 18, .28), rgba(15, 25, 18, 0) 40%); }
+.tempo-frame { position: sticky; top: calc(var(--hdr) + env(safe-area-inset-top, 0px)); height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); min-height: 520px; overflow: hidden; background: var(--hero-field); container-type: inline-size; }
+.tempo-photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 63% 50%; }
+.tempo-frame[data-wide] .tempo-photo { left: auto; right: 0; width: auto; aspect-ratio: 1536 / 1024; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%); mask-image: linear-gradient(to right, transparent 0, #000 8%); }
+.tempo-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(15, 25, 18, .72) 0%, rgba(15, 25, 18, .22) 48%, rgba(15, 25, 18, .26) 100%); }
+.tempo-frame[data-wide] .tempo-shade { background: linear-gradient(to right, rgba(15, 25, 18, .64) 0%, rgba(15, 25, 18, .34) 42%, rgba(15, 25, 18, .2) 100%); }
 .tempo-rows { position: absolute; top: 39%; left: -26%; z-index: 2; pointer-events: none; }
 .tempo-row { display: flex; white-space: nowrap; font: 900 11cqw/1 var(--display); text-transform: uppercase; letter-spacing: .005em; will-change: transform; }
 .tempo-row span { flex: none; padding-right: .2em; }
@@ -506,7 +506,7 @@ main { animation: in .45s var(--ease); }
     '<section class="tempo" aria-labelledby="heroTitle">' +
       '<button class="sr" type="button" data-act="skip-hero">Skip the intro animation</button>' +
       '<div class="tempo-runway"><div class="tempo-frame">' +
-        '<img class="tempo-photo" src="img/hero.webp" alt="Model in the MINDS green satin set, seated beside a speaker and palms" width="1290" height="1720">' +
+        '<img class="tempo-photo" src="img/hero-studio.webp" alt="Model in a green satin shirt, shorts and bucket hat, seated in a leather lounge chair beside palms and a wooden speaker" width="1536" height="1024">' +
         '<div class="tempo-shade" aria-hidden="true"></div>' +
         '<h1 id="heroTitle" class="sr">Reset your mindset.</h1>' +
         '<div class="tempo-rows" aria-hidden="true"><div class="tempo-row r0" data-unit="Reset your ·"></div><div class="tempo-row r1" data-unit="Mindset."></div></div>' +

@@ -342,7 +342,7 @@ A green-black footer opening with "And the world will be yours." in giant displa
 ### Hero: Opposing Scroll Type (signature)
 The hero is a pinned frame inside a 250svh scroll runway.
 - **Frame:** sticky under the header; its height is the viewport minus the header.
-- **Photo:** the campaign photo sits behind the type. When the frame is wider than 6:5, the whole portrait is shown right-aligned at full frame height on the forest field. Narrower frames cover the frame with the photo.
+- **Photo:** the campaign photo sits behind the type. The photo is the 1536 × 1024 studio campaign frame. When the frame is wider than 6:5, the whole photo is shown right-aligned at full frame height, its left edge fading into a matching warm field (`--hero-field: #A98C6B`). Narrower frames cover the frame with the photo, keeping the model in view. A night tint (heavier on the left and at the bottom, where the copy sits) keeps the bone type legible over the tan wall.
 - **Type rows:** two repeated display rows at 11% of frame width (container units), line-height 1, placed 39% down and starting 26% past the left edge.
   - "RESET YOUR ·" in solid on-dark.
   - "MINDSET." as a `satin-light` (#B5D99A) outline, max(1.75px, 0.022em), with a soft night drop-shadow (0 2px 10px at 45%) that follows the stroke so it reads over the photo.

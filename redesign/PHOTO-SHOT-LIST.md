@@ -4,7 +4,7 @@ The new direction is led by photography, as in the reference sites the owner sha
 
 ## 1. Campaign hero (most important)
 - **What:** one landscape campaign frame, at least **2560 × 1440px**, plus a portrait crop (4:5) for phones.
-- **Why:** the current hero (`IMG_3110.png`) is only 1290px wide, so it can't fill a desktop screen without going soft.
+- **Status:** the owner supplied a 1536 × 1024 studio frame on 22 Nov, and it's now the prototype hero. A version at least 2560px wide of the same shot would keep it crisp on large screens.
 - **Look:** keep the current campaign's green-satin and plant world, since it's where the site's accent colour comes from. Use a plain studio wall, soft light, and room on one side for the headline.
 
 ## 2. Studio set (for the campaign band and social)
