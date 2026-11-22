@@ -488,7 +488,7 @@ html.intro-on { overflow: hidden; }
   <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V20H14v-5.5h2.5V11H14V8.5Z"/></symbol>
 </svg>
 
-<script>(function () { try { var h = location.hash, played = false; try { played = sessionStorage.getItem("minds-intro-played") === "1"; } catch (e) {} if ((!h || h === "#home") && !played) document.documentElement.classList.add("intro-on"); } catch (e) {} })();</script>
+<script>(function () { try { var h = location.hash, played = false; try { played = sessionStorage.getItem("minds-intro-played") === "1"; } catch (e) {} if (h === "#intro" || ((!h || h === "#home") && !played)) document.documentElement.classList.add("intro-on"); } catch (e) {} })();</script>
 <div class="minds-loader" id="mindsIntro" role="status" aria-label="Loading MINDS">
   <div class="ml-store" aria-hidden="true"><div class="ml-field" id="mlField"><img id="mlPhoto" src="img/hero-studio.webp" alt="" width="1536" height="1024"><div class="ml-shade" id="mlShade"></div></div></div>
   <svg class="ml-curtain" id="mlCurtain" aria-hidden="true" focusable="false">
