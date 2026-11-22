@@ -159,7 +159,7 @@ section.band { padding-block: var(--section); }
 @media (max-width: 899px) { .pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .piece { position: relative; aspect-ratio: 3 / 4; overflow: hidden; text-decoration: none; display: block; transition: filter .45s ease; }
 .piece::after { content: ""; position: absolute; inset: 0; z-index: 3; background: var(--bone); transform: scaleY(0); transform-origin: top; transition: transform .95s var(--ease) calc(var(--i, 0) * 120ms); pointer-events: none; }
-.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%); transition: scale .9s var(--ease), rotate .6s var(--ease), filter .6s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
+.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%) translate(var(--lx, 0px), var(--ly, 0px)); transition: transform .6s var(--ease), scale .9s var(--ease), rotate .6s var(--ease), filter .6s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
 @media (hover: hover) {
   .piece:hover img { scale: 1.06; rotate: -2deg; filter: drop-shadow(0 32px 34px rgba(0, 0, 0, .26)); }
   .pieces:hover .piece:not(:hover) { filter: brightness(.82) saturate(.85); }
@@ -210,7 +210,8 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .picks a { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 0; text-decoration: none; }
 .picks a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(242, 238, 230, .22); transform-origin: left; transition: transform .8s var(--ease) calc(var(--i, 0) * 90ms); }
 .picks .ph { width: 56px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--stone); position: relative; }
-.picks .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.picks .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.picks a:hover .ph img { transform: scale(1.1); }
 .picks strong { display: block; font-weight: 600; font-size: 15px; }
 .picks .num { font-size: 14px; color: var(--on-dark-2); }
 @media (max-width: 899px) { .campaign { grid-template-columns: minmax(0, 1fr); } .campaign figure { min-height: 0; aspect-ratio: 4 / 5; border-right: clamp(12px, 1.4vw, 20px) solid var(--night); border-bottom: 0; } .campaign .copy { padding: 36px var(--gr) 56px var(--gl); } }
@@ -261,7 +262,19 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .news h2 { font-size: clamp(48px, 5.6vw, 80px); }
 .news form { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
 .news label { grid-column: 1 / -1; font-weight: 600; font-size: 14px; margin-bottom: 8px; }
-.news input { height: 52px; border: 1.5px solid var(--ink); border-right: 0; padding: 0 16px; background: var(--bone-hi); min-width: 0; border-radius: 0; }
+.news input { height: 52px; border: 1.5px solid var(--ink); border-right: 0; padding: 0 16px; background: var(--bone-hi); min-width: 0; border-radius: 0; transition: box-shadow .3s var(--ease); }
+.news input:focus { outline: none; box-shadow: inset 0 0 0 1.5px var(--ink); }
+.news input:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.news form:focus-within .btn .arrow { transform: translateX(4px); }
+.news .btn { position: relative; overflow: hidden; }
+.news .btn .lbl, .news .btn .ok { display: inline-flex; align-items: center; gap: 12px; transition: opacity .3s ease, transform .35s var(--ease); }
+.news .btn .ok { position: absolute; inset: 0; justify-content: center; opacity: 0; transform: translateY(60%); }
+.news .btn.done .lbl { opacity: 0; transform: translateY(-60%); }
+.news .btn.done .ok { opacity: 1; transform: none; }
+.news .msg { transition: opacity .35s ease, transform .4s var(--ease); }
+.news .msg.hide { opacity: 0; transform: translateY(8px); }
+.news input.shake { animation: shake .4s var(--ease); }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 50% { transform: translateX(3px); } 75% { transform: translateX(-2px); } }
 .news input::placeholder { color: var(--ink-2); }
 .news .btn { min-height: 52px; }
 .news .msg { grid-column: 1 / -1; margin-top: 10px; font-size: 14px; min-height: 22px; }
@@ -318,6 +331,11 @@ summary::-webkit-details-marker { display: none; }
 summary .icon { transition: transform .2s ease; }
 details[open] summary .icon { transform: rotate(45deg); }
 details > div { padding-bottom: 18px; font-size: 15px; color: var(--ink-2); display: grid; gap: 8px; }
+@supports selector(::details-content) {
+  details { interpolate-size: allow-keywords; }
+  details::details-content { height: 0; overflow: clip; transition: height .4s var(--ease), content-visibility .4s allow-discrete; }
+  details[open]::details-content { height: auto; }
+}
 @media (max-width: 849px) {
   .pdp { grid-template-columns: minmax(0, 1fr); padding-top: 12px; }
   .pdp-crumbs { display: none; }
@@ -333,6 +351,10 @@ details > div { padding-bottom: 18px; font-size: 15px; color: var(--ink-2); disp
 /* Dialog + bag */
 dialog { border: 0; padding: 0; max-width: min(560px, calc(100vw - 32px)); width: 100%; background: var(--bone-hi); color: var(--ink); }
 dialog::backdrop { background: rgba(15, 25, 18, .45); }
+dialog[open] { animation: dlgIn .35s var(--ease); }
+dialog[open]::backdrop { animation: fadeIn .35s ease; }
+@keyframes dlgIn { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 dialog .in { padding: 28px; display: grid; gap: 18px; }
 dialog h2 { font-size: 44px; }
 .sizetable { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -350,6 +372,9 @@ dialog h2 { font-size: 44px; }
 .line .th img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8%; }
 .line .th img.model { object-fit: cover; padding: 0; }
 .line .t { font-weight: 600; font-size: 14px; }
+.cart.opening .line { animation: lineIn .5s var(--ease) both; animation-delay: calc(120ms + var(--i, 0) * 50ms); }
+@keyframes lineIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+.interlude .w { transition: opacity .2s linear; }
 .line .c { font-size: 13px; color: var(--ink-2); }
 .line .rm { margin-top: 8px; }
 .cart .foot { padding: 20px 24px 24px; border-top: 1px solid var(--rule); display: grid; gap: 14px; }
@@ -409,6 +434,7 @@ main { animation: in .45s var(--ease); }
   <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9.5 5.5 4h13L20 9.5M4 9.5V20h16V9.5M4 9.5h16"/><path d="M10 20v-5h4v5"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4V8Z"/><circle cx="12" cy="13" r="3.3"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-ig" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".6"/></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.6 2.2 4.3 5 4.5"/></symbol>
   <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V20H14v-5.5h2.5V11H14V8.5Z"/></symbol>
@@ -589,7 +615,7 @@ main { animation: in .45s var(--ease); }
       '</div></div>' +
     '</section>' +
     '<span id="after-hero" tabindex="-1"></span>' +
-    '<section class="interlude"><div class="wrap"><p>Designed by MINDS. Worn in Orlando.</p></div></section>' +
+    '<section class="interlude"><div class="wrap"><p>' + "Designed by MINDS. Worn in Orlando.".split(" ").map(w => '<span class="w">' + w + '</span>').join(" ") + '</p></div></section>' +
     '<section class="band" style="padding-top:0" aria-labelledby="naTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="naTitle" data-reveal="rise"><span class="ri">New arrivals</span></h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
       '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
@@ -653,8 +679,8 @@ main { animation: in .45s var(--ease); }
   }
   function newsBlock() {
     return '<section class="band" style="padding-top:0" aria-labelledby="nlTitle"><div class="wrap news">' +
-      '<div><h2 id="nlTitle">Join the MINDS list</h2><p class="muted" style="margin-top:14px;font-size:17px">Take 10% off your first order and get new arrivals by email.</p></div>' +
-      '<form id="newsForm" novalidate><label for="nlEmail">Email</label><input id="nlEmail" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn" type="submit">Subscribe</button><p class="msg" id="nlMsg" role="status"></p></form>' +
+      '<div><h2 id="nlTitle" data-reveal="rise"><span class="ri">Join the MINDS list</span></h2><p class="muted" style="margin-top:14px;font-size:17px">Take 10% off your first order and get new arrivals by email.</p></div>' +
+      '<form id="newsForm" novalidate data-reveal="fade" style="--d:150ms"><label for="nlEmail">Email</label><input id="nlEmail" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn" type="submit"><span class="lbl">Subscribe ' + arrow() + '</span><span class="ok" aria-hidden="true">' + ico("check") + 'Subscribed</span></button><p class="msg" id="nlMsg" role="status"></p></form>' +
     '</div></section>';
   }
 
@@ -680,9 +706,27 @@ main { animation: in .45s var(--ease); }
     if (st.q) { const q = st.q.toLowerCase(); list = list.filter(p => (p.name + " " + p.color + " " + p.cat).toLowerCase().indexOf(q) > -1); }
     list.sort(st.sort === "low" ? (a, b) => a.price - b.price : st.sort === "high" ? (a, b) => b.price - a.price : (a, b) => b.date.localeCompare(a.date));
     const res = document.getElementById("results");
-    document.getElementById("resultCount").textContent = list.length + (list.length === 1 ? " product" : " products");
+    const countEl = document.getElementById("resultCount");
+    const animate = !RM.matches && res.children.length && res.querySelector(".card-wrap");
+    const before = new Map();
+    if (animate) res.querySelectorAll(".card-wrap").forEach(el => before.set(el.querySelector("a.card").getAttribute("href"), el.getBoundingClientRect()));
+    const prevCount = parseInt(countEl.textContent, 10);
+    const fmtCount = n => n + (n === 1 ? " product" : " products");
+    if (isNaN(prevCount)) countEl.textContent = fmtCount(list.length); else rollNumber(countEl, prevCount, list.length, fmtCount);
     res.innerHTML = list.length ? list.map(card).join("") :
       '<div class="empty" style="grid-column:1/-1"><h2 style="font-size:48px">Nothing matches yet</h2><p class="muted">Try another category or clear the search.</p><button class="btn ghost" type="button" data-act="clear">Clear filters</button></div>';
+    if (!animate) return;
+    let fresh = 0;
+    res.querySelectorAll(".card-wrap").forEach(el => {
+      const key = el.querySelector("a.card").getAttribute("href"), old = before.get(key), now = el.getBoundingClientRect();
+      if (now.bottom < 0 || now.top > window.innerHeight) return;
+      if (old) {
+        const dx = old.left - now.left, dy = old.top - now.top;
+        if (dx || dy) el.animate([{ transform: "translate(" + dx + "px, " + dy + "px)" }, { transform: "none" }], { duration: 480, easing: "cubic-bezier(.2, .8, .2, 1)" });
+      } else {
+        el.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: Math.min(fresh++, 8) * 40, easing: "cubic-bezier(.2, .8, .2, 1)", fill: "backwards" });
+      }
+    });
   }
 
   function product(p) {
@@ -722,18 +766,20 @@ main { animation: in .45s var(--ease); }
     const items = document.getElementById("cartItems"), foot = document.getElementById("cartFoot");
     if (!bag.length) {
       items.innerHTML = '<div class="empty"><p style="font-weight:600">Your bag is empty</p><p class="muted">New arrivals are a good place to start.</p><a class="btn ghost" href="#new" data-act="cart-close">Shop new arrivals</a></div>';
-      foot.innerHTML = ""; return;
+      foot.innerHTML = ""; renderBag.last = 0; return;
     }
-    items.innerHTML = bag.map((l, i) => { const p = byH[l.h]; return '<div class="line"><div class="th"><img' + (p.model ? ' class="model"' : '') + ' src="' + img(p.h) + '" alt=""></div><div><p class="t">' + p.name + '</p><p class="c">' + p.color + ' · ' + l.size + (l.qty > 1 ? ' · Qty ' + l.qty : "") + '</p><button class="textbtn rm" type="button" data-rm="' + i + '">Remove</button></div><p class="num">' + money(p.price * l.qty) + '</p></div>'; }).join("");
+    items.innerHTML = bag.map((l, i) => { const p = byH[l.h]; return '<div class="line" style="--i:' + i + '"><div class="th"><img' + (p.model ? ' class="model"' : '') + ' src="' + img(p.h) + '" alt=""></div><div><p class="t">' + p.name + '</p><p class="c">' + p.color + ' · ' + l.size + (l.qty > 1 ? ' · Qty ' + l.qty : "") + '</p><button class="textbtn rm" type="button" data-rm="' + i + '">Remove</button></div><p class="num">' + money(p.price * l.qty) + '</p></div>'; }).join("");
     const total = bag.reduce((a, l) => a + byH[l.h].price * l.qty, 0);
-    foot.innerHTML = '<div class="sum num"><span>Subtotal</span><span>' + money(total) + '</span></div>' +
+    const prevTotal = renderBag.last || 0; renderBag.last = total;
+    foot.innerHTML = '<div class="sum num"><span>Subtotal</span><span id="subTotal">' + money(prevTotal && document.getElementById("cart").classList.contains("open") ? prevTotal : total) + '</span></div>' +
       '<p class="pickup" style="margin:0">' + ico("store") + '<span>Choose <strong>pickup at MINDS Orlando</strong> or shipping at checkout.</span></p>' +
       '<button class="btn block" type="button" data-act="checkout">Check out</button>';
+    if (prevTotal && document.getElementById("cart").classList.contains("open")) rollNumber(document.getElementById("subTotal"), prevTotal, total, money);
   }
   const main = document.getElementById("main");
   const BG = () => [document.querySelector("header.site"), main, document.querySelector("footer.site"), document.querySelector(".announce")];
   let lastFocus = null;
-  function openCart() { lastFocus = document.activeElement; BG().forEach(el => el.inert = true); const c = document.getElementById("cart"); c.classList.add("open"); c.setAttribute("aria-hidden", "false"); renderBag(); c.querySelector(".top .iconbtn").focus(); }
+  function openCart() { lastFocus = document.activeElement; BG().forEach(el => el.inert = true); const c = document.getElementById("cart"); renderBag(); c.classList.add("open", "opening"); setTimeout(() => c.classList.remove("opening"), 900); c.setAttribute("aria-hidden", "false"); c.querySelector(".top .iconbtn").focus(); }
   function closeCart() { BG().forEach(el => el.inert = false); const c = document.getElementById("cart"); c.classList.remove("open"); c.setAttribute("aria-hidden", "true"); if (lastFocus) lastFocus.focus(); }
   function openNav() { const d = document.getElementById("navDrawer"); d.classList.add("open"); d.setAttribute("aria-hidden", "false"); d.querySelector(".iconbtn").focus(); }
   function closeNav() { const d = document.getElementById("navDrawer"); d.classList.remove("open"); d.setAttribute("aria-hidden", "true"); }
@@ -790,9 +836,11 @@ main { animation: in .45s var(--ease); }
     const pieces = Array.prototype.slice.call(main.querySelectorAll(".piece"));
     const band = main.querySelector(".campaign");
     const bandImg = band ? band.querySelector("figure img") : null;
+    const words = Array.prototype.slice.call(main.querySelectorAll(".interlude .w"));
+    const interlude = main.querySelector(".interlude p");
     const visitFig = main.querySelector(".visit figure");
     const visitImg = visitFig ? visitFig.querySelector("img") : null;
-    if (!pieces.length && !band && !visitFig) return null;
+    if (!pieces.length && !band && !visitFig && !words.length) return null;
     const speeds = [0.9, 0.5, 1.2, 0.7];
     const BONE = [236, 232, 225], NIGHT = [15, 25, 18];
     function tick() {
@@ -801,7 +849,14 @@ main { animation: in .45s var(--ease); }
         document.body.style.backgroundColor = "";
         if (bandImg) { bandImg.style.clipPath = ""; bandImg.style.transform = ""; }
         if (visitImg) visitImg.style.translate = "";
+        words.forEach(w => { w.style.opacity = ""; });
         return;
+      }
+      if (interlude) {
+        const r = interlude.getBoundingClientRect(), vh3 = window.innerHeight;
+        const q = clamp01((vh3 * 0.85 - r.top) / (vh3 * 0.45));
+        const n = words.length;
+        words.forEach((w, i) => { w.style.opacity = (0.22 + 0.78 * clamp01(q * n - i)).toFixed(3); });
       }
       if (visitFig) {
         const r = visitFig.getBoundingClientRect(), vh2 = window.innerHeight;
@@ -969,6 +1024,29 @@ main { animation: in .45s var(--ease); }
     return () => { list.removeEventListener("mousemove", move); list.removeEventListener("mouseover", over); list.removeEventListener("mouseleave", leave); if (raf) cancelAnimationFrame(raf); peek.remove(); };
   }
 
+  // Shop by piece: the cut-out leans toward the cursor (mouse only)
+  function mountPieceLean() {
+    const wrap = main.querySelector(".pieces");
+    if (!wrap || RM.matches || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return null;
+    const move = e => {
+      const pc = e.target.closest(".piece"); if (!pc) return;
+      const r = pc.getBoundingClientRect(), img = pc.querySelector("img");
+      img.style.setProperty("--lx", (((e.clientX - r.left) / r.width - 0.5) * 16).toFixed(1) + "px");
+      img.style.setProperty("--ly", (((e.clientY - r.top) / r.height - 0.5) * 16).toFixed(1) + "px");
+    };
+    const out = e => { const pc = e.target.closest(".piece"); if (pc && !pc.contains(e.relatedTarget)) { const img = pc.querySelector("img"); img.style.removeProperty("--lx"); img.style.removeProperty("--ly"); } };
+    wrap.addEventListener("mousemove", move); wrap.addEventListener("mouseout", out);
+    return () => { wrap.removeEventListener("mousemove", move); wrap.removeEventListener("mouseout", out); };
+  }
+
+  // Count-up for numbers that change (product count, bag subtotal)
+  function rollNumber(el, from, to, fmt) {
+    if (RM.matches || from === to || !el) { if (el) el.textContent = fmt(to); return; }
+    const t0 = performance.now(), dur = 380;
+    const step = now => { const k = clamp01((now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(Math.round(from + (to - from) * e)); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
   // Fly-to-bag: a ghost of the product arcs into the header bag, then the count pops
   function popCount() { const c = document.getElementById("cartCount"); c.classList.remove("pop"); void c.offsetWidth; c.classList.add("pop"); }
   function flyToBag(fromImg, done) {
@@ -1038,7 +1116,7 @@ main { animation: in .45s var(--ease); }
     if (h === "visit") { const v = document.getElementById("visit-orlando"); if (v) v.scrollIntoView(); }
     else window.scrollTo(0, 0);
     document.body.classList.remove("hdr-hide");
-    const offs = [mountTempo(), mountScrubs(), mountReveals(), mountOpenPill(), mountStorePeek()].filter(Boolean);
+    const offs = [mountTempo(), mountScrubs(), mountReveals(), mountOpenPill(), mountStorePeek(), mountPieceLean()].filter(Boolean);
     teardown = () => offs.forEach(f => f());
     Scroll.req();
     if (useVT) {
@@ -1074,6 +1152,7 @@ main { animation: in .45s var(--ease); }
     if (t.dataset.view) {
       const views = JSON.parse(document.getElementById("gallery").dataset.views), v = views[+t.dataset.view], m = document.getElementById("mainImg");
       m.src = v.src; m.alt = v.alt; m.className = v.model ? "model" : "";
+      if (!RM.matches && m.animate) m.animate([{ opacity: 0, transform: "scale(1.03)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: "cubic-bezier(.2, .8, .2, 1)" });
       document.querySelectorAll(".thumbs button.t").forEach(b => b.setAttribute("aria-current", b === t));
       return;
     }
@@ -1109,8 +1188,15 @@ main { animation: in .45s var(--ease); }
     e.preventDefault();
     const f = e.target;
     if (f.id === "newsForm") {
-      const v = f.querySelector("input").value.trim(), m = document.getElementById("nlMsg");
-      m.textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "Prototype only. On the live store this signs you up for 10% off." : "Enter an email address like name@example.com.";
+      const input = f.querySelector("input"), v = input.value.trim(), m = document.getElementById("nlMsg"), btn = f.querySelector(".btn");
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      m.classList.add("hide");
+      requestAnimationFrame(() => {
+        m.textContent = ok ? "Prototype only. On the live store this signs you up for 10% off." : "Enter an email address like name@example.com.";
+        requestAnimationFrame(() => m.classList.remove("hide"));
+      });
+      btn.classList.toggle("done", ok);
+      if (!ok) { input.classList.remove("shake"); void input.offsetWidth; input.classList.add("shake"); input.focus(); }
       return;
     }
     if (f.dataset.buy) {
