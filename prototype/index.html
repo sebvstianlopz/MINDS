@@ -416,7 +416,9 @@ body.hdr-hide .buy { transform: translateY(-70px); }
 .count.pop { animation: pop .45s var(--ease); }
 @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
 header.site { view-transition-name: site-header; }
-::view-transition-group(prod) { animation-duration: .6s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+::view-transition-group(prod) { animation-duration: .6s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); overflow: clip; }
+::view-transition-old(prod), ::view-transition-new(prod) { height: 100%; object-fit: cover; }
+::view-transition-old(prod) { animation-duration: .18s; }
 ::view-transition { background: var(--bone); }
 ::view-transition-old(root) { animation-duration: .14s; animation-timing-function: ease-out; }
 ::view-transition-new(root) { animation-duration: .3s; animation-delay: .08s; animation-fill-mode: both; }
@@ -727,9 +729,9 @@ main { animation: in .45s var(--ease); }
       if (now.bottom < 0 || now.top > window.innerHeight) return;
       if (old) {
         const dx = old.left - now.left, dy = old.top - now.top;
-        if (dx || dy) el.animate([{ transform: "translate(" + dx + "px, " + dy + "px)" }, { transform: "none" }], { duration: 480, easing: "cubic-bezier(.2, .8, .2, 1)" });
+        if (dx || dy) { el.style.zIndex = "3"; const an = el.animate([{ transform: "translate(" + dx + "px, " + dy + "px)" }, { transform: "none" }], { duration: 480, easing: "cubic-bezier(.2, .8, .2, 1)" }); an.onfinish = an.oncancel = () => { el.style.zIndex = ""; }; }
       } else {
-        el.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: Math.min(fresh++, 8) * 40, easing: "cubic-bezier(.2, .8, .2, 1)", fill: "backwards" });
+        el.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: 120 + Math.min(fresh++, 8) * 40, easing: "cubic-bezier(.2, .8, .2, 1)", fill: "backwards" });
       }
     });
   }
@@ -1070,7 +1072,7 @@ main { animation: in .45s var(--ease); }
       const ghost = document.createElement("img");
       ghost.src = fromImg.currentSrc || fromImg.src; ghost.className = "fly"; ghost.alt = "";
       const cs = getComputedStyle(fromImg);
-      Object.assign(ghost.style, { left: a.left + "px", top: a.top + "px", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", padding: cs.padding, filter: cs.filter, objectFit: cs.objectFit });
+      Object.assign(ghost.style, { left: a.left + "px", top: a.top + "px", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", padding: cs.padding, filter: cs.filter, objectFit: cs.objectFit, mixBlendMode: cs.mixBlendMode });
       document.body.appendChild(ghost);
       const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = bTop + b.height / 2 - (a.top + a.height / 2);
       const anim = ghost.animate([
@@ -1093,7 +1095,9 @@ main { animation: in .45s var(--ease); }
   }
 
   let teardown = null;
-  let pendingMorph = null, lastProduct = null, booted = false;
+  let pendingMorph = null, lastProduct = null, booted = false, renderedKey = null;
+  const savedY = {};
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
   // Router
   function route() {
@@ -1110,6 +1114,9 @@ main { animation: in .45s var(--ease); }
       title = (st.newOnly ? "New arrivals" : st.cat === "All" ? "Shop all" : st.cat) + " · MINDS";
     } else { html = home(); current = h === "visit" ? "#visit" : ""; }
     const toProduct = h.indexOf("p-") === 0 && byH[h.slice(2)];
+    const key = "#" + h;
+    if (renderedKey !== null) savedY[renderedKey] = window.scrollY;
+    const fromProduct = !!renderedKey && renderedKey.indexOf("#p-") === 0;
     const useVT = booted && !RM.matches && typeof document.startViewTransition === "function";
     const swap = () => {
     if (teardown) { teardown(); teardown = null; }
@@ -1123,6 +1130,7 @@ main { animation: in .45s var(--ease); }
       if (h === "shop-search") document.getElementById("fQ").focus();
     }
     if (h === "visit") { const v = document.getElementById("visit-orlando"); if (v) v.scrollIntoView(); }
+    else if (!toProduct && fromProduct && savedY[key] != null) window.scrollTo(0, savedY[key]);
     else window.scrollTo(0, 0);
     document.body.classList.remove("hdr-hide");
     const offs = [mountTempo(), mountScrubs(), mountReveals(), mountOpenPill(), mountStorePeek(), mountPieceLean()].filter(Boolean);
@@ -1131,7 +1139,10 @@ main { animation: in .45s var(--ease); }
     if (useVT) {
       const mainFrame = main.querySelector(".gallery .main");
       if (toProduct && mainFrame) mainFrame.style.viewTransitionName = "prod";
-      else if (lastProduct) { const tgt = main.querySelector('a.card[href="#p-' + lastProduct + '"] .tile'); if (tgt) tgt.style.viewTransitionName = "prod"; }
+      else if (lastProduct) {
+        const tgt = main.querySelector('a.card[href="#p-' + lastProduct + '"] .tile');
+        if (tgt) { const r = tgt.getBoundingClientRect(); if (r.bottom > 0 && r.top < window.innerHeight) tgt.style.viewTransitionName = "prod"; }
+      }
     }
     };
     if (useVT) {
@@ -1143,6 +1154,7 @@ main { animation: in .45s var(--ease); }
     } else swap();
     lastProduct = toProduct ? h.slice(2) : (h.indexOf("p-") === 0 ? null : lastProduct);
     pendingMorph = null;
+    renderedKey = key;
     booted = true;
   }
   window.addEventListener("hashchange", route);
@@ -1160,8 +1172,17 @@ main { animation: in .45s var(--ease); }
     if (!t) return;
     if (t.dataset.view) {
       const views = JSON.parse(document.getElementById("gallery").dataset.views), v = views[+t.dataset.view], m = document.getElementById("mainImg");
+      const under = RM.matches || !m.animate ? null : m.cloneNode();
+      if (under) { under.removeAttribute("id"); under.setAttribute("aria-hidden", "true"); m.parentNode.insertBefore(under, m); }
       m.src = v.src; m.alt = v.alt; m.className = v.model ? "model" : "";
-      if (!RM.matches && m.animate) m.animate([{ opacity: 0, transform: "scale(1.03)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: "cubic-bezier(.2, .8, .2, 1)" });
+      if (under) {
+        m.style.opacity = "0";
+        (m.decode ? m.decode() : Promise.resolve()).catch(() => {}).then(() => {
+          m.style.opacity = "";
+          const an = m.animate([{ opacity: 0, transform: "scale(1.03)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: "cubic-bezier(.2, .8, .2, 1)" });
+          an.onfinish = an.oncancel = () => under.remove();
+        });
+      }
       document.querySelectorAll(".thumbs button.t").forEach(b => b.setAttribute("aria-current", b === t));
       return;
     }
