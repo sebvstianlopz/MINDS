@@ -67,7 +67,8 @@ a:hover .arrow, button:hover .arrow { transform: translateX(4px); }
 .announce .wrap { display: flex; justify-content: center; align-items: center; min-height: 38px; padding-block: 9px; text-align: center; }
 .announce a { font-weight: 600; }
 @media (max-width: 599px) { .announce .wide { display: none; } }
-header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--bone); border-bottom: 1px solid var(--rule); }
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--bone); border-bottom: 1px solid var(--rule); transition: transform .35s var(--ease); }
+body.hdr-hide header.site { transform: translateY(calc(-100% - env(safe-area-inset-top, 0px))); }
 header.site .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 70px; }
 .brand { display: flex; align-items: center; gap: 44px; min-width: 0; }
 .logo img { height: 28px; width: auto; }
@@ -146,9 +147,13 @@ section.band { padding-block: var(--section); }
 /* Shop by piece */
 .pieces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 @media (max-width: 899px) { .pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.piece { position: relative; aspect-ratio: 3 / 4; overflow: hidden; text-decoration: none; display: block; }
-.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%); transition: transform .9s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
-.piece:hover img { transform: translate(-50%, -50%) scale(1.05); }
+.piece { position: relative; aspect-ratio: 3 / 4; overflow: hidden; text-decoration: none; display: block; transition: filter .45s ease; }
+.piece::after { content: ""; position: absolute; inset: 0; z-index: 3; background: var(--bone); transform: scaleY(0); transform-origin: top; transition: transform .95s var(--ease) calc(var(--i, 0) * 120ms); pointer-events: none; }
+.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%); transition: scale .9s var(--ease), rotate .6s var(--ease), filter .6s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
+@media (hover: hover) {
+  .piece:hover img { scale: 1.06; rotate: -2deg; filter: drop-shadow(0 32px 34px rgba(0, 0, 0, .26)); }
+  .pieces:hover .piece:not(:hover) { filter: brightness(.82) saturate(.85); }
+}
 .piece .lab { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; padding: clamp(16px, 2vw, 28px); }
 .piece h3 { font-size: clamp(36px, 4vw, 60px); }
 .piece .n { font-size: 13px; margin-top: 8px; display: block; letter-spacing: .02em; }
@@ -187,12 +192,13 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .dark { background: var(--night); color: var(--on-dark); }
 .campaign { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .campaign figure { margin: 0; position: relative; min-height: clamp(560px, 52vw, 760px); overflow: hidden; border: clamp(12px, 1.4vw, 20px) solid var(--night); border-right: 0; }
-.campaign figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; }
+.campaign figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; will-change: clip-path, transform; }
 .campaign .copy { display: grid; gap: 24px; align-content: end; padding: clamp(40px, 6vw, 96px) var(--gr) clamp(40px, 6vw, 96px) clamp(28px, 5vw, 80px); max-width: 640px; }
 .campaign h2 { font-size: clamp(56px, 7vw, 96px); }
 .campaign .copy > p { color: var(--on-dark-2); font-size: 17px; max-width: 38ch; }
 .picks { display: grid; border-top: 1px solid rgba(242, 238, 230, .22); margin-top: 12px; }
-.picks a { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(242, 238, 230, .22); text-decoration: none; }
+.picks a { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 0; text-decoration: none; }
+.picks a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(242, 238, 230, .22); transform-origin: left; transition: transform .8s var(--ease) calc(var(--i, 0) * 90ms); }
 .picks .ph { width: 56px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--stone); position: relative; }
 .picks .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .picks strong { display: block; font-weight: 600; font-size: 15px; }
@@ -233,7 +239,7 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 
 /* Footer */
 footer.site { padding-block: clamp(64px, 8vw, 112px) 36px; font-size: 14px; }
-.closer { font: 900 clamp(52px, 8vw, 96px)/.86 var(--display); text-transform: uppercase; max-width: 12ch; margin-bottom: clamp(48px, 6vw, 88px); text-wrap: balance; }
+.closer { font: 900 clamp(52px, 8vw, 96px)/.86 var(--display); text-transform: uppercase; max-width: 12ch; margin-bottom: clamp(48px, 6vw, 88px); text-wrap: balance; color: transparent; -webkit-text-stroke: 1.25px var(--satin-light); background: linear-gradient(to bottom, var(--on-dark) var(--fill, 100%), transparent var(--fill, 100%)); -webkit-background-clip: text; background-clip: text; }
 .fcols { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 36px; border-top: 1px solid rgba(242, 238, 230, .22); }
 .fcols h3 { font: 600 13px/1 var(--body); letter-spacing: .08em; margin-bottom: 16px; }
 .fcols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; color: var(--on-dark-2); }
@@ -321,6 +327,28 @@ dialog h2 { font-size: 44px; }
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--night); color: var(--on-dark); padding: 12px 18px; font-size: 14px; z-index: 95; opacity: 0; pointer-events: none; transition: opacity .25s ease; max-width: calc(100vw - 32px); }
 .toast.show { opacity: 1; }
 
+/* Motion: reveals. JS adds .rv only to elements that start below the fold, so content is visible without JS. */
+[data-reveal="rise"] { overflow: clip; padding-bottom: .08em; margin-bottom: -.08em; }
+[data-reveal="rise"] .ri { display: block; transition: transform .9s var(--ease) var(--d, 0ms); }
+.rv[data-reveal="rise"]:not(.in) .ri { transform: translateY(108%); }
+[data-reveal="fade"] { transition: opacity .8s var(--ease) var(--d, 0ms), transform .8s var(--ease) var(--d, 0ms); }
+.rv[data-reveal="fade"]:not(.in) { opacity: 0; transform: translateY(14px); }
+.card[data-reveal] .tile { transition: clip-path .85s var(--ease) calc(var(--i, 0) * 70ms); }
+.card.rv:not(.in) .tile { clip-path: inset(100% 0 0 0); }
+.card.rv:not(.in) .tile img { transform: scale(1.08); }
+.card[data-reveal] .meta { transition: opacity .6s ease calc(var(--i, 0) * 70ms + 280ms); }
+.card.rv:not(.in) .meta { opacity: 0; }
+.piece.rv:not(.in)::after { transform: scaleY(1); }
+.piece[data-reveal] .lab { transition: transform .7s var(--ease) calc(var(--i, 0) * 120ms + 320ms), opacity .7s ease calc(var(--i, 0) * 120ms + 320ms); }
+.piece.rv:not(.in) .lab { transform: translateY(24px); opacity: 0; }
+.picks a.rv:not(.in)::after { transform: scaleX(0); }
+.picks a .ph { transition: opacity .6s ease calc(var(--i, 0) * 90ms + 220ms); }
+.picks a.rv:not(.in) .ph { opacity: 0; }
+body.hdr-hide .filters { top: env(safe-area-inset-top, 0px); }
+body.hdr-hide .buy { top: calc(24px + env(safe-area-inset-top, 0px)); }
+.filters, .buy { transition: top .35s var(--ease); }
+@media (prefers-reduced-motion: reduce) { .closer { color: var(--on-dark); -webkit-text-stroke: 0; background: none; } }
+
 main { animation: in .45s var(--ease); }
 @keyframes in { from { opacity: .5; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
@@ -381,7 +409,7 @@ main { animation: in .45s var(--ease); }
 <footer class="site dark">
   <div class="wrap">
     <p class="closer" aria-hidden="true">And the world will be yours.</p>
-    <div class="fcols">
+    <div class="fcols" data-reveal="fade">
       <div>
         <img class="flogo" src="img/logo-ink.webp" alt="MINDS" width="170" height="48">
         <p style="margin-top:16px;max-width:34ch;color:var(--on-dark-2)">Streetwear designed by MINDS. Five stores across Florida and Puerto Rico.</p>
@@ -484,10 +512,11 @@ main { animation: in .45s var(--ease); }
   const ico = (id, cls) => '<svg class="icon' + (cls ? " " + cls : "") + '" aria-hidden="true"><use href="#i-' + id + '"/></svg>';
   const arrow = () => ico("arrow", "arrow");
 
-  function card(p) {
+  function card(p, opts) {
+    const rev = !!(opts && opts.reveal);
     const first = '<img class="first' + (p.alt ? " has-alt" : "") + (p.model ? " model" : "") + '" src="' + img(p.h) + '" alt="' + p.name + ", " + p.color + '" loading="lazy" width="720" height="900">';
     const second = p.alt ? '<img class="alt" src="img/' + p.alt + '.webp" alt="" loading="lazy" width="720" height="900">' : "";
-    return '<a class="card" href="#p-' + p.h + '"><div class="tile">' + first + second + '</div>' +
+    return '<a class="card" href="#p-' + p.h + '"' + (rev ? ' data-reveal="curtain"' : '') + '><div class="tile">' + first + second + '</div>' +
       '<div class="meta"><p class="row"><span>' + p.name + '</span><span class="num">' + money(p.price) + '</span></p><p class="c">' + p.color + '</p></div></a>';
   }
   function sizePicker(p, id) {
@@ -519,8 +548,8 @@ main { animation: in .45s var(--ease); }
     '<span id="after-hero" tabindex="-1"></span>' +
     '<section class="interlude"><div class="wrap"><p>Designed by MINDS. Worn in Orlando.</p></div></section>' +
     '<section class="band" style="padding-top:0" aria-labelledby="naTitle"><div class="wrap">' +
-      '<div class="sec-head"><h2 id="naTitle">New arrivals</h2><a class="link" href="#new">Shop all new ' + arrow() + '</a></div>' +
-      '<div class="grid">' + NEW.map(card).join("") + '</div>' +
+      '<div class="sec-head"><h2 id="naTitle" data-reveal="rise"><span class="ri">New arrivals</span></h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
+      '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
     '</div></section>' +
     '<section aria-labelledby="pcTitle"><h2 id="pcTitle" class="sr">Shop by piece</h2><div class="pieces">' +
       piece("Shorts", "minds-short-6-0", "p-green") + piece("Pants", "minds-nylon-pants-0", "p-stone") + piece("Tops", "endlesshine-blue-0", "p-night") + piece("Caps", "minds-archive-cap-3-0", "p-satin") +
@@ -539,12 +568,12 @@ main { animation: in .45s var(--ease); }
     '</div></section>' +
     '<section class="campaign dark" aria-labelledby="cpTitle">' +
       '<figure><img src="img/minds-femme-noir-top-2-0.webp" alt="Model wearing the black Femme Noir top" loading="lazy" width="720" height="900"></figure>' +
-      '<div class="copy"><h2 id="cpTitle">Focus on your vision.</h2>' +
+      '<div class="copy"><h2 id="cpTitle" data-reveal="rise"><span class="ri">Focus on your vision.</span></h2>' +
         '<p>Femme Noir: a stretch top and short in black and sky blue, $75 each. Built to wear together.</p>' +
         '<div class="ctas"><a class="btn light" href="#p-minds-noir-femme-top">Shop Femme Noir</a></div>' +
         '<div class="picks">' +
-          '<a href="#p-minds-noir-femme-top"><span class="ph"><img src="img/minds-noir-femme-top-0.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Top</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
-          '<a href="#p-minds-femme-noir-top-2"><span class="ph"><img src="img/minds-femme-noir-top-2-1.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Short</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
+          '<a href="#p-minds-noir-femme-top" data-reveal="draw"><span class="ph"><img src="img/minds-noir-femme-top-0.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Top</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
+          '<a href="#p-minds-femme-noir-top-2" data-reveal="draw"><span class="ph"><img src="img/minds-femme-noir-top-2-1.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Short</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
         '</div></div>' +
     '</section>' +
     visitBlock() +
@@ -553,7 +582,7 @@ main { animation: in .45s var(--ease); }
   }
   function piece(label, file, cls) {
     const n = P.filter(p => p.cat === label).length;
-    return '<a class="piece ' + cls + '" href="#shop-' + label.toLowerCase() + '"><img src="img/' + file + '.webp" alt="" loading="lazy" width="800" height="800">' +
+    return '<a class="piece ' + cls + '" data-reveal="shutter" href="#shop-' + label.toLowerCase() + '"><img src="img/' + file + '.webp" alt="" loading="lazy" width="800" height="800">' +
       '<span class="lab"><span><h3>' + label + '</h3><span class="n num">' + n + ' styles</span></span>' + arrow() + '</span></a>';
   }
   function visitBlock() {
@@ -667,6 +696,115 @@ main { animation: in .45s var(--ease); }
   let toastT;
   function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600); }
 
+  // Shared scroll engine: one passive listener, one requestAnimationFrame for every scroll-linked effect
+  const RM = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const Scroll = (() => {
+    const fns = new Set(); let raf = 0;
+    const run = () => { raf = 0; fns.forEach(f => f()); };
+    const req = () => { if (!raf) raf = requestAnimationFrame(run); };
+    window.addEventListener("scroll", req, { passive: true });
+    window.addEventListener("resize", req);
+    return { add(f) { fns.add(f); req(); return () => fns.delete(f); }, req };
+  })();
+  const clamp01 = v => Math.min(1, Math.max(0, v));
+
+  // Reveals: mark only elements below the fold, reveal once on entry
+  function mountReveals() {
+    if (RM.matches || !("IntersectionObserver" in window)) return null;
+    const vh = window.innerHeight;
+    const els = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]:not(.in)"));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+    const rowIndex = new Map();
+    els.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92) return;
+      const key = (el.parentElement ? el.parentElement : el) ;
+      const top = Math.round(r.top);
+      const rows = rowIndex.get(key) || {};
+      rows[top] = (rows[top] || 0);
+      el.style.setProperty("--i", rows[top]++);
+      rowIndex.set(key, rows);
+      el.classList.add("rv");
+      io.observe(el);
+    });
+    // anything scrolled past without being seen (anchor jumps) is revealed at once
+    const offPassed = Scroll.add(() => {
+      main.parentNode.querySelectorAll(".rv:not(.in)").forEach(el => { if (el.getBoundingClientRect().bottom < 0) { el.classList.add("in"); io.unobserve(el); } });
+    });
+    return () => { io.disconnect(); offPassed(); };
+  }
+
+  // Scroll-scrubbed section effects on the home page
+  function mountScrubs() {
+    const pieces = Array.prototype.slice.call(main.querySelectorAll(".piece"));
+    const band = main.querySelector(".campaign");
+    const bandImg = band ? band.querySelector("figure img") : null;
+    if (!pieces.length && !band) return null;
+    const speeds = [0.9, 0.5, 1.2, 0.7];
+    const BONE = [236, 232, 225], NIGHT = [15, 25, 18];
+    function tick() {
+      if (RM.matches) {
+        pieces.forEach(pc => { pc.querySelector("img").style.translate = ""; });
+        document.body.style.backgroundColor = "";
+        if (bandImg) { bandImg.style.clipPath = ""; bandImg.style.transform = ""; }
+        return;
+      }
+      const vh = window.innerHeight;
+      pieces.forEach((pc, i) => {
+        const r = pc.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        const c = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
+        pc.querySelector("img").style.translate = "0 " + (-c * 40 * speeds[i % 4]).toFixed(1) + "px";
+      });
+      if (band) {
+        const r = band.getBoundingClientRect();
+        const dIn = clamp01((vh - r.top) / (vh * 0.6));
+        const dOut = clamp01((r.bottom - vh * 0.2) / (vh * 0.4));
+        const d = Math.min(dIn, dOut);
+        document.body.style.backgroundColor = d > 0 ? "rgb(" + BONE.map((b, k) => Math.round(b + (NIGHT[k] - b) * d)).join(",") + ")" : "";
+        const q = clamp01((vh - r.top) / (vh * 0.75));
+        bandImg.style.clipPath = "inset(0 " + ((1 - q) * 82).toFixed(2) + "% 0 0)";
+        bandImg.style.transform = "scale(" + (1.15 - 0.15 * q).toFixed(4) + ")";
+      }
+    }
+    const off = Scroll.add(tick);
+    return () => { off(); document.body.style.backgroundColor = ""; };
+  }
+
+  // Footer closer: the mantra fills from outline to solid as the page ends (global, every route)
+  (function closerScrub() {
+    const closer = document.querySelector(".closer");
+    if (!closer) return;
+    Scroll.add(() => {
+      if (RM.matches) { closer.style.removeProperty("--fill"); return; }
+      const vh = window.innerHeight;
+      const docTop = closer.getBoundingClientRect().top + window.scrollY;
+      const start = docTop - vh * 0.95;
+      const end = Math.max(start + 1, document.documentElement.scrollHeight - vh);
+      const p = clamp01((window.scrollY - start) / (end - start));
+      closer.style.setProperty("--fill", (p * 100).toFixed(1) + "%");
+    });
+  })();
+
+  // Header: hide on scroll down after the hero, show on scroll up
+  (function headerAutoHide() {
+    const header = document.querySelector("header.site");
+    let lastY = window.scrollY;
+    Scroll.add(() => {
+      const y = window.scrollY;
+      const runway = main.querySelector(".tempo-runway");
+      const after = runway ? runway.getBoundingClientRect().bottom + y : 240;
+      const busy = RM.matches || header.contains(document.activeElement) || document.getElementById("cart").classList.contains("open") || document.getElementById("navDrawer").classList.contains("open");
+      if (busy || y <= after) document.body.classList.remove("hdr-hide");
+      else if (y > lastY + 4) document.body.classList.add("hdr-hide");
+      else if (y < lastY - 4) document.body.classList.remove("hdr-hide");
+      lastY = y;
+    });
+    header.addEventListener("focusin", () => document.body.classList.remove("hdr-hide"));
+  })();
+
   // Hero motion: opposing scroll type (scroll-linked, no autoplay)
   function mountTempo() {
     const runway = main.querySelector(".tempo-runway");
@@ -676,7 +814,7 @@ main { animation: in .45s var(--ease); }
     const header = document.querySelector("header.site");
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const shift = [0, 0];
-    let W = 0, raf = 0, alive = true;
+    let W = 0, alive = true;
     function fill() {
       if (!alive) return;
       document.documentElement.style.setProperty("--hdr", header.offsetHeight + "px");
@@ -694,7 +832,6 @@ main { animation: in .45s var(--ease); }
       update();
     }
     function update() {
-      raf = 0;
       if (!alive) return;
       if (mq.matches) { rows.forEach(r => { r.style.transform = ""; }); return; }
       const rect = runway.getBoundingClientRect();
@@ -705,8 +842,7 @@ main { animation: in .45s var(--ease); }
       rows[0].style.transform = "translate3d(" + (x0 - shift[0]).toFixed(2) + "px,0,0)";
       rows[1].style.transform = "translate3d(" + (x1 - shift[1]).toFixed(2) + "px,0,0)";
     }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const offScroll = Scroll.add(update);
     const ro = new ResizeObserver(fill);
     ro.observe(frame);
     mq.addEventListener("change", fill);
@@ -714,10 +850,9 @@ main { animation: in .45s var(--ease); }
     fill();
     return () => {
       alive = false;
-      window.removeEventListener("scroll", onScroll);
+      offScroll();
       ro.disconnect();
       mq.removeEventListener("change", fill);
-      if (raf) cancelAnimationFrame(raf);
     };
   }
   let teardown = null;
@@ -739,7 +874,6 @@ main { animation: in .45s var(--ease); }
     if (teardown) { teardown(); teardown = null; }
     main.style.animation = "none"; void main.offsetWidth; main.style.animation = "";
     main.innerHTML = html;
-    teardown = mountTempo();
     document.title = title === "MINDS" ? "MINDS Storefront" : title;
     document.querySelectorAll("nav.main a").forEach(a => a.getAttribute("href") === current ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (document.getElementById("results")) {
@@ -748,6 +882,10 @@ main { animation: in .45s var(--ease); }
     }
     if (h === "visit") { const v = document.getElementById("visit-orlando"); if (v) v.scrollIntoView(); }
     else window.scrollTo(0, 0);
+    document.body.classList.remove("hdr-hide");
+    const offs = [mountTempo(), mountScrubs(), mountReveals()].filter(Boolean);
+    teardown = () => offs.forEach(f => f());
+    Scroll.req();
   }
   window.addEventListener("hashchange", route);
 
