@@ -230,6 +230,8 @@ A warm, desaturated studio palette (bone, stone, ink) with one deep campaign gre
 
 **The Stone Tile Rule.** Product imagery always sits on `stone`, never on the bone page directly and never on white.
 
+- **Satin Light (#B5D99A):** used only for the outlined hero row. It is a lighter tint of the campaign green, about 7.6:1 on forest.
+
 ## Typography
 
 **Display Font:** Big Shoulders Display (with Arial Narrow, Helvetica Neue)
@@ -341,9 +343,9 @@ A green-black footer opening with "And the world will be yours." in giant displa
 The hero is a pinned frame inside a 250svh scroll runway.
 - **Frame:** sticky under the header; its height is the viewport minus the header.
 - **Photo:** the campaign photo sits behind the type. When the frame is wider than 6:5, the whole portrait is shown right-aligned at full frame height on the forest field. Narrower frames cover the frame with the photo.
-- **Type rows:** two repeated display rows at 15.4% of frame width (container units), line-height 1, placed 39% down and starting 26% past the left edge.
+- **Type rows:** two repeated display rows at 11% of frame width (container units), line-height 1, placed 39% down and starting 26% past the left edge.
   - "RESET YOUR ·" in solid on-dark.
-  - "MINDSET." as a satin outline.
+  - "MINDSET." as a `satin-light` (#B5D99A) outline, max(1.75px, 0.022em), with a soft night drop-shadow (0 2px 10px at 45%) that follows the stroke so it reads over the photo.
 - **Scroll mapping:** progress p = clamp01((stickyTop − runway.top) / (runway height − frame height)). Row 0 moves x = −(p − 0.5) × frameWidth × 0.8 and row 1 the mirror. It uses translate3d, a passive scroll listener with one requestAnimationFrame update, and measures the frame (ResizeObserver, `document.fonts.ready`).
 - **Coverage:** whole repeats are prepended so both rows cover the frame at both endpoints.
 - **Accessibility:** the rows are `aria-hidden`; "Reset your mindset." is the visually hidden H1. The intro line and the two CTAs sit top-left on wide frames and bottom-left over a dark gradient on narrow ones. A skip button jumps past the runway.
