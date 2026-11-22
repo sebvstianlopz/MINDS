@@ -1,441 +1,479 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T21:00:00Z",
+  "generatedAt": "2026-11-22T06:01:18+00:00",
   "title": "Design System: MINDS",
   "extensions": {
     "colorMeta": {
-      "paper": {
+      "bone": {
         "role": "neutral",
-        "displayName": "Paper",
-        "canonical": "#FFFFFF",
-        "oklch": "oklch(100.0% 0.000 90)",
+        "displayName": "Warm Bone",
+        "canonical": "#ECE8E1",
         "tonalRamp": [
-          "#0B0B0B",
-          "#252525",
-          "#424242",
-          "#616161",
-          "#828282",
-          "#A5A5A5",
-          "#C9C9C9",
-          "#EEEEEE"
+          "#0C0B09",
+          "#272522",
+          "#44423D",
+          "#64615B",
+          "#85827C",
+          "#A7A59F",
+          "#CBC9C4",
+          "#F0EEEB"
         ]
       },
-      "wash": {
+      "bone-hi": {
         "role": "neutral",
-        "displayName": "Wash",
-        "canonical": "#F2F4F7",
-        "oklch": "oklch(96.6% 0.005 258)",
+        "displayName": "Bone Light",
+        "canonical": "#F6F3EE",
         "tonalRamp": [
-          "#0B0B0C",
-          "#242526",
-          "#414244",
-          "#606164",
-          "#818285",
-          "#A3A5A7",
-          "#C8C9CB",
-          "#EEEEEF"
+          "#0C0B0A",
+          "#262523",
+          "#44423F",
+          "#63615D",
+          "#84827E",
+          "#A7A5A1",
+          "#CBC9C6",
+          "#F0EEEC"
         ]
       },
-      "ink": {
+      "stone": {
         "role": "neutral",
-        "displayName": "Graphite Ink",
-        "canonical": "#15171C",
-        "oklch": "oklch(20.5% 0.010 268)",
+        "displayName": "Studio Stone",
+        "canonical": "#DCD6CB",
         "tonalRamp": [
-          "#0B0B0D",
-          "#242528",
-          "#404247",
-          "#5F6167",
-          "#808289",
-          "#A3A5AB",
-          "#C7C9CD",
-          "#EDEEF1"
-        ]
-      },
-      "pencil": {
-        "role": "neutral",
-        "displayName": "Pencil",
-        "canonical": "#555B66",
-        "oklch": "oklch(47.0% 0.019 263)",
-        "tonalRamp": [
-          "#0A0B0E",
-          "#22252B",
-          "#3D424B",
-          "#5B616D",
-          "#7C838E",
-          "#A0A5AF",
-          "#C5C9D0",
-          "#ECEEF3"
+          "#0D0B08",
+          "#272520",
+          "#45413B",
+          "#656158",
+          "#878278",
+          "#A9A49C",
+          "#CCC9C2",
+          "#F1EEE9"
         ]
       },
       "rule": {
         "role": "neutral",
-        "displayName": "Hairline",
-        "canonical": "#D6DAE1",
-        "oklch": "oklch(88.7% 0.011 262)",
+        "displayName": "Warm Rule",
+        "canonical": "#CDC6B9",
         "tonalRamp": [
-          "#0A0B0D",
-          "#232528",
-          "#3F4247",
-          "#5E6167",
-          "#7F8289",
-          "#A2A5AB",
-          "#C7C9CD",
-          "#EDEEF1"
+          "#0D0B07",
+          "#28251E",
+          "#464139",
+          "#666056",
+          "#888276",
+          "#AAA49B",
+          "#CDC9C1",
+          "#F1EEE8"
         ]
       },
-      "pen": {
-        "role": "primary",
-        "displayName": "Ballpoint Blue",
-        "canonical": "#2741C2",
-        "oklch": "oklch(44.8% 0.202 268)",
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#171613",
         "tonalRamp": [
-          "#030725",
-          "#0E1C5B",
-          "#1E3398",
-          "#3150D1",
-          "#4F75F9",
-          "#789EFF",
-          "#A9C7FF",
-          "#DCEEFF"
+          "#0C0B0A",
+          "#262523",
+          "#43423F",
+          "#62615E",
+          "#83827F",
+          "#A6A5A2",
+          "#CAC9C6",
+          "#EFEEEC"
         ]
       },
-      "pen-deep": {
-        "role": "primary",
-        "displayName": "Deep Ballpoint",
-        "canonical": "#1C2F94",
-        "oklch": "oklch(36.6% 0.166 268)",
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#514E47",
         "tonalRamp": [
-          "#040921",
-          "#121F52",
-          "#243989",
-          "#3A56BE",
-          "#587AE5",
-          "#81A0FA",
-          "#AFC7FF",
-          "#E0EEFF"
+          "#0C0B09",
+          "#272521",
+          "#44423D",
+          "#64615A",
+          "#85827B",
+          "#A7A59F",
+          "#CBC9C4",
+          "#F0EEEA"
         ]
       },
-      "on-pen": {
+      "green": {
         "role": "primary",
-        "displayName": "On Pen",
-        "canonical": "#FFFFFF",
-        "oklch": "oklch(100.0% 0.000 90)",
+        "displayName": "Campaign Forest",
+        "canonical": "#1F3D2B",
         "tonalRamp": [
-          "#0B0B0B",
-          "#252525",
-          "#424242",
-          "#616161",
-          "#828282",
-          "#A5A5A5",
-          "#C9C9C9",
-          "#EEEEEE"
+          "#040E07",
+          "#19291F",
+          "#32483A",
+          "#4C6957",
+          "#6D8B77",
+          "#93AC9B",
+          "#BACFC1",
+          "#E3F3E8"
+        ]
+      },
+      "green-deep": {
+        "role": "primary",
+        "displayName": "Deep Forest",
+        "canonical": "#142A1D",
+        "tonalRamp": [
+          "#060D08",
+          "#1C2920",
+          "#36473C",
+          "#516759",
+          "#72897A",
+          "#97AB9E",
+          "#BECEC3",
+          "#E6F2EA"
+        ]
+      },
+      "satin": {
+        "role": "secondary",
+        "displayName": "Satin Green",
+        "canonical": "#6E9456",
+        "tonalRamp": [
+          "#040F00",
+          "#182B0A",
+          "#314B1F",
+          "#4B6C35",
+          "#6C8E56",
+          "#92B080",
+          "#B9D2AB",
+          "#E2F6D7"
+        ]
+      },
+      "night": {
+        "role": "tertiary",
+        "displayName": "Green-Black",
+        "canonical": "#0F1912",
+        "tonalRamp": [
+          "#080C09",
+          "#212722",
+          "#3C453E",
+          "#59645C",
+          "#7A867D",
+          "#9EA8A1",
+          "#C3CCC5",
+          "#EAF0EC"
+        ]
+      },
+      "on-dark": {
+        "role": "neutral",
+        "displayName": "On Dark",
+        "canonical": "#F2EEE6",
+        "tonalRamp": [
+          "#0C0B09",
+          "#272521",
+          "#44423D",
+          "#64615B",
+          "#85827B",
+          "#A8A59F",
+          "#CBC9C4",
+          "#F0EEEA"
+        ]
+      },
+      "on-dark-2": {
+        "role": "neutral",
+        "displayName": "On Dark Muted",
+        "canonical": "#B9B6AC",
+        "tonalRamp": [
+          "#0C0B08",
+          "#262520",
+          "#44423B",
+          "#646159",
+          "#85827A",
+          "#A7A59D",
+          "#CBC9C3",
+          "#F0EEE9"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero H1 in the white page panel; collection titles."
+        "purpose": "The hero mantra line only, two stacked lines."
       },
-      "display-mantra": {
-        "displayName": "Display Mantra",
-        "purpose": "The mantra band only, in ballpoint blue."
+      "display-closer": {
+        "displayName": "Display Closer",
+        "purpose": "The footer's closing mantra line, max 12ch."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section heads."
-      },
-      "headline-feature": {
-        "displayName": "Headline Feature",
-        "purpose": "Featured product name, Visit MINDS Orlando, product page H1."
+        "purpose": "Section heads; campaign, visit, feature, newsletter and PDP titles use nearby clamps."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Store names, category tiles, dialog and drawer titles."
+        "purpose": "Colour-block panel labels."
+      },
+      "title-list": {
+        "displayName": "Title List",
+        "purpose": "Store-list city names."
+      },
+      "interlude": {
+        "displayName": "Interlude",
+        "purpose": "One-sentence breaks between sections, centred, max 20ch."
+      },
+      "price": {
+        "displayName": "Price",
+        "purpose": "Price on the buy card and PDP."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero, campaign and visit body copy."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "All running text; descriptions to 60ch."
+        "purpose": "Running text."
       },
-      "body-lead": {
-        "displayName": "Body Lead",
-        "purpose": "The one supporting line under a hero or section headline, 40ch."
-      },
-      "body-small": {
-        "displayName": "Body Small",
-        "purpose": "Chips, pills, notes, card colors, footer."
-      },
-      "product-name": {
-        "displayName": "Product Name",
-        "purpose": "Card titles."
+      "name-row": {
+        "displayName": "Name Row",
+        "purpose": "Product name and price on one row."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Button labels and text links, uppercase."
+        "purpose": "Uppercase button and link labels."
       },
-      "label-small": {
-        "displayName": "Label Small",
-        "purpose": "New tag and footer column heads, uppercase."
+      "small": {
+        "displayName": "Small",
+        "purpose": "Announcement bar, counts, breadcrumbs."
       }
     },
     "shadows": [
       {
-        "name": "drawer",
-        "value": "-12px 0 40px rgba(21, 23, 28, .12)",
-        "purpose": "Cart drawer only; Spotlight Drawers shadow settings."
-      }
-    ],
-    "scrims": [
-      {
-        "name": "scrim-drawer",
-        "value": "rgba(21, 23, 28, .35)",
-        "purpose": "Behind the menu and cart drawers."
+        "name": "studio-cast",
+        "value": "drop-shadow(0 16px 18px rgba(23, 22, 19, .14))",
+        "purpose": "filter on alpha product cut-outs on stone tiles."
       },
       {
-        "name": "scrim-dialog",
-        "value": "rgba(21, 23, 28, .4)",
-        "purpose": "Behind the size-guide dialog."
+        "name": "panel-cast",
+        "value": "drop-shadow(0 18px 24px rgba(0, 0, 0, .18))",
+        "purpose": "filter on product cut-outs on colour-block panels."
+      },
+      {
+        "name": "sheet",
+        "value": "-16px 0 48px rgba(15, 25, 18, .18)",
+        "purpose": "box-shadow on the bag drawer only."
+      },
+      {
+        "name": "scrim",
+        "value": "rgba(15, 25, 18, .45)",
+        "purpose": "Backdrop behind drawers and dialogs."
       }
     ],
     "motion": [
       {
-        "name": "route-fade",
-        "value": ".45s cubic-bezier(.2, .8, .2, 1); from opacity .4, translateY(6px)",
-        "purpose": "The one calm fade on route change."
+        "name": "ease",
+        "value": "cubic-bezier(.2, .8, .2, 1)",
+        "purpose": "The one easing for rises, zooms, nudges and slides."
       },
       {
-        "name": "drawer-slide",
-        "value": ".35s cubic-bezier(.2, .8, .2, 1); from translateX(24px), opacity .6",
-        "purpose": "Cart drawer entrance."
-      },
-      {
-        "name": "image-swap",
-        "value": "opacity .35s ease",
-        "purpose": "Second product image on hover (hover-capable devices only)."
+        "name": "headline-rise",
+        "value": "0.9s, translateY(28%) and opacity .15 to rest; second line +0.08s",
+        "purpose": "Hero headline once on load."
       },
       {
         "name": "tile-zoom",
-        "value": "transform .5s cubic-bezier(.2, .7, .2, 1); scale 1.04",
-        "purpose": "Category tile image on hover."
+        "value": "0.8s, scale(1.035)",
+        "purpose": "Product tile image on hover."
       },
       {
-        "name": "state-change",
-        "value": ".2s ease",
-        "purpose": "Button fills, accordion icon rotation."
+        "name": "panel-zoom",
+        "value": "0.9s, scale(1.05)",
+        "purpose": "Shop by piece cut-out on hover."
       },
       {
-        "name": "toast",
-        "value": "opacity .25s ease",
-        "purpose": "Add-to-bag confirmation."
+        "name": "arrow-nudge",
+        "value": "0.35s, translateX(4px)",
+        "purpose": "Arrow on hovered link or button."
+      },
+      {
+        "name": "sheet-slide",
+        "value": "0.4s, translateX(28px) to rest",
+        "purpose": "Bag drawer open."
+      },
+      {
+        "name": "state",
+        "value": "0.25s ease",
+        "purpose": "Button colour, border and row hover transitions."
       },
       {
         "name": "reduced-motion",
         "value": "none",
-        "purpose": "All animation and transition removed under prefers-reduced-motion."
+        "purpose": "All animation and transition off under prefers-reduced-motion."
       }
     ],
-    "focus": {
-      "value": "2px solid var(--pen); outline-offset 3px (2px on size pills)",
-      "purpose": "Every interactive element."
-    },
     "breakpoints": [
       {
-        "name": "announce-short",
-        "value": "599px max"
+        "name": "sm",
+        "value": "600px"
       },
       {
         "name": "md",
-        "value": "750px",
-        "note": "Spotlight breakpoint; gutters 16px to 32px, hero panel overlays photo"
+        "value": "750px"
       },
       {
-        "name": "stack",
-        "value": "850px",
-        "note": "two-part features and PDP stack below"
-      },
-      {
-        "name": "nav",
-        "value": "900px",
-        "note": "inline menu below becomes drawer"
+        "name": "pdp",
+        "value": "850px"
       },
       {
         "name": "lg",
-        "value": "990px",
-        "note": "Spotlight breakpoint; 4-up grids below become 2-up"
+        "value": "900px"
+      },
+      {
+        "name": "grid",
+        "value": "990px"
       }
-    ],
-    "spotlight": {
-      "colorSchemes": {
-        "scheme-1": {
-          "Background": "paper",
-          "Text": "ink",
-          "Solid button background": "pen",
-          "Solid button label": "on-pen",
-          "Outline button": "ink",
-          "Shadow": "ink"
-        },
-        "scheme-2": {
-          "Background": "wash",
-          "Text": "ink",
-          "note": "image-led sections"
-        },
-        "scheme-mantra": {
-          "Background": "paper",
-          "Text": "pen"
-        },
-        "scheme-inverse": {
-          "Background": "ink",
-          "Text": "paper",
-          "note": "toast and selected states where exposed"
-        }
-      },
-      "fonts": {
-        "Headings": "Oswald",
-        "Body": "Archivo"
-      },
-      "cornerRadius": "0 on buttons, inputs, variant pills, cards, media, badges",
-      "shadows": "0 everywhere except Drawers",
-      "sectionDividers": "on, rule color",
-      "customCssNeeded": [
-        "uppercase headings and 0.06em button tracking",
-        "mantra 14ch measure",
-        "pencil secondary text value",
-        "pen-deep hover value"
-      ]
-    }
+    ]
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Ballpoint-blue solid action: Shop new arrivals, Add to bag, Get directions, Checkout.",
-      "html": "<button class=\"ds-btn\" type=\"button\">Shop new arrivals</button>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;} .ds-btn:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);} .ds-btn:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} @media (prefers-reduced-motion: reduce){.ds-btn{transition:none;}}"
+      "description": "Solid forest action: Add to bag, Get directions, Subscribe.",
+      "html": "<button class=\"ds-btn\">Add to bag</button>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:0 26px;border:1.5px solid var(--green);background:var(--green);color:var(--on-dark);font:600 14px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:0;transition:background .25s ease,color .25s ease,border-color .25s ease;} .ds-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-arrow{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-btn:hover .ds-arrow{transform:translateX(4px);} .ds-btn:hover{background:var(--green-deep);border-color:var(--green-deep);}"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Ink-outline secondary action beside a primary, e.g. Visit The Florida Mall.",
-      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Visit The Florida Mall</button>",
-      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;background:transparent;color:var(--ink, #15171C);border-color:var(--ink, #15171C);} .ds-btn-ghost:hover{background:var(--ink, #15171C);color:var(--paper, #FFFFFF);} .ds-btn-ghost:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;}"
+      "description": "Ink outline on bone, fills ink on hover; ends in an arrow when it moves you elsewhere.",
+      "html": "<a class=\"ds-btn ds-ghost\" href=\"#\">Shop for pickup <svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></a>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:0 26px;border:1.5px solid var(--green);background:var(--green);color:var(--on-dark);font:600 14px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:0;transition:background .25s ease,color .25s ease,border-color .25s ease;} .ds-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-arrow{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-btn:hover .ds-arrow{transform:translateX(4px);} .ds-ghost{background:transparent;color:var(--ink);border-color:var(--ink);} .ds-ghost:hover{background:var(--ink);color:var(--bone);}"
     },
     {
-      "name": "Filter Chips",
-      "kind": "chip",
-      "refersTo": "chip",
-      "description": "Collection category filters; selected fills ink.",
-      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\">Shorts</button><button class=\"ds-chip\" aria-pressed=\"false\">Caps</button></div>",
-      "css": ".ds-chips{display:flex;gap:6px;flex-wrap:wrap;} .ds-chip{height:38px;padding:0 14px;border:1px solid var(--rule, #D6DAE1);background:var(--paper, #FFFFFF);color:var(--ink, #15171C);font:500 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);border-radius:0;cursor:pointer;} .ds-chip:hover{border-color:var(--ink, #15171C);} .ds-chip[aria-pressed=\"true\"]{background:var(--ink, #15171C);color:var(--paper, #FFFFFF);border-color:var(--ink, #15171C);} .ds-chip:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;}"
+      "name": "Light Buttons on Forest",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "Solid on-dark and on-dark outline pair used on the forest hero and night bands.",
+      "html": "<div class=\"ds-ground\"><a class=\"ds-btn ds-light\" href=\"#\">Shop new arrivals</a><a class=\"ds-btn ds-ghost-light\" href=\"#\">Visit The Florida Mall <svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></a></div>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:0 26px;border:1.5px solid var(--green);background:var(--green);color:var(--on-dark);font:600 14px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:0;transition:background .25s ease,color .25s ease,border-color .25s ease;} .ds-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-arrow{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-btn:hover .ds-arrow{transform:translateX(4px);} .ds-ground{background:var(--green);padding:24px;display:flex;flex-wrap:wrap;gap:12px;} .ds-light{background:var(--on-dark);color:var(--green);border-color:var(--on-dark);} .ds-light:hover{background:var(--bone);border-color:var(--bone);} .ds-ghost-light{background:transparent;color:var(--on-dark);border-color:var(--on-dark);} .ds-ghost-light:hover{background:var(--on-dark);color:var(--night);} .ds-btn:focus-visible{outline-color:var(--on-dark);}"
     },
     {
       "name": "Size Pills",
-      "kind": "custom",
+      "kind": "chip",
       "refersTo": "size-pill",
-      "description": "Variant picker; selected fills ink, sold-out is hatched and unselectable.",
+      "description": "Square size options; selected fills forest, sold-out is hatched.",
       "html": "<div class=\"ds-pills\"><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\"><span>S</span></label><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\" checked><span>M</span></label><label class=\"ds-pill\"><input type=\"radio\" name=\"ds-s\" disabled><span>L</span></label></div>",
-      "css": ".ds-pills{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-pill{position:relative;} .ds-pill input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;} .ds-pill span{display:grid;place-items:center;min-width:56px;height:44px;padding:0 14px;border:1px solid var(--rule, #D6DAE1);font-size:14px;font-weight:500;color:var(--ink, #15171C);} .ds-pill input:hover + span{border-color:var(--ink, #15171C);} .ds-pill input:checked + span{border-color:var(--ink, #15171C);background:var(--ink, #15171C);color:var(--paper, #FFFFFF);} .ds-pill input:focus-visible + span{outline:2px solid var(--pen, #2741C2);outline-offset:2px;} .ds-pill input:disabled + span{color:var(--pencil, #555B66);background:repeating-linear-gradient(135deg,transparent 0 9px,var(--rule, #D6DAE1) 9px 10px);} .ds-pill input:disabled{cursor:not-allowed;}"
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-pills{display:flex;gap:8px;font-family:var(--body);color:var(--ink);} .ds-pill{position:relative;} .ds-pill input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;} .ds-pill span{display:grid;place-items:center;min-width:54px;height:44px;padding:0 14px;border:1px solid var(--ink-2);font-size:14px;font-weight:500;} .ds-pill input:hover+span{border-color:var(--ink);} .ds-pill input:checked+span{background:var(--green);border-color:var(--green);color:var(--on-dark);} .ds-pill input:focus-visible+span{outline:2px solid var(--green);outline-offset:2px;} .ds-pill input:disabled+span{color:var(--ink-2);border-color:var(--rule);background:repeating-linear-gradient(135deg,transparent 0 9px,var(--rule) 9px 10px);cursor:not-allowed;}"
     },
     {
-      "name": "Product Card",
-      "kind": "card",
-      "refersTo": "product-tag",
-      "description": "4:5 white hairline well, contained packshot, New tag, name / color / tabular price.",
-      "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-media\"><svg viewBox=\"0 0 40 50\" width=\"100%\" height=\"100%\" aria-hidden=\"true\"><rect x=\"10\" y=\"8\" width=\"20\" height=\"34\" fill=\"#D6DAE1\"/></svg><span class=\"ds-tag\">New</span></div><span class=\"ds-card-t\">Recon Cargo Pant</span><span class=\"ds-card-c\">Black</span><span class=\"ds-card-p\">$120.00</span></a>",
-      "css": ".ds-card{display:grid;gap:2px;width:220px;text-decoration:none;color:var(--ink, #15171C);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-card-media{position:relative;aspect-ratio:4/5;background:var(--paper, #FFFFFF);border:1px solid var(--rule, #D6DAE1);overflow:hidden;margin-bottom:10px;padding:8%;} .ds-tag{position:absolute;top:10px;left:10px;background:var(--paper, #FFFFFF);border:1px solid var(--ink, #15171C);font:600 11px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;} .ds-card-t{font-weight:600;font-size:15px;line-height:1.3;} .ds-card:hover .ds-card-t{text-decoration:underline;text-underline-offset:3px;} .ds-card:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-card-c{font-size:14px;color:var(--pencil, #555B66);} .ds-card-p{font-size:15px;margin-top:4px;font-variant-numeric:tabular-nums;}"
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Category toggle in the sticky filter bar.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\">Shorts</button><button class=\"ds-chip\" aria-pressed=\"false\">Caps</button></div>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-chips{display:flex;gap:6px;} .ds-chip{height:38px;padding:0 14px;border:1px solid var(--ink-2);background:transparent;color:var(--ink);font:500 14px var(--body);cursor:pointer;border-radius:0;} .ds-chip:hover{border-color:var(--ink);} .ds-chip[aria-pressed=\"true\"]{background:var(--green);color:var(--on-dark);border-color:var(--green);} .ds-chip:focus-visible{outline:2px solid var(--green);outline-offset:3px;}"
     },
     {
       "name": "Email Field",
       "kind": "input",
-      "refersTo": "input-field",
-      "description": "Newsletter field: 1.5px ink stroke joined to a primary Subscribe button.",
-      "html": "<form class=\"ds-news\"><label for=\"ds-em\">Email</label><input id=\"ds-em\" type=\"email\" placeholder=\"you@example.com\"><button type=\"button\">Subscribe</button></form>",
-      "css": ".ds-news{display:grid;grid-template-columns:minmax(0,1fr) auto;font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);max-width:420px;} .ds-news label{grid-column:1/-1;font-weight:600;font-size:14px;margin-bottom:8px;color:var(--ink, #15171C);} .ds-news input{height:52px;border:1.5px solid var(--ink, #15171C);border-right:0;padding:0 16px;background:var(--paper, #FFFFFF);color:var(--ink, #15171C);font:400 16px var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);border-radius:0;min-width:0;} .ds-news input::placeholder{color:var(--pencil, #555B66);} .ds-news input:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-news button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;min-height:52px;} .ds-news button:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);}"
+      "refersTo": "text-input",
+      "description": "Square ink-stroked input butted against its button.",
+      "html": "<form class=\"ds-news\"><label for=\"ds-e\">Email</label><input id=\"ds-e\" type=\"email\" placeholder=\"you@example.com\"><button class=\"ds-btn\" type=\"button\">Subscribe</button></form>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:0 26px;border:1.5px solid var(--green);background:var(--green);color:var(--on-dark);font:600 14px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:0;transition:background .25s ease,color .25s ease,border-color .25s ease;} .ds-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-arrow{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-btn:hover .ds-arrow{transform:translateX(4px);} .ds-news{display:grid;grid-template-columns:minmax(0,1fr) auto;font-family:var(--body);color:var(--ink);} .ds-news label{grid-column:1/-1;font-weight:600;font-size:14px;margin-bottom:8px;} .ds-news input{height:52px;border:1.5px solid var(--ink);border-right:0;padding:0 16px;background:var(--bone-hi);border-radius:0;font:inherit;min-width:0;} .ds-news input::placeholder{color:var(--ink-2);} .ds-news input:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-news .ds-btn{min-height:52px;} .ds-btn:hover{background:var(--green-deep);border-color:var(--green-deep);}"
     },
     {
-      "name": "Header Navigation",
+      "name": "Header",
       "kind": "nav",
-      "description": "Sticky white header with hairline bottom, inline menu, ink underline on hover and current, blue icon hover, square blue cart count.",
-      "html": "<header class=\"ds-nav\"><strong class=\"ds-logo\">MINDS</strong><nav><a href=\"#\" aria-current=\"page\">New arrivals</a><a href=\"#\">Shop all</a><a href=\"#\">Caps</a><a href=\"#\">Stores</a></nav><button class=\"ds-icon\" aria-label=\"Cart, 2 items\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 8h14l-1 12H6L5 8Z\"/><path d=\"M9 8V6.5a3 3 0 0 1 6 0V8\"/></svg><span class=\"ds-count\">2</span></button></header>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:40px;min-height:72px;padding:0 32px;background:var(--paper, #FFFFFF);border-bottom:1px solid var(--rule, #D6DAE1);color:var(--ink, #15171C);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);} .ds-logo{font:700 26px/1 var(--display, 'Oswald', 'Arial Narrow', sans-serif);letter-spacing:.01em;} .ds-nav nav{display:flex;gap:28px;flex:1;} .ds-nav nav a{color:inherit;text-decoration:none;font-weight:500;font-size:15px;padding:8px 0;border-bottom:1.5px solid transparent;} .ds-nav nav a:hover,.ds-nav nav a[aria-current=\"page\"]{border-bottom-color:var(--ink, #15171C);} .ds-nav a:focus-visible,.ds-icon:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} .ds-icon{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;background:none;border:0;color:inherit;cursor:pointer;} .ds-icon:hover{color:var(--pen, #2741C2);} .ds-count{position:absolute;top:6px;right:4px;min-width:18px;height:18px;padding:0 5px;border-radius:0;background:var(--pen, #2741C2);color:#FFFFFF;font:600 11px/18px var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);text-align:center;}"
+      "refersTo": "header",
+      "description": "Forest pickup bar over a sticky bone header with inline links.",
+      "html": "<div class=\"ds-ann\">Order online, pick up at The Florida Mall. <a href=\"#\">Store hours</a></div><header class=\"ds-hdr\"><strong class=\"ds-logo\">MINDS</strong><nav><a href=\"#\" aria-current=\"page\">New arrivals</a><a href=\"#\">Shop all</a><a href=\"#\">Caps</a><a href=\"#\">Stores</a></nav></header>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-ann{background:var(--green);color:var(--on-dark);font:400 13px/1.55 var(--body);letter-spacing:.02em;text-align:center;padding:9px 16px;} .ds-ann a{color:inherit;font-weight:600;} .ds-hdr{display:flex;align-items:center;gap:44px;min-height:70px;padding:0 32px;background:var(--bone);border-bottom:1px solid var(--rule);color:var(--ink);font-family:var(--body);} .ds-logo{font:900 30px/1 var(--display);letter-spacing:.01em;} .ds-hdr nav{display:flex;gap:30px;} .ds-hdr a{color:inherit;text-decoration:none;font-weight:500;font-size:15px;padding:8px 0;border-bottom:1.5px solid transparent;} .ds-hdr nav a:hover,.ds-hdr nav a[aria-current=\"page\"]{border-bottom-color:var(--green);} .ds-hdr a:focus-visible{outline:2px solid var(--green);outline-offset:3px;}"
     },
     {
-      "name": "Mantra Band",
-      "kind": "custom",
-      "description": "The brand line in ballpoint-blue Oswald at display size on white, under one hairline.",
-      "html": "<section class=\"ds-mantra\"><p>Reset your mindset, focus on your vision and the world will be yours.</p></section>",
-      "css": ".ds-mantra{padding:80px 32px;border-top:1px solid var(--rule, #D6DAE1);background:var(--paper, #FFFFFF);} .ds-mantra p{margin:0;font:700 clamp(38px,6.6vw,92px)/.98 var(--display, 'Oswald', 'Arial Narrow', sans-serif);text-transform:uppercase;color:var(--pen, #2741C2);letter-spacing:0;max-width:14ch;text-wrap:balance;}"
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "product-tile",
+      "description": "Stone 4:5 tile with an alpha cut-out casting a studio shadow; name and price on one row.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-tile\"><span class=\"ds-flat\"></span></span><span class=\"ds-row\"><span>Legacy Croc Jacket</span><span>$180</span></span><span class=\"ds-c\">Black</span></a>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-card{display:grid;gap:14px;width:240px;text-decoration:none;color:var(--ink);font-family:var(--body);} .ds-tile{position:relative;aspect-ratio:4/5;background:var(--stone);overflow:hidden;display:block;} .ds-flat{position:absolute;inset:11%;background:var(--night);clip-path:polygon(22% 4%,78% 4%,96% 30%,84% 38%,80% 96%,20% 96%,16% 38%,4% 30%);filter:drop-shadow(0 16px 18px rgba(23,22,19,.14));transition:transform .8s var(--ease);} .ds-card:hover .ds-flat{transform:scale(1.035);} .ds-row{display:flex;justify-content:space-between;gap:12px;font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;} .ds-card:hover .ds-row span:first-child{text-decoration:underline;text-underline-offset:3px;} .ds-c{font-size:14px;color:var(--ink-2);margin-top:-12px;} .ds-card:focus-visible{outline:2px solid var(--green);outline-offset:3px;}"
     },
     {
-      "name": "Cart Drawer",
+      "name": "Shop by Piece Panel",
       "kind": "custom",
-      "description": "Right-hand sheet carrying the system's only shadow; slides in 24px.",
-      "html": "<aside class=\"ds-cart\"><div class=\"ds-cart-top\"><h2>Your bag</h2></div><div class=\"ds-cart-foot\"><div class=\"ds-sum\"><span>Subtotal</span><span>$120.00</span></div><button class=\"ds-cart-btn\" type=\"button\">Checkout</button></div></aside>",
-      "css": ".ds-cart{width:340px;background:var(--paper, #FFFFFF);color:var(--ink, #15171C);box-shadow:-12px 0 40px rgba(21,23,28,.12);font-family:var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);animation:ds-slide .35s cubic-bezier(.2,.8,.2,1);} @keyframes ds-slide{from{transform:translateX(24px);opacity:.6;}to{transform:none;opacity:1;}} .ds-cart-top{padding:16px 24px;border-bottom:1px solid var(--rule, #D6DAE1);} .ds-cart-top h2{margin:0;font:700 26px/1 var(--display, 'Oswald', 'Arial Narrow', sans-serif);text-transform:uppercase;letter-spacing:.01em;} .ds-cart-foot{padding:20px 24px 24px;display:grid;gap:14px;} .ds-sum{display:flex;justify-content:space-between;font-weight:600;font-variant-numeric:tabular-nums;} .ds-cart-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border:1.5px solid var(--pen, #2741C2);background:var(--pen, #2741C2);color:#FFFFFF;font:600 14px/1 var(--body, 'Archivo', 'Helvetica Neue', Arial, sans-serif);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:0;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease;width:100%;} .ds-cart-btn:hover{background:var(--pen-deep, #1C2F94);border-color:var(--pen-deep, #1C2F94);} .ds-cart-btn:focus-visible{outline:2px solid var(--pen, #2741C2);outline-offset:3px;} @media (prefers-reduced-motion: reduce){.ds-cart{animation:none;}}"
+      "refersTo": "piece-panel",
+      "description": "Full-bleed colour-block with the label, count and arrow laid over it.",
+      "html": "<div class=\"ds-pieces\"><a class=\"ds-piece ds-green\" href=\"#\"><span class=\"ds-lab\"><span><span class=\"ds-h\">Shorts</span><span class=\"ds-n\">9 styles</span></span><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></span></a><a class=\"ds-piece ds-satin\" href=\"#\"><span class=\"ds-lab\"><span><span class=\"ds-h\">Caps</span><span class=\"ds-n\">5 styles</span></span><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></span></a></div>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-pieces{display:grid;grid-template-columns:repeat(2,200px);} .ds-piece{position:relative;aspect-ratio:3/4;display:block;text-decoration:none;font-family:var(--body);} .ds-green{background:var(--green);color:var(--on-dark);} .ds-satin{background:var(--satin);color:var(--ink);} .ds-lab{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;padding:18px;} .ds-h{display:block;font:900 40px/.88 var(--display);text-transform:uppercase;} .ds-n{display:block;font-size:13px;margin-top:8px;letter-spacing:.02em;} .ds-arrow{width:28px;height:28px;margin-bottom:4px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-piece:hover .ds-arrow{transform:translateX(4px);} .ds-piece:focus-visible{outline:2px solid var(--ink);outline-offset:-4px;}"
+    },
+    {
+      "name": "Ruled Store Row",
+      "kind": "custom",
+      "refersTo": "store-list",
+      "description": "Display-capital city, place, tabular hours and an arrowed Directions action between hairlines.",
+      "html": "<ul class=\"ds-stores\"><li><a href=\"#\"><span class=\"ds-city\">Kissimmee</span><span class=\"ds-place\">Plaza del Sol</span><span class=\"ds-hrs\"><span>Mon to Sat 10:00am to 8:00pm</span> · <span>Sun 11:00am to 7:00pm</span></span><span class=\"ds-go\">Directions <svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></span></a></li></ul>",
+      "css": ":host{--bone:#ECE8E1;--bone-hi:#F6F3EE;--stone:#DCD6CB;--rule:#CDC6B9;--ink:#171613;--ink-2:#514E47;--green:#1F3D2B;--green-deep:#142A1D;--satin:#6E9456;--night:#0F1912;--on-dark:#F2EEE6;--on-dark-2:#B9B6AC;--display:\"Big Shoulders Display\",\"Arial Narrow\",\"Helvetica Neue\",sans-serif;--body:\"Archivo\",\"Helvetica Neue\",Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);} .ds-stores{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);font-family:var(--body);color:var(--ink);} .ds-stores a{display:grid;grid-template-columns:1fr 1fr 1.4fr auto;gap:8px 24px;align-items:center;padding:22px 8px;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit;transition:background .25s ease;} .ds-stores a:hover{background:var(--bone-hi);} .ds-stores a:focus-visible{outline:2px solid var(--green);outline-offset:3px;} .ds-city{font:900 40px/.9 var(--display);text-transform:uppercase;} .ds-place{color:var(--ink-2);} .ds-hrs{font-variant-numeric:tabular-nums;} .ds-hrs span{white-space:nowrap;} .ds-go{display:inline-flex;gap:10px;align-items:center;font:600 13px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;} .ds-arrow{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease);} .ds-stores a:hover .ds-arrow{transform:translateX(4px);}"
     }
   ],
   "narrative": {
-    "northStar": "The Mindset Journal",
-    "overview": "The storefront is MINDS's own notebook. Every surface is a plain white page written in graphite ink, divided by hairline rules, with one ballpoint blue that appears only where the visitor can act, plus once at full size for the mantra. The clothes carry the brand; the page stays quiet around them. Headings are set in bold, uppercase Oswald so they echo the condensed logo. Reading text is set in Archivo.\n\nDensity is that of a well-kept retail page: 4-up product grids on desktop, 2-up on phones, generous section spacing, and images sitting in white, hairline-bordered wells. The world is flat. Depth comes from rules and from the photography, never from cards lifting off the page. The single shadow in the system belongs to the cart drawer, the one surface that genuinely slides over the page.\n\nThe system was built to be carried by Shopify's Spotlight 13 theme settings: color schemes, the Shopify font library (Oswald and Archivo), square buttons and cards, and section dividers. Each section below notes the Spotlight setting a token maps to where one exists, and says so plainly where one does not.",
+    "northStar": "The Campaign Studio",
+    "overview": "MINDS is shown the way a label shows a season: campaign photography and tall condensed capitals carry the page, the clothes sit on warm studio stone, and the brand mantra runs from the hero to the footer. The page itself is a warm bone ground, quiet enough that the product reads first. Depth comes from the clothes (alpha cut-outs throwing a soft studio shadow onto stone), not from interface chrome.\n\nRhythm alternates between the light studio and cinematic dark bands. A deep forest-green split hero opens the page, product tiles sit on bone, a full-bleed row of colour-blocked \"Shop by piece\" panels breaks the grid, a green-black campaign band frames on-model photography, and a green-black footer closes the mantra in giant type. One-sentence interludes in large Archivo sit between sections as breaths. Everything is square-cornered and ruled with hairlines; actions are uppercase labels in solid or outline buttons, with an arrow wherever the action moves you somewhere.\n\nThe system refuses the stock streetwear grid: a black hero with a centred outline button, followed by equal white cards. Green is the only accent and is never used as a decorative tint.",
     "keyCharacteristics": [
-      "White paper (#FFFFFF) and graphite ink (#15171C), with ballpoint blue (#2741C2) reserved for actions, focus and the mantra.",
-      "Oswald 700 uppercase for every heading; Archivo 400 to 600 for everything read.",
-      "1px graphite hairlines (#D6DAE1) separate sections, rows and image wells.",
-      "Square corners everywhere (0px), including badges and the cart count.",
-      "Flat surfaces; one drawer shadow.",
-      "Motion is one calm route fade, a hover swap to the second product image, and nothing under reduced motion."
+      "Warm bone page (`bone`) with stone product tiles (`stone`) and near-black ink.",
+      "MINDS campaign green as the one accent: forest `green` for actions, bars and bands, `satin` only as a colour-block.",
+      "Green-black (`night`) for cinematic bands and the footer.",
+      "Big Shoulders Display 900, uppercase and tightly leaded, for every heading; Archivo for reading and labels.",
+      "Square corners everywhere; 1px hairline rules and 1.5px ink or green strokes.",
+      "Product flats are alpha cut-outs with a soft drop-shadow on stone; on-model photos are multiplied onto stone.",
+      "The mantra split in three: hero, campaign band, footer."
     ],
     "rules": [
       {
-        "name": "The Ballpoint Rule",
-        "body": "Blue marks what can be done: a button, a focus ring, a hover, the cart count, and the store icon on the pickup line (the in-store action). Its one non-action use is the mantra. If a blue element is neither an action, a pointer to one, nor the mantra, it is wrong.",
+        "name": "The One Accent Rule",
+        "body": "Green is the only hue. Forest carries actions and bands; satin appears only as a whole colour-block panel; green-black is a ground. No other accent colour enters the system.",
         "section": "colors"
       },
       {
-        "name": "The Graphite Hairline Rule",
-        "body": "Sections, rows and wells are separated by 1px rule lines, not by alternating fills. A section that needs separation gets a top hairline on white.",
+        "name": "The Stone Tile Rule",
+        "body": "Product imagery always sits on `stone`, never on the bone page directly and never on white.",
         "section": "colors"
       },
       {
-        "name": "The Logo Voice Rule",
-        "body": "Every heading is Oswald 700 uppercase. Nothing read at length (descriptions, hours, notes) is ever set in Oswald.",
+        "name": "The Capitals Rule",
+        "body": "Every h1, h2 and h3 is Big Shoulders Display 900, uppercase, balanced, with line-height under 0.9. Body copy is never set in the display face.",
         "section": "typography"
       },
       {
         "name": "The Tabular Price Rule",
-        "body": "Prices, counts, hours and phone numbers use tabular figures so columns of numbers line up.",
+        "body": "Prices, counts, hours and phone numbers use tabular figures.",
         "section": "typography"
       },
       {
-        "name": "The One Shadow Rule",
-        "body": "Cards, buttons, dialogs, the sticky header and the toast stay flat. Only the cart drawer casts a shadow. Spotlight: buttons, cards, inputs, pills and popups all at shadow opacity 0.",
+        "name": "The Full-Bleed Break Rule",
+        "body": "The contained grid is interrupted only by full-bleed bands of photography or solid colour, never by inset cards with margins.",
+        "section": "layout"
+      },
+      {
+        "name": "The Product Casts the Shadow Rule",
+        "body": "Cards, buttons and panels never carry a box-shadow. Depth comes from the cut-out's drop-shadow, the bone-light surface and its 1px rule.",
         "section": "elevation"
       },
       {
-        "name": "The Square Page Rule",
-        "body": "Nothing on the page is rounded. Curves belong only inside icon drawings and photography.",
+        "name": "The Multiply Rule",
+        "body": "On-model photographs on stone use `mix-blend-mode: multiply`, cover-fit and no padding; alpha flats use contain-fit with 11% padding (12% on the feature tile) and the studio cast.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Corner Rule",
+        "body": "Border-radius is zero on every component.",
         "section": "shapes"
       }
     ],
     "dos": [
-      "**Do** keep ballpoint blue (#2741C2) for pressable things, focus, hover and the mantra, and nowhere else.",
-      "**Do** separate sections with a 1px hairline (#D6DAE1) on white rather than alternating background fills.",
-      "**Do** set every heading in Oswald 700 uppercase and every reading line in Archivo.",
-      "**Do** keep all corners at 0px, including badges, pills and the cart count.",
-      "**Do** pair one solid primary with at most one ghost button in any button group.",
-      "**Do** contain packshots at 8% padding inside white 4:5 hairline wells, and let model and campaign photos fill their frames.",
-      "**Do** give text fields a 1.5px ink stroke so the field edge reads at full contrast.",
-      "**Do** stop every animation and transition under prefers-reduced-motion.",
-      "**Do** apply uppercase headings, label tracking and the mantra's measure through the theme editor's Custom CSS field when Spotlight has no setting for them, and note each such rule for the owner."
+      "**Do** put every product image on a `stone` tile: alpha flats contain-fit with the studio drop-shadow, on-model photos multiplied and cover-fit.",
+      "**Do** set all headings in Big Shoulders Display 900 uppercase with line-height 0.84 to 0.9.",
+      "**Do** keep forest green for actions, bars and bands; use satin only as a full colour-block with ink text.",
+      "**Do** alternate the bone studio with full-bleed green or green-black bands, and close every page with the green-black footer.",
+      "**Do** show the name and price on one row, with tabular figures.",
+      "**Do** end any link that moves you elsewhere with the line arrow.",
+      "**Do** use 1px `rule` hairlines to divide lists, accordions and surfaces, and a 1px ink top rule to open a ruled list."
     ],
     "donts": [
-      "**Don't** add shadows to cards, buttons, dialogs or the header; the cart drawer's is the only one.",
-      "**Don't** use blue as a decorative fill, a section background, or for headings and running text other than the mantra.",
-      "**Don't** round any surface corner.",
-      "**Don't** use Oswald for descriptions, hours or notes.",
-      "**Don't** rely on a hairline (#D6DAE1) as the only visible edge of a text field or select."
+      "**Don't** round corners on any component.",
+      "**Don't** add box-shadows to cards, buttons or panels; the product casts the shadow.",
+      "**Don't** introduce a second accent hue or tint the page with green.",
+      "**Don't** place product flats on white or directly on the bone page.",
+      "**Don't** build the stock streetwear grid: a black hero with a centred outline button followed by equal white cards.",
+      "**Don't** set body copy, prices or instructions in the display face."
     ]
   }
 }

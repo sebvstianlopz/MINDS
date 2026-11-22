@@ -7,7 +7,7 @@
 web
 
 ## Stack
-Shopify, on the free "Spotlight" theme (v13.0.1). Live at https://mindsstreet.com. The store owner applies all changes through the Shopify admin. This project delivers design direction, mockups and admin instructions only, **not theme code**. Everything proposed has to be possible with Spotlight's built-in sections and settings, Shopify's free apps and fonts from Shopify's font library.
+Shopify, on the free "Spotlight" theme (v13.0.1). Live at https://mindsstreet.com. The store owner applies all changes through the Shopify admin. The live store is not edited from this project. Since 22 Nov the owner has chosen "Design freely" for the redesign prototype (`prototype/`): it doesn't have to fit Spotlight's built-in settings, and `DESIGN.md` lists which parts would need custom theme code when MINDS moves it to Shopify.
 
 ## Users
 Mainly local Orlando youth, roughly 16–30. They follow MINDS on Instagram and TikTok, check the site when something new drops, and either buy online or go to the store to see it and try it on.
@@ -29,7 +29,7 @@ MINDS is its own label. Every piece is designed by MINDS and sold in MINDS store
 - **Language:** the site is English only, and the Spanish version is to be unpublished.
 - **Releases:** they aren't named. Use "New Season" / "New Arrivals".
 - **Catalog:** cargo pants and shorts, tops, shorts, outerwear and studded "Orbit" pieces, priced roughly $75–$300.
-- **No custom code.** The constraints in `## Stack` apply to everything proposed.
+- **Custom code:** allowed for the redesign, per the owner's 22 Nov "Design freely" choice. `DESIGN.md` lists which parts need it, so the owner can decide what to build.
 - **Hostinger:** never use the Hostinger connection; it belongs to an unrelated client.
 
 ## Brand Commitments
