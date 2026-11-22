@@ -175,7 +175,7 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 /* Campaign band */
 .dark { background: var(--night); color: var(--on-dark); }
 .campaign { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-.campaign figure { margin: 0; position: relative; min-height: clamp(560px, 52vw, 760px); overflow: hidden; }
+.campaign figure { margin: 0; position: relative; min-height: clamp(560px, 52vw, 760px); overflow: hidden; border: clamp(12px, 1.4vw, 20px) solid var(--night); border-right: 0; }
 .campaign figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; }
 .campaign .copy { display: grid; gap: 24px; align-content: end; padding: clamp(40px, 6vw, 96px) var(--gr) clamp(40px, 6vw, 96px) clamp(28px, 5vw, 80px); max-width: 640px; }
 .campaign h2 { font-size: clamp(56px, 7vw, 96px); }
@@ -186,7 +186,7 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .picks .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .picks strong { display: block; font-weight: 600; font-size: 15px; }
 .picks .num { font-size: 14px; color: var(--on-dark-2); }
-@media (max-width: 899px) { .campaign { grid-template-columns: minmax(0, 1fr); } .campaign figure { min-height: 0; aspect-ratio: 4 / 5; } .campaign .copy { padding: 36px var(--gr) 56px var(--gl); } }
+@media (max-width: 899px) { .campaign { grid-template-columns: minmax(0, 1fr); } .campaign figure { min-height: 0; aspect-ratio: 4 / 5; border-right: clamp(12px, 1.4vw, 20px) solid var(--night); border-bottom: 0; } .campaign .copy { padding: 36px var(--gr) 56px var(--gl); } }
 
 /* Visit */
 .visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--bone-hi); }
@@ -206,6 +206,8 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .stores .city { font: 900 clamp(32px, 3.4vw, 48px)/.9 var(--display); text-transform: uppercase; }
 .stores .go { display: inline-flex; gap: 10px; align-items: center; font: 600 13px/1 var(--body); letter-spacing: .07em; text-transform: uppercase; }
 @media (max-width: 749px) { .stores li a { grid-template-columns: minmax(0, 1fr) auto; } .stores .place, .stores .hrs { grid-column: 1; font-size: 14px; } .stores .go { grid-column: 2; grid-row: 1; } }
+
+.stores .nw { white-space: nowrap; }
 
 /* Newsletter */
 .news { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; }
@@ -549,7 +551,7 @@ main { animation: in .45s var(--ease); }
     '</section>';
   }
   function storesBlock() {
-    const s = (city, place, hours, map) => '<li><a href="' + map + '"><span class="city">' + city + '</span><span class="place muted">' + place + '</span><span class="hrs num">' + hours + '</span><span class="go">Directions ' + arrow() + '</span></a></li>';
+    const s = (city, place, hours, map) => '<li><a href="' + map + '"><span class="city">' + city + '</span><span class="place muted">' + place + '</span><span class="hrs num">' + hours.split(' · ').map(x => '<span class="nw">' + x + '</span>').join(' · ') + '</span><span class="go">Directions ' + arrow() + '</span></a></li>';
     return '<section class="band" aria-labelledby="sTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="sTitle">More MINDS stores</h2></div>' +
       '<ul class="stores">' +
