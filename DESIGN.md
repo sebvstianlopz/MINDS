@@ -353,6 +353,7 @@ The hero is a pinned frame inside a 250svh scroll runway.
 
 ### Intro Loader (signature)
 A once-per-session intro on the first home-page load. It is adapted from the owner's supplied loader and keeps its line-art brain and layout.
+- **Brain artwork:** traced from the owner-supplied drawing (`redesign/assets/brain-source.webp`, traced with `redesign/assets/brain-trace.py`), with the background mesh left out. It has two layers. The first is 241 centreline strokes (bone, about 6.6 units wide, round caps) that draw themselves outside-in over about 1.2s. The second is a filled "ink" copy of the exact strokes, which crossfades in at 1.12s so the settled brain matches the drawing. The window is the brain's symmetric silhouette, and the zoom scale uses its inscribed radius (`data-r`).
 - **Opt-in:** a tiny inline script adds `html.intro-on` only when the session flag is unset and the entry route is home, so with no JS there is never an overlay. Opening the page with `#intro` always plays it, on every refresh, which is handy for reviewing.
 - **Draw:** on a green-black ground, the eight bone brain strokes draw on with `stroke-dashoffset` (70ms stagger, 0.52s each). The MINDS letters (Big Shoulders 900) rise masked, "Reset your mindset" fades in, and a "Tap anywhere to enter" hint follows.
 - **Open:** at about 1.6s, or once the hero photo is decoded and the fonts are ready (capped at 3.6s, with the brain breathing while it waits), the letters fall away and the brain's interior opens. A brain-shaped hole in an SVG mask reveals the hero photo inside it.
