@@ -103,14 +103,14 @@ nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: var(--g
 .hero figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
 @media (max-width: 899px) {
   .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-  .hero figure { order: -1; aspect-ratio: 4 / 5; }
+  .hero figure { order: -1; height: min(44svh, 440px); }
   .hero .panel { padding: 32px var(--gr) 40px var(--gl); }
   .ctas .btn { flex: 1 1 200px; }
 }
 
 /* Interlude */
-.interlude { padding-block: clamp(56px, 7vw, 96px); text-align: center; }
-.interlude p { font-size: clamp(19px, 1.8vw, 24px); font-weight: 500; max-width: 32ch; margin: 0 auto; text-wrap: balance; }
+.interlude { padding-block: clamp(88px, 12vw, 176px); text-align: center; }
+.interlude p { font-size: clamp(28px, 3.6vw, 52px); font-weight: 500; line-height: 1.12; letter-spacing: -.015em; max-width: 20ch; margin: 0 auto; text-wrap: balance; }
 
 /* Section heads */
 section.band { padding-block: var(--section); }
@@ -174,23 +174,24 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 
 /* Campaign band */
 .dark { background: var(--night); color: var(--on-dark); }
-.campaign { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: end; }
+.campaign { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.campaign figure { margin: 0; position: relative; min-height: clamp(560px, 52vw, 760px); overflow: hidden; }
+.campaign figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; }
+.campaign .copy { display: grid; gap: 24px; align-content: end; padding: clamp(40px, 6vw, 96px) var(--gr) clamp(40px, 6vw, 96px) clamp(28px, 5vw, 80px); max-width: 640px; }
 .campaign h2 { font-size: clamp(56px, 7vw, 96px); }
-.campaign .copy { display: grid; gap: 24px; padding-bottom: 12px; }
-.campaign .copy p { color: var(--on-dark-2); font-size: 17px; max-width: 38ch; }
-.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
-.shot { display: grid; gap: 12px; text-decoration: none; }
-.shot:nth-child(2) { margin-top: clamp(32px, 6vw, 96px); }
-.shot .ph { aspect-ratio: 3 / 4; overflow: hidden; background: var(--green); }
-.shot .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
-.shot:hover .ph img { transform: scale(1.035); }
-.shot .row { display: flex; justify-content: space-between; font-weight: 600; font-size: 15px; }
-@media (max-width: 899px) { .campaign { grid-template-columns: minmax(0, 1fr); } .shots { gap: 10px; } }
+.campaign .copy > p { color: var(--on-dark-2); font-size: 17px; max-width: 38ch; }
+.picks { display: grid; border-top: 1px solid rgba(242, 238, 230, .22); margin-top: 12px; }
+.picks a { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(242, 238, 230, .22); text-decoration: none; }
+.picks .ph { width: 56px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--stone); position: relative; }
+.picks .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.picks strong { display: block; font-weight: 600; font-size: 15px; }
+.picks .num { font-size: 14px; color: var(--on-dark-2); }
+@media (max-width: 899px) { .campaign { grid-template-columns: minmax(0, 1fr); } .campaign figure { min-height: 0; aspect-ratio: 4 / 5; } .campaign .copy { padding: 36px var(--gr) 56px var(--gl); } }
 
 /* Visit */
 .visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--bone-hi); }
 .visit figure { margin: 0; min-height: 560px; position: relative; overflow: hidden; }
-.visit figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.visit figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
 .visit .info { padding: clamp(32px, 6vw, 96px) var(--gr) clamp(32px, 6vw, 96px) clamp(24px, 5vw, 80px); display: grid; gap: 24px; align-content: center; max-width: 640px; }
 .visit h2 { font-size: clamp(52px, 6vw, 88px); }
 .visit .info > p { font-size: 17px; max-width: 42ch; }
@@ -276,6 +277,8 @@ details > div { padding-bottom: 18px; font-size: 15px; color: var(--ink-2); disp
   .gallery .main, .thumbs .t { flex: 0 0 78%; height: min(36svh, 320px); aspect-ratio: auto; scroll-snap-align: start; }
   .thumbs { display: contents; }
   .thumbs button.t { pointer-events: none; }
+  .thumbs button.t:first-child { display: none; }
+  .thumbs button.t[aria-current="true"] { border-color: transparent; }
 }
 
 /* Dialog + bag */
@@ -296,6 +299,7 @@ dialog h2 { font-size: 44px; }
 .line { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: start; }
 .line .th { width: 84px; aspect-ratio: 4 / 5; background: var(--stone); position: relative; overflow: hidden; }
 .line .th img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+.line .th img.model { object-fit: cover; padding: 0; }
 .line .t { font-weight: 600; font-size: 14px; }
 .line .c { font-size: 13px; color: var(--ink-2); }
 .line .rm { margin-top: 8px; }
@@ -514,15 +518,16 @@ main { animation: in .45s var(--ease); }
         '<a class="link" href="#p-' + jacket.h + '" style="justify-self:start">Full details ' + arrow() + '</a>' +
       '</form>' +
     '</div></section>' +
-    '<section class="band dark" aria-labelledby="cpTitle"><div class="wrap campaign">' +
+    '<section class="campaign dark" aria-labelledby="cpTitle">' +
+      '<figure><img src="img/minds-femme-noir-top-2-0.webp" alt="Model wearing the black Femme Noir top" loading="lazy" width="720" height="900"></figure>' +
       '<div class="copy"><h2 id="cpTitle">Focus on your vision.</h2>' +
         '<p>Femme Noir: a stretch top and short in black and sky blue, $75 each. Built to wear together.</p>' +
-        '<div class="ctas"><a class="btn light" href="#p-minds-noir-femme-top">Shop Femme Noir</a></div></div>' +
-      '<div class="shots">' +
-        '<a class="shot" href="#p-minds-noir-femme-top"><div class="ph"><img src="img/minds-noir-femme-top-0.webp" alt="Model wearing the Femme Noir top and short in black" loading="lazy" width="720" height="900"></div><p class="row"><span>Femme Noir Top</span><span class="num">$75</span></p></a>' +
-        '<a class="shot" href="#p-minds-femme-noir-top-2"><div class="ph"><img src="img/minds-femme-noir-top-2-0.webp" alt="Model wearing the Femme Noir top with track pants" loading="lazy" width="720" height="900"></div><p class="row"><span>Femme Noir Short</span><span class="num">$75</span></p></a>' +
-      '</div>' +
-    '</div></section>' +
+        '<div class="ctas"><a class="btn light" href="#p-minds-noir-femme-top">Shop Femme Noir</a></div>' +
+        '<div class="picks">' +
+          '<a href="#p-minds-noir-femme-top"><span class="ph"><img src="img/minds-noir-femme-top-0.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Top</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
+          '<a href="#p-minds-femme-noir-top-2"><span class="ph"><img src="img/minds-femme-noir-top-2-1.webp" alt="" loading="lazy" width="120" height="150"></span><span><strong>Femme Noir Short</strong><span class="num">Black · $75</span></span>' + arrow() + '</a>' +
+        '</div></div>' +
+    '</section>' +
     visitBlock() +
     storesBlock() +
     newsBlock();
@@ -548,10 +553,10 @@ main { animation: in .45s var(--ease); }
     return '<section class="band" aria-labelledby="sTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="sTitle">More MINDS stores</h2></div>' +
       '<ul class="stores">' +
-        s("Kissimmee", "Plaza del Sol", "Mon to Sat 10am to 8pm · Sun 11am to 7pm", MAPS.kis) +
-        s("Miami", "Miami International Mall", "Mon to Sat 10am to 9pm · Sun 11am to 7pm", MAPS.mia) +
+        s("Kissimmee", "Plaza del Sol", "Mon to Sat 10:00am to 8:00pm · Sun 11:00am to 7:00pm", MAPS.kis) +
+        s("Miami", "Miami International Mall", "Mon to Sat 10:00am to 9:00pm · Sun 11:00am to 7:00pm", MAPS.mia) +
         s("Wynwood", "Miami", "Hours on Google Maps", MAPS.wyn) +
-        s("San Juan", "Plaza las Américas, Puerto Rico", "Mon to Sat 9am to 9pm · Sun 11am to 7pm", MAPS.pr) +
+        s("San Juan", "Plaza las Américas, Puerto Rico", "Mon to Sat 9:00am to 9:00pm · Sun 11:00am to 7:00pm", MAPS.pr) +
       '</ul></div></section>';
   }
   function newsBlock() {
@@ -627,7 +632,7 @@ main { animation: in .45s var(--ease); }
       items.innerHTML = '<div class="empty"><p style="font-weight:600">Your bag is empty</p><p class="muted">New arrivals are a good place to start.</p><a class="btn ghost" href="#new" data-act="cart-close">Shop new arrivals</a></div>';
       foot.innerHTML = ""; return;
     }
-    items.innerHTML = bag.map((l, i) => { const p = byH[l.h]; return '<div class="line"><div class="th"><img src="' + img(p.h) + '" alt=""></div><div><p class="t">' + p.name + '</p><p class="c">' + p.color + ' · ' + l.size + (l.qty > 1 ? ' · Qty ' + l.qty : "") + '</p><button class="textbtn rm" type="button" data-rm="' + i + '">Remove</button></div><p class="num">' + money(p.price * l.qty) + '</p></div>'; }).join("");
+    items.innerHTML = bag.map((l, i) => { const p = byH[l.h]; return '<div class="line"><div class="th"><img' + (p.model ? ' class="model"' : '') + ' src="' + img(p.h) + '" alt=""></div><div><p class="t">' + p.name + '</p><p class="c">' + p.color + ' · ' + l.size + (l.qty > 1 ? ' · Qty ' + l.qty : "") + '</p><button class="textbtn rm" type="button" data-rm="' + i + '">Remove</button></div><p class="num">' + money(p.price * l.qty) + '</p></div>'; }).join("");
     const total = bag.reduce((a, l) => a + byH[l.h].price * l.qty, 0);
     foot.innerHTML = '<div class="sum num"><span>Subtotal</span><span>' + money(total) + '</span></div>' +
       '<p class="pickup" style="margin:0">' + ico("store") + '<span>Choose <strong>pickup at MINDS Orlando</strong> or shipping at checkout.</span></p>' +
