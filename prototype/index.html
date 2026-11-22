@@ -157,12 +157,13 @@ section.band { padding-block: var(--section); }
 /* Shop by piece */
 .pieces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 @media (max-width: 899px) { .pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.piece { position: relative; aspect-ratio: 3 / 4; overflow: hidden; text-decoration: none; display: block; transition: filter .45s ease; }
-.piece::after { content: ""; position: absolute; inset: 0; z-index: 3; background: var(--bone); transform: scaleY(0); transform-origin: top; transition: transform .95s var(--ease) calc(var(--i, 0) * 120ms); pointer-events: none; }
-.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%) translate(var(--lx, 0px), var(--ly, 0px)); transition: transform .6s var(--ease), scale .9s var(--ease), rotate .6s var(--ease), filter .6s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
+.piece { position: relative; aspect-ratio: 3 / 4; overflow: hidden; text-decoration: none; display: block; }
+.piece .pdim { position: absolute; inset: 0; z-index: 2; background: var(--night); opacity: 0; transition: opacity .45s ease; pointer-events: none; }
+.piece::after { content: ""; position: absolute; inset: 0; z-index: 3; background: var(--bone); transform: scaleY(0); transform-origin: top; transition: transform .85s var(--ease) calc(var(--i, 0) * 90ms); pointer-events: none; }
+.piece img { position: absolute; left: 50%; top: 44%; width: 66%; height: 60%; object-fit: contain; transform: translate(-50%, -50%) translate(var(--lx, 0px), var(--ly, 0px)); transition: transform .6s var(--ease), scale .9s var(--ease), rotate .6s var(--ease); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18)); }
 @media (hover: hover) {
-  .piece:hover img { scale: 1.06; rotate: -2deg; filter: drop-shadow(0 32px 34px rgba(0, 0, 0, .26)); }
-  .pieces:hover .piece:not(:hover) { filter: brightness(.82) saturate(.85); }
+  .piece:hover img { scale: 1.06; rotate: -2deg; }
+  .pieces:hover .piece:not(:hover) .pdim { opacity: .22; }
 }
 .piece .lab { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; padding: clamp(16px, 2vw, 28px); }
 .piece h3 { font-size: clamp(36px, 4vw, 60px); }
@@ -231,7 +232,7 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .open-pill:empty { display: none; }
 .open-pill .dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--ink-2); }
 .open-pill.is-open .dot { background: var(--green); }
-.open-pill.is-open .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green); animation: pulse 2s var(--ease) infinite; }
+.open-pill.is-open .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green); animation: pulse 2s var(--ease) 3; }
 @keyframes pulse { from { transform: scale(1); opacity: .55; } to { transform: scale(2.8); opacity: 0; } }
 @keyframes pinDrop { 0% { transform: translateY(0); } 30% { transform: translateY(-5px); } 55% { transform: translateY(0); } 75% { transform: translateY(-2px); } 100% { transform: translateY(0); } }
 .btn:hover .pin { animation: pinDrop .6s var(--ease); }
@@ -249,6 +250,8 @@ fieldset.sizes legend { font-weight: 600; font-size: 14px; padding: 0; margin-bo
 .stores li.rv:not(.in) a::after { transform: scaleX(0); }
 .stores .city { font: 900 clamp(32px, 3.4vw, 48px)/.9 var(--display); text-transform: uppercase; transition: translate .8s var(--ease) calc(var(--i, 0) * 80ms), opacity .8s ease calc(var(--i, 0) * 80ms), transform .45s var(--ease); }
 .stores li.rv:not(.in) .city { translate: -24px 0; opacity: 0; }
+.stores li a > span:not(.city) { transition: opacity .7s ease calc(var(--i, 0) * 80ms + 120ms); }
+.stores li.rv:not(.in) a > span:not(.city) { opacity: 0; }
 .stores li a:hover .city { transform: translateX(8px); }
 .store-peek { position: absolute; left: 0; top: 0; width: 240px; aspect-ratio: 4 / 3; object-fit: cover; pointer-events: none; z-index: 5; opacity: 0; scale: .92; transition: opacity .3s ease, scale .45s var(--ease); box-shadow: 0 24px 48px rgba(15, 25, 18, .22); }
 .store-peek.on { opacity: 1; scale: 1; }
@@ -388,33 +391,35 @@ dialog h2 { font-size: 44px; }
 .rv[data-reveal="rise"]:not(.in) .ri { transform: translateY(108%); }
 [data-reveal="fade"] { transition: opacity .8s var(--ease) var(--d, 0ms), transform .8s var(--ease) var(--d, 0ms); }
 .rv[data-reveal="fade"]:not(.in) { opacity: 0; transform: translateY(14px); }
-.card-wrap[data-reveal] .tile { transition: clip-path .85s var(--ease) calc(var(--i, 0) * 70ms); }
+.card-wrap[data-reveal] .tile { clip-path: inset(0 0 0 0); transition: clip-path .85s var(--ease) calc(var(--i, 0) * 70ms); }
 .card-wrap.rv:not(.in) .tile { clip-path: inset(100% 0 0 0); }
 .card-wrap.rv:not(.in) .tile img { transform: scale(1.08); }
 .card-wrap[data-reveal] .meta { transition: opacity .6s ease calc(var(--i, 0) * 70ms + 280ms); }
 .card-wrap.rv:not(.in) .meta { opacity: 0; }
 .piece.rv:not(.in)::after { transform: scaleY(1); }
-.piece[data-reveal] .lab { transition: transform .7s var(--ease) calc(var(--i, 0) * 120ms + 320ms), opacity .7s ease calc(var(--i, 0) * 120ms + 320ms); }
+.piece[data-reveal] .lab { transition: transform .7s var(--ease) calc(var(--i, 0) * 90ms + 280ms), opacity .7s ease calc(var(--i, 0) * 90ms + 280ms); }
 .piece.rv:not(.in) .lab { transform: translateY(24px); opacity: 0; }
 .picks a.rv:not(.in)::after { transform: scaleX(0); }
 .picks a .ph { transition: opacity .6s ease calc(var(--i, 0) * 90ms + 220ms); }
 .picks a.rv:not(.in) .ph { opacity: 0; }
-body.hdr-hide .filters { top: env(safe-area-inset-top, 0px); }
-body.hdr-hide .buy { top: calc(24px + env(safe-area-inset-top, 0px)); }
-.filters, .buy { transition: top .35s var(--ease); }
+body.hdr-hide .filters { transform: translateY(calc(-1 * var(--hdr))); }
+body.hdr-hide .buy { transform: translateY(-70px); }
+.filters, .buy { transition: transform .35s var(--ease); }
 @media (prefers-reduced-motion: reduce) { .closer { color: var(--on-dark); -webkit-text-stroke: 0; background: none; } }
 
-.feature .tile { transition: clip-path .9s var(--ease); }
+.feature .tile { clip-path: inset(0 0 0 0); transition: clip-path .85s var(--ease); }
 .feature.rv:not(.in) .tile { clip-path: inset(100% 0 0 0); }
 .feature.rv:not(.in) .tile img { transform: scale(1.1); }
 .feature .card-buy { transition: transform .9s var(--ease) .15s, opacity .7s ease .15s; }
 .feature.rv:not(.in) .card-buy { transform: translateY(60px); opacity: 0; }
-.fly { position: fixed; z-index: 120; pointer-events: none; object-fit: contain; background: var(--stone); margin: 0; }
+.fly { position: fixed; z-index: 120; pointer-events: none; object-fit: contain; margin: 0; }
 .count.pop { animation: pop .45s var(--ease); }
 @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
 header.site { view-transition-name: site-header; }
 ::view-transition-group(prod) { animation-duration: .6s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+::view-transition { background: var(--bone); }
+::view-transition-old(root) { animation-duration: .14s; animation-timing-function: ease-out; }
+::view-transition-new(root) { animation-duration: .3s; animation-delay: .08s; animation-fill-mode: both; }
 main { animation: in .45s var(--ease); }
 @keyframes in { from { opacity: .5; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
@@ -651,7 +656,7 @@ main { animation: in .45s var(--ease); }
   }
   function piece(label, file, cls) {
     const n = P.filter(p => p.cat === label).length;
-    return '<a class="piece ' + cls + '" data-reveal="shutter" href="#shop-' + label.toLowerCase() + '"><img src="img/' + file + '.webp" alt="" loading="lazy" width="800" height="800">' +
+    return '<a class="piece ' + cls + '" data-reveal="shutter" href="#shop-' + label.toLowerCase() + '"><span class="pdim" aria-hidden="true"></span><img src="img/' + file + '.webp" alt="" loading="lazy" width="800" height="800">' +
       '<span class="lab"><span><h3>' + label + '</h3><span class="n num">' + n + ' styles</span></span>' + arrow() + '</span></a>';
   }
   function visitBlock() {
@@ -842,7 +847,7 @@ main { animation: in .45s var(--ease); }
     const visitImg = visitFig ? visitFig.querySelector("img") : null;
     if (!pieces.length && !band && !visitFig && !words.length) return null;
     const speeds = [0.9, 0.5, 1.2, 0.7];
-    const BONE = [236, 232, 225], NIGHT = [15, 25, 18];
+    const BONE = [236, 232, 225], MID = [96, 110, 99], NIGHT = [15, 25, 18];
     function tick() {
       if (RM.matches) {
         pieces.forEach(pc => { pc.querySelector("img").style.translate = ""; });
@@ -874,12 +879,15 @@ main { animation: in .45s var(--ease); }
       });
       if (band) {
         const r = band.getBoundingClientRect();
-        const dIn = clamp01((vh - r.top) / (vh * 0.6));
+        const dIn = clamp01((vh * 0.5 - r.top) / (vh * 0.3));
         const dOut = clamp01((r.bottom - vh * 0.2) / (vh * 0.4));
         const d = Math.min(dIn, dOut);
-        document.body.style.backgroundColor = d > 0 ? "rgb(" + BONE.map((b, k) => Math.round(b + (NIGHT[k] - b) * d)).join(",") + ")" : "";
+        const mix = (A, B, t) => A.map((a, k) => Math.round(a + (B[k] - a) * t));
+        const col = d < 0.5 ? mix(BONE, MID, d * 2) : mix(MID, NIGHT, (d - 0.5) * 2);
+        document.body.style.backgroundColor = d > 0 ? "rgb(" + col.join(",") + ")" : "";
         const q = clamp01((vh - r.top) / (vh * 0.75));
-        bandImg.style.clipPath = "inset(0 " + ((1 - q) * 82).toFixed(2) + "% 0 0)";
+        const side = ((1 - q) * 45).toFixed(2);
+        bandImg.style.clipPath = "inset(0 " + side + "% 0 " + side + "%)";
         bandImg.style.transform = "scale(" + (1.15 - 0.15 * q).toFixed(4) + ")";
       }
     }
@@ -1061,7 +1069,8 @@ main { animation: in .45s var(--ease); }
       if (!a.width || a.bottom < 0 || a.top > window.innerHeight) { done(); return; }
       const ghost = document.createElement("img");
       ghost.src = fromImg.currentSrc || fromImg.src; ghost.className = "fly"; ghost.alt = "";
-      Object.assign(ghost.style, { left: a.left + "px", top: a.top + "px", width: a.width + "px", height: a.height + "px" });
+      const cs = getComputedStyle(fromImg);
+      Object.assign(ghost.style, { left: a.left + "px", top: a.top + "px", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", padding: cs.padding, filter: cs.filter, objectFit: cs.objectFit });
       document.body.appendChild(ghost);
       const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = bTop + b.height / 2 - (a.top + a.height / 2);
       const anim = ghost.animate([
@@ -1120,13 +1129,13 @@ main { animation: in .45s var(--ease); }
     teardown = () => offs.forEach(f => f());
     Scroll.req();
     if (useVT) {
-      const mainImg = document.getElementById("mainImg");
-      if (toProduct && mainImg) mainImg.style.viewTransitionName = "prod";
-      else if (lastProduct) { const tgt = main.querySelector('a.card[href="#p-' + lastProduct + '"] .tile img.first'); if (tgt) tgt.style.viewTransitionName = "prod"; }
+      const mainFrame = main.querySelector(".gallery .main");
+      if (toProduct && mainFrame) mainFrame.style.viewTransitionName = "prod";
+      else if (lastProduct) { const tgt = main.querySelector('a.card[href="#p-' + lastProduct + '"] .tile'); if (tgt) tgt.style.viewTransitionName = "prod"; }
     }
     };
     if (useVT) {
-      const curMain = document.getElementById("mainImg");
+      const curMain = main.querySelector(".gallery .main");
       if (toProduct && pendingMorph && document.contains(pendingMorph)) pendingMorph.style.viewTransitionName = "prod";
       else if (!toProduct && curMain) curMain.style.viewTransitionName = "prod";
       const vt = document.startViewTransition(swap);
@@ -1140,7 +1149,7 @@ main { animation: in .45s var(--ease); }
 
   document.addEventListener("click", e => {
     const cardLink = e.target.closest("a.card");
-    if (cardLink) pendingMorph = cardLink.querySelector(".tile img.first");
+    if (cardLink) pendingMorph = cardLink.querySelector(".tile");
     const qa = e.target.closest("[data-qa]");
     if (qa) {
       const p = byH[qa.dataset.qa];

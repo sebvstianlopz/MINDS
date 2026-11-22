@@ -368,13 +368,13 @@ One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–9
 - **Interlude:** words fill from 22% to 100% opacity as the line crosses the viewport.
 - **New arrivals:** heading rise; curtain tiles staggered 70ms left to right.
 - **Shop by piece:**
-  - Shutters: a bone cover lifts, staggered 120ms.
+  - Shutters: a bone cover lifts (0.85s, staggered 90ms), matching the curtain.
   - Cut-outs drift ±40px at different speeds.
-  - Hover: the cut-out lifts and tilts −2° while the sibling panels dim.
+  - Hover: the cut-out lifts and tilts −2° while the sibling panels dim through an opacity overlay.
   - The cut-out leans up to 8px toward the cursor (mouse only).
 - **Featured product:** tile curtain, then the buy card rises 60px after 150ms.
-- **Campaign band:** the page ground scrubs from bone to night on approach and back after. The photo widens from a slit with a 1.15 → 1 push-in. The headline rises and the pick rules draw.
-- **Visit:** the photo drifts at about 0.85× scroll; heading rise; the hours rules draw. A live open/closed pill uses Orlando time, with a pulsing green dot only while open. The pin drops on hover.
+- **Campaign band:** once the band fills half the viewport, the page ground scrubs from bone to night through a green midpoint, and back after. The photo opens from a centred slit with a 1.15 → 1 push-in. The headline rises and the pick rules draw.
+- **Visit:** the photo drifts at about 0.85× scroll; heading rise; the hours rules draw. A live open/closed pill uses Orlando time; while the store is open, its green dot pulses three times. The pin drops on hover.
 - **Store list:**
   - Rows draw with an 80ms stagger.
   - Hover: a bone-light wipe, and the city shifts 8px.
@@ -387,11 +387,11 @@ One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–9
 
 **Site-wide**
 - **Header:** hides on scroll down once the hero is passed and returns on scroll up. It never hides while focused or while a drawer is open.
-- **Product morph:** the tile image morphs into the PDP main image with the View Transitions API (`prod`), and back. Other routes crossfade (0.35s). Without support, routes fade in (0.45s).
+- **Product morph:** the product tile frame morphs into the PDP gallery frame with the View Transitions API (`prod`), and back. The old page fades out in 0.14s before the new one fades in (0.3s, delayed 0.08s) over a bone ground, so two pages' text never overlap. Without support, routes fade in (0.45s).
 - **Shop grid:** FLIP-animates on filter or sort changes (480ms), and the product count rolls (380ms).
 - **Bag and buying:**
   - Size pills fill from the bottom, and buttons press to 0.98.
-  - Adding to the bag flies a ghost of the product along an arc into the header bag (650ms), then the count pops.
+  - Adding to the bag flies a ghost of the product along an arc into the header bag (650ms), then the count pops. The arc is the one deliberate easing exception, `cubic-bezier(.5, 0, .2, 1)`, because a travel path needs an ease-in as well as an ease-out.
   - Buy forms open the bag after the flight; Quick add shows a toast instead.
   - Bag lines stagger in (50ms) and the subtotal counts.
 - **PDP:** the gallery crossfades with a 1.03 settle, the size guide scales in from 0.98, and the accordions animate height where `::details-content` is supported.
