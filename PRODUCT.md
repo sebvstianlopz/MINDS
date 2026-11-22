@@ -36,6 +36,17 @@ MINDS is its own label. Every piece is designed by MINDS and sold in MINDS store
 - **Name:** MINDS, written in capitals in running text.
 - **Logo:** a bold condensed wordmark, with a brain glyph in place of the "D".
 - **Message:** "Reset your mindset, focus on your vision and the World will be yours."
+- **Owner's taste, from 5 reference sites shared 22 Nov 2026** (inspiration only, never to be copied):
+  - photography leads, with studio and campaign shots of people in the clothes
+  - a warm neutral base plus one rich accent taken from the clothes
+  - tall condensed uppercase headlines
+  - image tiles with labels and arrows laid over them, ruled lists, and the name and price on one row
+  - one-sentence breaks between sections, and a dark footer
+- **Decisions confirmed 22 Nov:**
+  - Accent: MINDS's own campaign green.
+  - Ground: warm light page with cinematic photo or deep-colour bands and a dark footer.
+  - Headlines: tall condensed capitals.
+  - Design freely, marking what would need custom Shopify code.
 
 ## Evidence on Hand
 - Product and campaign photography on the live site, plus photos of each store's front.
