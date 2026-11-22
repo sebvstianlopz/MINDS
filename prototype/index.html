@@ -429,6 +429,47 @@ main { animation: in .45s var(--ease); }
 }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .sr:focus { position: fixed; left: 16px; top: 16px; width: auto; height: auto; clip: auto; z-index: 100; background: var(--bone-hi); color: var(--ink); padding: 10px 14px; }
+
+/* Intro loader: the brain draws, opens onto the store, then the view dives into it. Shown only when html.intro-on is set by script. */
+.minds-loader { display: none; position: fixed; inset: 0; z-index: 200; background: var(--night); color: var(--on-dark); overflow: hidden; cursor: pointer; }
+html.intro-on .minds-loader { display: block; }
+html.intro-on { overflow: hidden; }
+.minds-loader.leaving { pointer-events: none; transition: opacity .4s ease; opacity: 0; }
+.ml-store { position: absolute; inset: 0; background: var(--bone); visibility: hidden; transform: scale(1.06); }
+.minds-loader.ready .ml-store { visibility: visible; }
+.ml-field { position: absolute; background: var(--hero-field, #A98C6B); overflow: hidden; }
+.ml-field img, .ml-field .ml-shade { position: absolute; max-width: none; }
+.ml-curtain { position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; overflow: visible; will-change: transform; }
+.ml-curtain .bg { fill: var(--night); }
+.ml-hole { fill: #000; fill-opacity: 0; transition: fill-opacity .3s ease; }
+.minds-loader.is-open .ml-hole { fill-opacity: 1; }
+.ml-brain path { fill: none; stroke: var(--on-dark); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.ml-brain .detail { stroke-width: 1.1; opacity: .8; }
+.minds-loader.play .ml-brain path { animation: mlDraw .52s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--k, 0) * 70ms); }
+.ml-brain.breathe { animation: mlBreathe 1.2s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+.ml-text { position: absolute; left: 0; right: 0; display: grid; justify-items: center; gap: 14px; transition: opacity .3s ease, transform .3s var(--ease); }
+.ml-word { display: flex; gap: .14em; font: 900 clamp(40px, 7vw, 72px)/.9 var(--display); letter-spacing: .04em; overflow: clip; padding-bottom: .06em; }
+.ml-word span { display: block; transform: translateY(108%); }
+.minds-loader.play .ml-word span { animation: mlRise .42s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(800ms + var(--k, 0) * 60ms); }
+.ml-tag { margin: 0; font: 600 11px/1 var(--body); letter-spacing: .3em; text-transform: uppercase; color: var(--on-dark-2); opacity: 0; }
+.minds-loader.play .ml-tag { animation: mlFade .5s ease 1.3s forwards; }
+.ml-hint { position: absolute; left: 0; right: 0; bottom: max(24px, env(safe-area-inset-bottom, 0px)); margin: 0; text-align: center; font: 600 11px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--on-dark-2); opacity: 0; transition: opacity .3s ease; }
+.minds-loader.play .ml-hint { animation: mlFade .4s ease 1.5s forwards; }
+.minds-loader.is-open .ml-text { opacity: 0; transform: translateY(12px); }
+.minds-loader.is-open .ml-hint { animation: none; opacity: 0; }
+.ml-skip { position: absolute; z-index: 3; top: max(20px, env(safe-area-inset-top, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); min-height: 40px; padding: 0 16px; border: 1px solid var(--on-dark-2); background: transparent; color: var(--on-dark); font: 600 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: background .25s ease, color .25s ease; }
+.ml-skip:hover { background: var(--on-dark); color: var(--night); }
+.ml-skip:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
+@keyframes mlDraw { to { stroke-dashoffset: 0; } }
+@keyframes mlRise { to { transform: none; } }
+@keyframes mlFade { to { opacity: 1; } }
+@keyframes mlBreathe { from { transform: scale(1); } to { transform: scale(1.02); } }
+@media (prefers-reduced-motion: reduce) {
+  .ml-brain path { stroke-dashoffset: 0; }
+  .ml-word span { transform: none; }
+  .ml-tag, .ml-hint { opacity: 1; }
+  .minds-loader.leaving { transition: opacity .2s ease !important; }
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -447,6 +488,30 @@ main { animation: in .45s var(--ease); }
   <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V20H14v-5.5h2.5V11H14V8.5Z"/></symbol>
 </svg>
 
+<script>(function () { try { var h = location.hash, played = false; try { played = sessionStorage.getItem("minds-intro-played") === "1"; } catch (e) {} if ((!h || h === "#home") && !played) document.documentElement.classList.add("intro-on"); } catch (e) {} })();</script>
+<div class="minds-loader" id="mindsIntro" role="status" aria-label="Loading MINDS">
+  <div class="ml-store" aria-hidden="true"><div class="ml-field" id="mlField"><img id="mlPhoto" src="img/hero-studio.webp" alt="" width="1536" height="1024"><div class="ml-shade" id="mlShade"></div></div></div>
+  <svg class="ml-curtain" id="mlCurtain" aria-hidden="true" focusable="false">
+    <defs><mask id="mlMask" maskUnits="userSpaceOnUse"><rect id="mlMaskBg" fill="#fff" x="0" y="0" width="100" height="100"/><g id="mlHoleG"><path class="ml-hole" d="M88 24 C77 8 54 12 49 29 C31 27 21 42 27 58 C12 69 18 91 33 97 C28 116 44 130 60 124 C69 141 87 137 90 121 C93 137 111 141 120 124 C136 130 152 116 147 97 C162 91 168 69 153 58 C159 42 149 27 131 29 C126 12 103 8 92 24 Z"/></g></mask></defs>
+    <rect class="bg" id="mlBg" x="0" y="0" width="100" height="100" mask="url(#mlMask)"/>
+    <g id="mlBrainG"><g class="ml-brain" id="mlBrain">
+      <path pathLength="1" style="--k:0" d="M88 24 C77 8 54 12 49 29 C31 27 21 42 27 58 C12 69 18 91 33 97 C28 116 44 130 60 124 C69 141 87 137 90 121"/>
+      <path pathLength="1" style="--k:1" d="M92 24 C103 8 126 12 131 29 C149 27 159 42 153 58 C168 69 162 91 147 97 C152 116 136 130 120 124 C111 141 93 137 90 121"/>
+      <path pathLength="1" style="--k:2" class="detail" d="M88 25 C79 35 83 45 91 50 C79 59 78 72 89 81 C78 91 79 106 90 121"/>
+      <path pathLength="1" style="--k:3" class="detail" d="M49 30 C60 35 62 46 55 55 C69 58 72 70 65 79 C77 86 75 100 63 107"/>
+      <path pathLength="1" style="--k:4" class="detail" d="M131 30 C120 35 118 46 125 55 C111 58 108 70 115 79 C103 86 105 100 117 107"/>
+      <path pathLength="1" style="--k:5" class="detail" d="M29 59 C42 58 48 66 46 77 M33 97 C47 91 56 98 57 111"/>
+      <path pathLength="1" style="--k:6" class="detail" d="M151 59 C138 58 132 66 134 77 M147 97 C133 91 124 98 123 111"/>
+      <path pathLength="1" style="--k:7" class="detail" d="M90 15 L90 121"/>
+    </g></g>
+  </svg>
+  <div class="ml-text" id="mlText" aria-hidden="true">
+    <div class="ml-word"><span style="--k:0">M</span><span style="--k:1">I</span><span style="--k:2">N</span><span style="--k:3">D</span><span style="--k:4">S</span></div>
+    <p class="ml-tag">Reset your mindset</p>
+  </div>
+  <p class="ml-hint" aria-hidden="true">Tap anywhere to enter</p>
+  <button class="ml-skip" id="mlSkip" type="button">Skip intro</button>
+</div>
 <a class="sr" href="#main">Skip to content</a>
 <div class="announce"><div class="wrap"><p>Order online, pick up at The Florida Mall<span class="wide">. Usually ready in 24 hours</span>. <a href="#visit">Store hours</a></p></div></div>
 <header class="site">
@@ -1239,5 +1304,95 @@ main { animation: in .45s var(--ease); }
   });
   renderBag();
   route();
+
+  // Intro loader: draw the brain, open it onto the store, dive in, hand off to the hero
+  (function mountIntro() {
+    const root = document.documentElement, loader = document.getElementById("mindsIntro");
+    if (!loader || !root.classList.contains("intro-on")) { if (loader) loader.remove(); return; }
+    const svg = document.getElementById("mlCurtain"), brainG = document.getElementById("mlBrainG"), holeG = document.getElementById("mlHoleG");
+    const brain = document.getElementById("mlBrain"), text = document.getElementById("mlText"), photo = document.getElementById("mlPhoto");
+    const field = document.getElementById("mlField"), shade = document.getElementById("mlShade"), store = loader.querySelector(".ml-store");
+    const reduced = RM.matches, timers = [], anims = [];
+    let done = false, cx = 0, cy = 0, k = 1, t0 = 0;
+    const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+    function layout() {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      svg.setAttribute("viewBox", "0 0 " + vw + " " + vh);
+      ["mlMaskBg", "mlBg"].forEach(id => { const r = document.getElementById(id); r.setAttribute("width", vw); r.setAttribute("height", vh); });
+      const bw = Math.max(112, Math.min(190, vw * 0.19)); k = bw / 180;
+      cx = vw / 2; cy = vh * 0.42;
+      const tr = "translate(" + (cx - 90 * k).toFixed(2) + " " + (cy - 75 * k).toFixed(2) + ") scale(" + k.toFixed(4) + ")";
+      brainG.setAttribute("transform", tr); holeG.setAttribute("transform", tr);
+      svg.style.transformOrigin = cx + "px " + cy + "px";
+      text.style.top = (cy + 75 * k + 28) + "px";
+      // copy the hero frame exactly: field, photo geometry, fit and tint
+      const frame = document.querySelector(".tempo-frame"), hp = frame && frame.querySelector(".tempo-photo"), hs = frame && frame.querySelector(".tempo-shade");
+      if (frame && hp) {
+        const fr = frame.getBoundingClientRect(), pr = hp.getBoundingClientRect(), pcs = getComputedStyle(hp);
+        Object.assign(field.style, { left: fr.left + "px", top: fr.top + "px", width: fr.width + "px", height: fr.height + "px", background: getComputedStyle(frame).backgroundColor });
+        Object.assign(photo.style, { left: (pr.left - fr.left) + "px", top: (pr.top - fr.top) + "px", width: pr.width + "px", height: pr.height + "px", objectFit: pcs.objectFit, objectPosition: pcs.objectPosition, webkitMaskImage: pcs.webkitMaskImage || pcs.maskImage, maskImage: pcs.maskImage });
+        if (hs) Object.assign(shade.style, { inset: "0", backgroundImage: getComputedStyle(hs).backgroundImage });
+      } else {
+        Object.assign(field.style, { inset: "0", background: "var(--green)" }); photo.remove();
+      }
+    }
+    function finish() {
+      if (done) return; done = true;
+      timers.forEach(clearTimeout); anims.forEach(a => { try { a.cancel(); } catch (e) {} });
+      try { sessionStorage.setItem("minds-intro-played", "1"); } catch (e) {}
+      loader.classList.add("leaving");
+      window.removeEventListener("keydown", onKey); window.removeEventListener("resize", onResize);
+      setTimeout(() => {
+        loader.remove(); root.classList.remove("intro-on");
+        main.focus({ preventScroll: true });
+        Scroll.req();
+      }, reduced ? 220 : 420);
+    }
+    function onKey(e) { if (e.key === "Tab" || e.key === "Shift") return; finish(); }
+    function onResize() { if (!loader.classList.contains("zooming")) layout(); }
+    function zoom() {
+      if (done) return;
+      loader.classList.add("zooming");
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const dmax = Math.max(Math.hypot(cx, cy), Math.hypot(vw - cx, cy), Math.hypot(cx, vh - cy), Math.hypot(vw - cx, vh - cy));
+      const s = Math.max(8, (dmax / (46 * k)) * 1.12);
+      const ease = "cubic-bezier(.7, 0, .2, 1)";
+      anims.push(svg.animate([{ transform: "scale(1)" }, { transform: "scale(" + s.toFixed(2) + ")" }], { duration: 1050, easing: ease, fill: "forwards" }));
+      anims.push(brain.animate([{ opacity: 1 }, { opacity: 0, offset: 0.32 }, { opacity: 0 }], { duration: 1050, easing: "ease-out", fill: "forwards" }));
+      const za = store.animate([{ transform: "scale(1.06)" }, { transform: "scale(1)" }], { duration: 1050, easing: "ease", fill: "forwards" });
+      anims.push(za);
+      za.onfinish = () => later(finish, 40);
+    }
+    function open() {
+      if (done) return;
+      brain.classList.remove("breathe");
+      loader.classList.add("is-open");
+      later(zoom, 300);
+    }
+    // readiness: hero photo decoded and fonts ready (capped)
+    const ready = Promise.all([
+      (photo && photo.decode ? photo.decode() : Promise.resolve()).catch(() => {}),
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
+    ]);
+    loader.addEventListener("click", finish);
+    document.getElementById("mlSkip").addEventListener("click", e => { e.stopPropagation(); finish(); });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    requestAnimationFrame(() => {
+      layout();
+      loader.classList.add("ready");
+      if (reduced) {
+        Promise.race([ready, new Promise(r => setTimeout(r, 600))]).then(() => later(finish, 250));
+        return;
+      }
+      t0 = performance.now();
+      loader.classList.add("play");
+      let readyNow = false;
+      ready.then(() => { readyNow = true; });
+      later(() => { if (!readyNow) brain.classList.add("breathe"); }, 1150);
+      const go = () => { const el = performance.now() - t0; later(open, Math.max(0, 1600 - el)); };
+      Promise.race([ready, new Promise(r => setTimeout(r, 3600))]).then(go);
+    });
+  })();
 })();
 </script>

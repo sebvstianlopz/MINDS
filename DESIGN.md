@@ -351,6 +351,16 @@ The hero is a pinned frame inside a 250svh scroll runway.
 - **Accessibility:** the rows are `aria-hidden`; "Reset your mindset." is the visually hidden H1. The intro line and the two CTAs sit top-left on wide frames and bottom-left over a dark gradient on narrow ones. A skip button jumps past the runway.
 - **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
 
+### Intro Loader (signature)
+A once-per-session intro on the first home-page load. It is adapted from the owner's supplied loader and keeps its line-art brain and layout.
+- **Opt-in:** a tiny inline script adds `html.intro-on` only when the session flag is unset and the entry route is home, so with no JS there is never an overlay.
+- **Draw:** on a green-black ground, the eight bone brain strokes draw on with `stroke-dashoffset` (70ms stagger, 0.52s each). The MINDS letters (Big Shoulders 900) rise masked, "Reset your mindset" fades in, and a "Tap anywhere to enter" hint follows.
+- **Open:** at about 1.6s, or once the hero photo is decoded and the fonts are ready (capped at 3.6s, with the brain breathing while it waits), the letters fall away and the brain's interior opens. A brain-shaped hole in an SVG mask reveals the hero photo inside it.
+- **Dive:** the curtain scales from 1 → *s* about the brain's centre over 1.05s with `cubic-bezier(.7, 0, .2, 1)`. *s* is computed so the hole covers the viewport. The outline fades out in the first third, and the photo settles from 1.06 to 1.
+- **Hand-off:** the photo layer is laid out at the measured rect of the hero frame, with the same fit, edge fade and tint, so the last frame is the hero itself. The overlay fades out in 0.4s, then scroll unlocks and focus moves to `main`.
+- **Skip:** clicking or tapping anywhere, any key except Tab, or the square "Skip intro" button.
+- **Reduced motion:** the complete static logo, then a 0.2s fade once the hero is ready (600ms at most).
+
 ### Motion
 One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–900ms, hovers 250–400ms and staggers 60–120ms.
 
@@ -439,6 +449,7 @@ The user chose "Design freely", so the prototype is not limited to Spotlight 13'
 - **Uppercase display face:** Big Shoulders Display must be uploaded as a theme asset with an `@font-face` rule if it is not in Shopify's font library; uppercase headings, weight 900 and line-height under 0.9 need custom CSS regardless (Spotlight has no heading-case or heading line-height setting, and its heading scale stops short of 96px).
 - **Opposing scroll type hero:** the pinned 250svh runway, the scroll-linked opposing rows, the right-aligned portrait on the forest field, and the reduced-motion static state. This needs a custom section (Liquid, CSS and a small script).
 - **Motion system:** the reveal observer, the shared scroll engine, the scrubbed band, footer and parallax effects, fly-to-bag, Quick add, the store-photo cursor follow, the live open pill and View Transitions all need a custom theme script. A few hundred lines of vanilla JS can be loaded once in `theme.liquid`. Theme sections then carry the `data-reveal` attributes.
+- **Intro loader:** the overlay, the SVG brain mask and its zoom need a custom snippet in `theme.liquid`. The snippet holds the inline opt-in script, the overlay markup and about 120 lines of JS. Set it to show on the home template only, with the hero image URL passed in from the section settings.
 - **Alpha cut-outs on stone tiles:** the soft drop-shadow on product flats, the multiply blend for on-model photos, and contain-fit with percentage padding versus cover-fit chosen per product.
 - **Name and price on one row:** native cards stack the price under the name.
 - **Image zoom on hover:** the native hover effects lift the card; a slow image scale needs CSS.
