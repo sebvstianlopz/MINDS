@@ -337,8 +337,20 @@ An ink top rule, then rows divided by hairlines: a display-capital city, place, 
 ### Footer Closer (signature)
 A green-black footer opening with "And the world will be yours." in giant display capitals (max 12ch), then a rule and four columns of logo, Shop, Help and Contact.
 
+### Hero: Opposing Scroll Type (signature)
+The hero is a pinned frame inside a 250svh scroll runway.
+- **Frame:** sticky under the header; its height is the viewport minus the header.
+- **Photo:** the campaign photo sits behind the type. When the frame is wider than 6:5, the whole portrait is shown right-aligned at full frame height on the forest field. Narrower frames cover the frame with the photo.
+- **Type rows:** two repeated display rows at 15.4% of frame width (container units), line-height 1, placed 39% down and starting 26% past the left edge.
+  - "RESET YOUR ·" in solid on-dark.
+  - "MINDSET." as a satin outline.
+- **Scroll mapping:** progress p = clamp01((stickyTop − runway.top) / (runway height − frame height)). Row 0 moves x = −(p − 0.5) × frameWidth × 0.8 and row 1 the mirror. It uses translate3d, a passive scroll listener with one requestAnimationFrame update, and measures the frame (ResizeObserver, `document.fonts.ready`).
+- **Coverage:** whole repeats are prepended so both rows cover the frame at both endpoints.
+- **Accessibility:** the rows are `aria-hidden`; "Reset your mindset." is the visually hidden H1. The intro line and the two CTAs sit top-left on wide frames and bottom-left over a dark gradient on narrow ones. A skip button jumps past the runway.
+- **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
+
 ### Motion
-One easing (`cubic-bezier(.2, .8, .2, 1)`). The hero headline lines rise once on load (0.9s, the second line delayed 0.08s); images zoom slowly and arrows nudge on hover; the bag sheet slides in from the right (0.4s); routes fade in (0.45s). Under `prefers-reduced-motion`, all animation and transition is off.
+One easing (`cubic-bezier(.2, .8, .2, 1)`). The hero type is scroll-linked and has no timed autoplay. Images zoom slowly and arrows nudge on hover; the bag sheet slides in from the right (0.4s); routes fade in (0.45s). Under `prefers-reduced-motion`, all animation and transition is off and the hero is static.
 
 ## Do's and Don'ts
 
@@ -378,7 +390,7 @@ The user chose "Design freely", so the prototype is not limited to Spotlight 13'
 
 ### Needs custom code
 - **Uppercase display face:** Big Shoulders Display must be uploaded as a theme asset with an `@font-face` rule if it is not in Shopify's font library; uppercase headings, weight 900 and line-height under 0.9 need custom CSS regardless (Spotlight has no heading-case or heading line-height setting, and its heading scale stops short of 96px).
-- **Split hero:** the edge-to-edge 5/7 split with bottom-aligned type aligned to the container edge, full viewport height, and photo-first stacking on phones. Image with text approximates it inside the page width; the exact form needs custom CSS or a custom section.
+- **Opposing scroll type hero:** the pinned 250svh runway, the scroll-linked opposing rows, the right-aligned portrait on the forest field, and the reduced-motion static state. This needs a custom section (Liquid, CSS and a small script).
 - **Alpha cut-outs on stone tiles:** the soft drop-shadow on product flats, the multiply blend for on-model photos, and contain-fit with percentage padding versus cover-fit chosen per product.
 - **Name and price on one row:** native cards stack the price under the name.
 - **Image zoom on hover:** the native hover effects lift the card; a slow image scale needs CSS.

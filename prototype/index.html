@@ -25,6 +25,7 @@
   --max: 1320px;
   --section: clamp(64px, 9vw, 128px);
   --ease: cubic-bezier(.2, .8, .2, 1);
+  --hdr: 71px;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -91,21 +92,30 @@ nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: var(--g
 .drawer-nav .panel a { font: 900 34px/1 var(--display); text-transform: uppercase; text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--rule); }
 .scrim { position: absolute; inset: 0; background: rgba(15, 25, 18, .45); }
 
-/* Hero */
-.hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: clamp(560px, calc(100svh - 108px), 860px); background: var(--green); }
-.hero .panel { color: var(--on-dark); padding: clamp(32px, 4.5vw, 72px); padding-left: max(32px, calc((100vw - var(--max)) / 2)); display: flex; flex-direction: column; justify-content: flex-end; gap: 24px; }
-.hero h1 { font-size: clamp(60px, 7.2vw, 96px); line-height: .84; }
-.hero h1 span { display: block; animation: rise .9s var(--ease) both; }
-.hero h1 span:nth-child(2) { animation-delay: .08s; }
-@keyframes rise { from { transform: translateY(28%); opacity: .15; } to { transform: none; opacity: 1; } }
-.hero p { font-size: 17px; max-width: 36ch; color: var(--on-dark-2); }
-.hero figure { margin: 0; position: relative; overflow: hidden; }
-.hero figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
-@media (max-width: 899px) {
-  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-  .hero figure { order: -1; height: min(44svh, 440px); }
-  .hero .panel { padding: 32px var(--gr) 40px var(--gl); }
-  .ctas .btn { flex: 1 1 200px; }
+/* Hero: opposing scroll type. Pinned frame inside a 250svh runway; two rows travel in opposite directions with scroll progress. */
+.tempo { position: relative; background: var(--green); }
+.tempo-runway { position: relative; height: 250svh; }
+.tempo-frame { position: sticky; top: calc(var(--hdr) + env(safe-area-inset-top, 0px)); height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); min-height: 520px; overflow: hidden; background: var(--green); container-type: inline-size; }
+.tempo-photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 58% 30%; }
+.tempo-frame[data-wide] .tempo-photo { left: auto; right: 0; width: auto; aspect-ratio: 1290 / 1720; }
+.tempo-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(15, 25, 18, .66) 0%, rgba(15, 25, 18, 0) 46%), linear-gradient(to right, rgba(15, 25, 18, .2), rgba(15, 25, 18, 0) 55%); }
+.tempo-frame[data-wide] .tempo-shade { background: linear-gradient(to right, rgba(15, 25, 18, .28), rgba(15, 25, 18, 0) 40%); }
+.tempo-rows { position: absolute; top: 39%; left: -26%; z-index: 2; pointer-events: none; }
+.tempo-row { display: flex; white-space: nowrap; font: 900 15.4cqw/1 var(--display); text-transform: uppercase; letter-spacing: .005em; will-change: transform; }
+.tempo-row span { flex: none; padding-right: .2em; }
+.tempo-row.r0 { color: var(--on-dark); }
+.tempo-row.r1 { color: transparent; -webkit-text-stroke: max(2.5px, .014em) var(--satin); }
+.tempo-copy { position: absolute; z-index: 3; left: var(--gl); right: var(--gr); bottom: clamp(24px, 5svh, 48px); display: grid; gap: 20px; max-width: 520px; color: var(--on-dark); }
+.tempo-copy p { font-size: 17px; max-width: 38ch; color: var(--on-dark); }
+.tempo-frame[data-wide] .tempo-copy { top: clamp(28px, 7svh, 72px); bottom: auto; left: max(32px, calc((100cqw - var(--max)) / 2)); }
+.tempo-frame[data-wide] .tempo-copy p { color: var(--on-dark-2); }
+@media (min-width: 750px) { .tempo-copy { left: max(32px, env(safe-area-inset-left, 0px)); } }
+@media (max-width: 599px) { .tempo-copy .ctas .btn { flex: 1 1 100%; } }
+@media (prefers-reduced-motion: reduce) {
+  .tempo-runway { height: auto; }
+  .tempo-frame { position: relative; top: 0; }
+  .tempo-rows { left: 3cqw; }
+  .tempo-row { transform: none !important; }
 }
 
 /* Interlude */
@@ -492,14 +502,20 @@ main { animation: in .45s var(--ease); }
   function home() {
     const jacket = byH["minds-legacy-croc-jacket"];
     return '' +
-    '<section class="hero" aria-labelledby="heroTitle">' +
-      '<div class="panel">' +
-        '<h1 id="heroTitle"><span>Reset your</span><span>mindset.</span></h1>' +
-        '<p>The new season is in. Recon Cargo, Femme Noir and Orbit Studs just landed. Shop them here or try them on at The Florida Mall.</p>' +
-        '<div class="ctas"><a class="btn light" href="#new">Shop new arrivals</a><a class="btn ghost-light" href="#visit">Visit The Florida Mall ' + arrow() + '</a></div>' +
-      '</div>' +
-      '<figure><img src="img/hero.webp" alt="Model in the MINDS green satin set, seated beside a speaker and palms" width="1290" height="1720"></figure>' +
+    '<section class="tempo" aria-labelledby="heroTitle">' +
+      '<button class="sr" type="button" data-act="skip-hero">Skip the intro animation</button>' +
+      '<div class="tempo-runway"><div class="tempo-frame">' +
+        '<img class="tempo-photo" src="img/hero.webp" alt="Model in the MINDS green satin set, seated beside a speaker and palms" width="1290" height="1720">' +
+        '<div class="tempo-shade" aria-hidden="true"></div>' +
+        '<h1 id="heroTitle" class="sr">Reset your mindset.</h1>' +
+        '<div class="tempo-rows" aria-hidden="true"><div class="tempo-row r0" data-unit="Reset your ·"></div><div class="tempo-row r1" data-unit="Mindset."></div></div>' +
+        '<div class="tempo-copy">' +
+          '<p>The new season is in. Recon Cargo, Femme Noir and Orbit Studs just landed. Shop them here or try them on at The Florida Mall.</p>' +
+          '<div class="ctas"><a class="btn light" href="#new">Shop new arrivals</a><a class="btn ghost-light" href="#visit">Visit The Florida Mall ' + arrow() + '</a></div>' +
+        '</div>' +
+      '</div></div>' +
     '</section>' +
+    '<span id="after-hero" tabindex="-1"></span>' +
     '<section class="interlude"><div class="wrap"><p>Designed by MINDS. Worn in Orlando.</p></div></section>' +
     '<section class="band" style="padding-top:0" aria-labelledby="naTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="naTitle">New arrivals</h2><a class="link" href="#new">Shop all new ' + arrow() + '</a></div>' +
@@ -650,6 +666,61 @@ main { animation: in .45s var(--ease); }
   let toastT;
   function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600); }
 
+  // Hero motion: opposing scroll type (scroll-linked, no autoplay)
+  function mountTempo() {
+    const runway = main.querySelector(".tempo-runway");
+    if (!runway) return null;
+    const frame = runway.querySelector(".tempo-frame");
+    const rows = Array.prototype.slice.call(frame.querySelectorAll(".tempo-row"));
+    const header = document.querySelector("header.site");
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const shift = [0, 0];
+    let W = 0, raf = 0, alive = true;
+    function fill() {
+      if (!alive) return;
+      document.documentElement.style.setProperty("--hdr", header.offsetHeight + "px");
+      W = frame.clientWidth;
+      frame.toggleAttribute("data-wide", W / Math.max(1, frame.clientHeight) > 6 / 5);
+      rows.forEach((row, i) => {
+        const unit = '<span>' + row.dataset.unit + '</span>';
+        row.innerHTML = unit;
+        const cw = row.firstElementChild.getBoundingClientRect().width || 1;
+        const lead = mq.matches ? 0 : Math.ceil(0.4 * W / cw);
+        const count = Math.ceil((1.26 * W + 0.8 * W + lead * cw) / cw) + 1;
+        row.innerHTML = new Array(count + 1).join(unit);
+        shift[i] = lead * cw;
+      });
+      update();
+    }
+    function update() {
+      raf = 0;
+      if (!alive) return;
+      if (mq.matches) { rows.forEach(r => { r.style.transform = ""; }); return; }
+      const rect = runway.getBoundingClientRect();
+      const top = parseFloat(getComputedStyle(frame).top) || 0;
+      const span = runway.offsetHeight - frame.clientHeight;
+      const p = Math.min(1, Math.max(0, (top - rect.top) / (span > 0 ? span : 1)));
+      const x0 = -(p - 0.5) * W * 0.8, x1 = (p - 0.5) * W * 0.8;
+      rows[0].style.transform = "translate3d(" + (x0 - shift[0]).toFixed(2) + "px,0,0)";
+      rows[1].style.transform = "translate3d(" + (x1 - shift[1]).toFixed(2) + "px,0,0)";
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    const ro = new ResizeObserver(fill);
+    ro.observe(frame);
+    mq.addEventListener("change", fill);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fill);
+    fill();
+    return () => {
+      alive = false;
+      window.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      mq.removeEventListener("change", fill);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }
+  let teardown = null;
+
   // Router
   function route() {
     const h = (location.hash || "#home").slice(1);
@@ -664,8 +735,10 @@ main { animation: in .45s var(--ease); }
       html = shop(); current = h === "new" ? "#new" : (st.cat === "Caps" ? "#shop-caps" : "#shop");
       title = (st.newOnly ? "New arrivals" : st.cat === "All" ? "Shop all" : st.cat) + " · MINDS";
     } else { html = home(); current = h === "visit" ? "#visit" : ""; }
+    if (teardown) { teardown(); teardown = null; }
     main.style.animation = "none"; void main.offsetWidth; main.style.animation = "";
     main.innerHTML = html;
+    teardown = mountTempo();
     document.title = title === "MINDS" ? "MINDS Storefront" : title;
     document.querySelectorAll("nav.main a").forEach(a => a.getAttribute("href") === current ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (document.getElementById("results")) {
@@ -701,6 +774,7 @@ main { animation: in .45s var(--ease); }
     else if (a === "sg-open") document.getElementById("sizeGuide").showModal();
     else if (a === "sg-close") document.getElementById("sizeGuide").close();
     else if (a === "clear") { st.cat = "All"; st.q = ""; st.inStock = false; route(); }
+    else if (a === "skip-hero") { const t2 = document.getElementById("after-hero"); t2.scrollIntoView(); t2.focus({ preventScroll: true }); }
     else if (a === "checkout") toast("Prototype only. On the live store this opens Shopify checkout.");
   });
   document.addEventListener("keydown", e => {
