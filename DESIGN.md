@@ -352,7 +352,52 @@ The hero is a pinned frame inside a 250svh scroll runway.
 - **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
 
 ### Motion
-One easing (`cubic-bezier(.2, .8, .2, 1)`). The hero type is scroll-linked and has no timed autoplay. Images zoom slowly and arrows nudge on hover; the bag sheet slides in from the right (0.4s); routes fade in (0.45s). Under `prefers-reduced-motion`, all animation and transition is off and the hero is static.
+One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–900ms, hovers 250–400ms and staggers 60–120ms.
+
+**The motion language**
+- **Masked rise for type:** headings carry `data-reveal="rise"`, and their `.ri` span slides up out of a clip.
+- **Hairline draw for rules:** list and hours rules scale from 0 to 1 on X, starting from the left.
+- **Curtain unveil for images:** the tile opens bottom-up while the image settles from 1.08.
+- **Scroll-scrub:** used only where scroll position carries meaning.
+
+**Mechanics**
+- **Reveals:** an IntersectionObserver reveals each element once. JS adds `.rv` only to elements that start below the fold, so content is visible without JS. Anything skipped by an anchor jump is revealed as soon as it is above the viewport.
+- **Scroll engine:** all scroll-linked effects (hero, scrubs, header) share one passive listener and one requestAnimationFrame loop. There is no scroll-jacking, and only transform, opacity, clip-path and background-color are animated.
+
+**By section**
+- **Interlude:** words fill from 22% to 100% opacity as the line crosses the viewport.
+- **New arrivals:** heading rise; curtain tiles staggered 70ms left to right.
+- **Shop by piece:**
+  - Shutters: a bone cover lifts, staggered 120ms.
+  - Cut-outs drift ±40px at different speeds.
+  - Hover: the cut-out lifts and tilts −2° while the sibling panels dim.
+  - The cut-out leans up to 8px toward the cursor (mouse only).
+- **Featured product:** tile curtain, then the buy card rises 60px after 150ms.
+- **Campaign band:** the page ground scrubs from bone to night on approach and back after. The photo widens from a slit with a 1.15 → 1 push-in. The headline rises and the pick rules draw.
+- **Visit:** the photo drifts at about 0.85× scroll; heading rise; the hours rules draw. A live open/closed pill uses Orlando time, with a pulsing green dot only while open. The pin drops on hover.
+- **Store list:**
+  - Rows draw with an 80ms stagger.
+  - Hover: a bone-light wipe, and the city shifts 8px.
+  - A store photo follows the cursor with eased lag (mouse only).
+- **Newsletter:**
+  - Heading rise.
+  - Focus thickens the input stroke and nudges the arrow.
+  - Success swaps the button label for a check mark; an error shakes the input once.
+- **Footer:** the mantra fills from a satin-light outline to solid on-dark, reaching full exactly at the page end.
+
+**Site-wide**
+- **Header:** hides on scroll down once the hero is passed and returns on scroll up. It never hides while focused or while a drawer is open.
+- **Product morph:** the tile image morphs into the PDP main image with the View Transitions API (`prod`), and back. Other routes crossfade (0.35s). Without support, routes fade in (0.45s).
+- **Shop grid:** FLIP-animates on filter or sort changes (480ms), and the product count rolls (380ms).
+- **Bag and buying:**
+  - Size pills fill from the bottom, and buttons press to 0.98.
+  - Adding to the bag flies a ghost of the product along an arc into the header bag (650ms), then the count pops.
+  - Buy forms open the bag after the flight; Quick add shows a toast instead.
+  - Bag lines stagger in (50ms) and the subtotal counts.
+- **PDP:** the gallery crossfades with a 1.03 settle, the size guide scales in from 0.98, and the accordions animate height where `::details-content` is supported.
+
+**Reduced motion**
+Under `prefers-reduced-motion`, nothing is marked for reveal, every scrub shows its end state, there is no fly, morph or header hiding, and all CSS animation and transition is off.
 
 ## Do's and Don'ts
 
@@ -393,6 +438,7 @@ The user chose "Design freely", so the prototype is not limited to Spotlight 13'
 ### Needs custom code
 - **Uppercase display face:** Big Shoulders Display must be uploaded as a theme asset with an `@font-face` rule if it is not in Shopify's font library; uppercase headings, weight 900 and line-height under 0.9 need custom CSS regardless (Spotlight has no heading-case or heading line-height setting, and its heading scale stops short of 96px).
 - **Opposing scroll type hero:** the pinned 250svh runway, the scroll-linked opposing rows, the right-aligned portrait on the forest field, and the reduced-motion static state. This needs a custom section (Liquid, CSS and a small script).
+- **Motion system:** the reveal observer, the shared scroll engine, the scrubbed band, footer and parallax effects, fly-to-bag, Quick add, the store-photo cursor follow, the live open pill and View Transitions all need a custom theme script. A few hundred lines of vanilla JS can be loaded once in `theme.liquid`. Theme sections then carry the `data-reveal` attributes.
 - **Alpha cut-outs on stone tiles:** the soft drop-shadow on product flats, the multiply blend for on-model photos, and contain-fit with percentage padding versus cover-fit chosen per product.
 - **Name and price on one row:** native cards stack the price under the name.
 - **Image zoom on hover:** the native hover effects lift the card; a slow image scale needs CSS.
