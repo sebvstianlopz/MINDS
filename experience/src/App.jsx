@@ -5,7 +5,7 @@ import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocess
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneMind } from './three/SceneMind.jsx';
-import { Header, SceneOneCopy, SceneTwoCopy, SceneFourCopy, PlaceholderTag, STORE_URL } from './ui/Overlay.jsx';
+import { Header, SceneOneCopy, SceneTwoCopy, SceneFourCopy, SceneFiveCopy, CollectionGrid, Footer, PlaceholderTag } from './ui/Overlay.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,10 +17,12 @@ export default function App() {
   const progress2 = useRef(0);          // Scene 02 scroll progress, 0..1
   const progress3 = useRef(0);          // Scene 03 scroll progress, 0..1
   const progress4 = useRef(0);          // Scene 04 scroll progress, 0..1
+  const progress5 = useRef(0);          // Scene 05 scroll progress, 0..1
   const runway = useRef(null);
   const runway2 = useRef(null);
   const runway3 = useRef(null);
   const runway4 = useRef(null);
+  const runway5 = useRef(null);
   const copy = useRef(null);
   const [reduced, setReduced] = useState(prefersReduced);
   const [quality] = useState(() => (lowTier() ? 'low' : 'high'));
@@ -45,7 +47,8 @@ export default function App() {
       const st = ScrollTrigger.create({ trigger: runway2.current, start: 'top 60%', onEnter: () => { progress2.current = 1; }, onLeaveBack: () => { progress2.current = 0; } });
       const st3 = ScrollTrigger.create({ trigger: runway3.current, start: 'top 60%', onEnter: () => { progress3.current = 1; }, onLeaveBack: () => { progress3.current = 0; } });
       const st4 = ScrollTrigger.create({ trigger: runway4.current, start: 'top 60%', onEnter: () => { progress4.current = 1; }, onLeaveBack: () => { progress4.current = 0; } });
-      return () => { st.kill(); st3.kill(); st4.kill(); };
+      const st5 = ScrollTrigger.create({ trigger: runway5.current, start: 'top 60%', onEnter: () => { progress5.current = 1; }, onLeaveBack: () => { progress5.current = 0; } });
+      return () => { st.kill(); st3.kill(); st4.kill(); st5.kill(); };
     }
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
@@ -93,6 +96,19 @@ export default function App() {
         animation: tl4,
         onUpdate: (self) => { progress4.current = self.progress; },
       });
+      // Scene 05: pull back, the collection weaves in, then hand off to the shop grid
+      const tl5 = gsap.timeline({ defaults: { ease: 'none' } });
+      tl5.to('.s4-copy', { autoAlpha: 0, duration: 0.12 }, 0)
+        .fromTo('.s5-title', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.18 }, 0.3)
+        .to('.s5-copy', { duration: 0.1 }, 0.9);
+      ScrollTrigger.create({
+        trigger: runway5.current,
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        animation: tl5,
+        onUpdate: (self) => { progress5.current = self.progress; },
+      });
     });
     return () => ctx.revert();
   }, [reduced]);
@@ -108,7 +124,7 @@ export default function App() {
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
+          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} progress5={progress5} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />
@@ -148,13 +164,18 @@ export default function App() {
           </div>
         </section>
 
-        {/* End of the built stages. Scene 05 (Discover MINDS) attaches here next. */}
-        <section className="next">
-          <h2 className="next-title">Discover MINDS</h2>
-          <p className="next-copy">Scene 05 is in production. Until then, the collection is open.</p>
-          <a className="btn" href={STORE_URL + '#new'}>Shop new arrivals</a>
+        {/* SCENE 05 — DISCOVER MINDS: the camera pulls back and the collection floats in the void */}
+        <section className="s5" ref={runway5} aria-labelledby="s5-title">
+          <div className="s5-frame">
+            <SceneFiveCopy />
+          </div>
         </section>
+
+        {/* Hand-off from the 3D experience to the shop */}
+        <CollectionGrid />
       </main>
+
+      <Footer />
 
       <PlaceholderTag />
     </>

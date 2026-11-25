@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { BRAIN_IS_PLACEHOLDER } from '../three/Brain.jsx';
 import { GARMENT, GARMENT_IS_PLACEHOLDER } from '../three/Garment.jsx';
+import { PRODUCTS } from '../data/products.js';
 
 export const STORE_URL = 'https://claude.ai/artifact/DfHeg7AyNgYXgTWnWEntPH';
 
@@ -50,6 +51,53 @@ export function SceneFourCopy() {
         <span className="s4-cta">Shop the tee</span>
       </a>
     </div>
+  );
+}
+
+// Scene 05 copy.
+export function SceneFiveCopy() {
+  return (
+    <div className="s5-copy">
+      <h2 className="s5-title" id="s5-title">Discover MINDS</h2>
+    </div>
+  );
+}
+
+// The shop hand-off: the same real products, as a browsable grid linking into the storefront.
+export function CollectionGrid() {
+  return (
+    <section className="coll" aria-labelledby="coll-title">
+      <div className="coll-head">
+        <h2 className="coll-title" id="coll-title">The collection</h2>
+        <a className="btn" href={STORE_URL + '#shop'}>Shop the full collection</a>
+      </div>
+      <ul className="coll-grid">
+        {PRODUCTS.map((p) => (
+          <li key={p.handle}>
+            <a className="coll-card" href={STORE_URL + '#p-' + p.handle}>
+              <span className="coll-tile"><img src={p.image} alt={p.name + ', ' + p.color} loading="lazy" width="600" height={Math.round(600 / p.aspect)} /></span>
+              <span className="coll-row"><span className="coll-name">{p.name}</span><span className="coll-price">{p.price}</span></span>
+              <span className="coll-color">{p.color}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="foot">
+      <img src="logo-ink.webp" alt="MINDS" width="110" height="31" />
+      <nav aria-label="Footer">
+        <a href={STORE_URL + '#shop'}>Shop</a>
+        <a href={STORE_URL + '#new'}>New arrivals</a>
+        <a href={STORE_URL + '#visit'}>Stores</a>
+        <a href="https://www.instagram.com/minds_tm">Instagram</a>
+      </nav>
+      <p>© 2026 MINDS · Prototype experience</p>
+    </footer>
   );
 }
 

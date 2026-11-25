@@ -1,6 +1,6 @@
 # MINDS — Inside Your Mind
 
-A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scenes 01–04 ("The Mind", "Enter the Mind", "Neural Universe", "Fashion Inside Your Mind").**
+A scroll-driven 3D experience for MINDS, built in stages. **All five scenes are built: "The Mind", "Enter the Mind", "Neural Universe", "Fashion Inside Your Mind" and "Discover MINDS".**
 It's separate from the storefront prototype (`../prototype/`). Its header links go to the storefront.
 
 ## Stack
@@ -14,7 +14,7 @@ npm install
 npm run dev      # local dev server
 npm run build    # vite build (single file) + scripts/build-artifact.mjs → artifact/
 ```
-`artifact/index.html` is the publishable page: a body fragment with inlined JS and CSS, with `logo-ink.webp` beside it.
+`artifact/index.html` is the publishable page: a body fragment with inlined JS and CSS, with `logo-ink.webp` and `garments/` beside it.
 
 ## Architecture
 | File | Role |
@@ -26,8 +26,10 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 | `src/three/NeuralFibers.jsx` | Scene 02's neural network: about 430 nodes in the brain volume plus a corridor beyond it along −Z (for Scene 03), joined by curved fibres. A GPU shader sends light pulses along each fibre, and synapse points glow. Opacity is driven by a ref. |
 | `src/three/NeuralUniverse.jsx` | Scene 03: about 160 long organic fibres flowing along −Z, with light pulses. 38 of them turn into textile threads (plied, lit tubes in MINDS bone, green and black) as a glowing front travels along each one. The threads converge on `THREAD_FOCUS` (0, 0, −15.5), the loom for Scene 04. |
 | `src/three/Garment.jsx` | Scene 04: the **real** MINDS Endless Shine Tee (Cobalt) product cut-out, given a cloth-like surface (body wrap, folds, a floating ripple, sheen) at the loom. A shader weaves it in: warp threads, then weft, then it closes into fabric. The converging threads are drawn into it as it forms. **The geometry is a placeholder, but the product is real.** |
+| `src/three/Collection3D.jsx` | Scene 05: the other seven catalogue products as floating photo-cloth garments around the hero tee, each weaving in on its own delay. Desktop and tablet use one constellation (`SLOTS`, squeezed sideways on narrower screens). Portrait phones get their own column layout (`PHONE_SLOTS`) that stays between the header and the title. |
+| `src/data/products.js` | **The product list** for Scenes 04–05 and the collection grid: handle (the storefront route), name, colour, price, cut-out image and aspect. The first entry is the Scene 04 hero. |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
-| `src/ui/Overlay.jsx` | Header, the "What's on your mind?" copy and the placeholder label. |
+| `src/ui/Overlay.jsx` | Header, the scene copy, the collection grid (`CollectionGrid`), the footer and the placeholder label. |
 | `src/styles.css` | Dark editorial layout (Big Shoulders Display + Archivo). |
 
 **Scroll map:** Scene 01 is a 220svh runway. Progress 0 → 1 moves the camera from z 6.4 to 4.1 with a slight orbit and lift, adds a quarter turn to the brain, and moves the two headline lines apart as they fade. The camera distance scales up on tall screens.
@@ -68,6 +70,21 @@ Under reduced motion, Scene 03 cuts to its end frame (all threads formed).
 
 Under reduced motion, it cuts to the finished tee.
 
+**Scene 05 scroll map** (a 300svh runway, `progress5`):
+
+| Progress | What happens |
+|---|---|
+| 0 → 0.12 | The Scene 04 copy clears. |
+| 0 → 0.75 | The camera pulls back from the loom (shorter on tall screens), with a slight lift and a slow sideways drift. |
+| 0 → 0.6 | The fibre field dims further. |
+| 0.15 → 0.89 | The seven other garments weave in one after another, then keep their own idle float and sway. |
+| 0.3 → 0.48 | "DISCOVER MINDS" resolves. |
+| after the runway | **The collection** section scrolls up over the scene: a grid of the eight product cards (cut-out, name, colour, price), each linking to its storefront product, plus "Shop the full collection" and the footer. The 3D garments stay faintly visible behind it. |
+
+Scrolling up reverses everything, so the garments un-weave and the camera returns to the tee. Under reduced motion, Scene 05 cuts to its end frame.
+
+**Changing the featured products:** edit `src/data/products.js`. Put each product's transparent cut-out (WebP) in `public/garments/`, and set `aspect` to the image's width divided by its height. `handle` must match the storefront product route. Scene 05 shows up to seven products around the hero, and the grid shows every entry.
+
 **Performance:**
 - Device pixel ratio is capped at 2, and lowered automatically under load (`PerformanceMonitor`).
 - Rendering pauses when the tab is hidden.
@@ -81,12 +98,13 @@ Under reduced motion, it cuts to the finished tee.
 |---|---|---|
 | Brain model | **Placeholder** (procedural) | Export a Draco-compressed GLB (aim for under 3 MB and about 100k triangles), centred at the origin, about 2 units long front to back, facing +Z. Save it as `public/models/brain.glb` and set `BRAIN_GLB_URL = 'models/brain.glb'` in `src/three/Brain.jsx`. The "Placeholder 3D brain" label disappears automatically. |
 | Garment model (Scene 04) | **Placeholder shape, real product photo** | Export the tee as a GLB with its real textures and set `GARMENT_GLB_URL` in `src/three/Garment.jsx` (the photo cloth is used until then). To feature another product, change `GARMENT` (name, colour, price, image, handle). |
-| Garment models (Scene 05) | Missing | Real MINDS garment models (GLB), or more product cut-outs, for the floating collection. |
-| Collection data (Scene 05) | Missing | Reuse the storefront catalogue, or connect Shopify. |
+| Garment models (Scene 05) | **Placeholder shape, real product photos** | The same photo-cloth surface as Scene 04, built from the storefront's own cut-outs. Swap in GLBs per product when they exist. |
+| Collection data (Scene 05) | **Real, static** (`src/data/products.js`, copied from the storefront catalogue) | Connect the Shopify Storefront API to keep names, prices and stock live. |
 
 ## Roadmap
 1. ✅ **Scene 01, The Mind:** a floating brain hero, cinematic lighting, a scroll camera and the headline.
 2. ✅ **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
 3. ✅ **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
 4. ✅ **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
-5. **Scene 05, Discover MINDS:** a pull-back to floating garments, then a hand-off into the collection.
+5. ✅ **Scene 05, Discover MINDS:** a pull-back to floating real MINDS garments, "DISCOVER MINDS", then a hand-off into the shoppable collection grid.
+6. **Next:** real garment and brain GLBs, live Shopify product data, and a final quality pass (accessibility, SEO, performance on real devices).
