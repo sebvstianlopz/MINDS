@@ -5,6 +5,7 @@ import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocess
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneMind } from './three/SceneMind.jsx';
+import { EMBEDDED, closeToStore, signalReady } from './ui/store.js';
 import { Header, SceneOneCopy, SceneTwoCopy, SceneFourCopy, SceneFiveCopy, CollectionGrid, Footer, PlaceholderTag } from './ui/Overlay.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,14 @@ export default function App() {
   const [dpr, setDpr] = useState(() => Math.min(window.devicePixelRatio || 1, quality === 'high' ? 2 : 1.5));
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
+
+  // Embedded in the store: Escape closes the experience and returns to the store.
+  useEffect(() => {
+    if (!EMBEDDED) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') closeToStore(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -124,7 +133,7 @@ export default function App() {
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} progress5={progress5} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
+          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} progress5={progress5} reduced={reduced} quality={quality} onReady={() => { setReady(true); signalReady(); }} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />

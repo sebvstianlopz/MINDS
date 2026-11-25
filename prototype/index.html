@@ -473,6 +473,21 @@ html.intro-on { overflow: hidden; }
   .ml-tag, .ml-hint { opacity: 1; }
   .minds-loader.leaving { transition: opacity .2s ease !important; }
 }
+/* Inside the mind: the 3D experience (experience.html) in a full-screen overlay at #mind */
+.campaign.mind figure { order: 2; border-right: clamp(12px, 1.4vw, 20px) solid var(--night); border-left: 0; background: #050506; }
+.campaign.mind figure img { object-position: 50% 54%; }
+.campaign.mind .eyebrow { font: 600 12px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-2); }
+@media (max-width: 899px) { .campaign.mind figure { order: 0; aspect-ratio: 5 / 4; max-height: 62svh; width: 100%; } .campaign.mind figure img { object-position: 50% 56%; } }
+.mind-layer { position: fixed; inset: 0; z-index: 150; pointer-events: none; background: #050506; color: var(--on-dark); opacity: 0; visibility: hidden; transition: opacity .4s ease, visibility 0s linear .4s; }
+.mind-layer.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .4s ease; }
+.mind-layer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #050506; color-scheme: dark; }
+.mind-load { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font: 600 11px/1 var(--body); letter-spacing: .24em; text-transform: uppercase; color: var(--on-dark-2); pointer-events: none; transition: opacity .4s ease; }
+.mind-x { position: absolute; z-index: 2; top: max(14px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: transparent; color: var(--on-dark); border: 1px solid rgba(242, 238, 230, .4); font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: opacity .3s ease, background .2s ease, color .2s ease; }
+.mind-x:hover { background: var(--on-dark); color: var(--night); }
+.mind-x:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
+.mind-layer.ready .mind-load, .mind-layer.ready .mind-x { opacity: 0; pointer-events: none; visibility: hidden; }
+html.mind-on, html.mind-on body { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .mind-layer, .mind-layer.open, .mind-load, .mind-x { transition: none; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -518,6 +533,7 @@ html.intro-on { overflow: hidden; }
         <a href="#shop">Shop all</a>
         <a href="#shop-caps">Caps</a>
         <a href="#visit">Stores</a>
+        <a href="#mind">Inside the mind</a>
       </nav>
     </div>
     <div class="tools">
@@ -534,6 +550,7 @@ html.intro-on { overflow: hidden; }
     <a href="#shop" data-act="nav-close">Shop all</a>
     <a href="#shop-caps" data-act="nav-close">Caps</a>
     <a href="#visit" data-act="nav-close">Stores</a>
+    <a href="#mind" data-act="nav-close">Inside the mind</a>
   </nav>
 </div>
 
@@ -552,7 +569,7 @@ html.intro-on { overflow: hidden; }
           <a class="iconbtn" href="https://www.facebook.com/profile.php?id=61560906219548" aria-label="MINDS on Facebook"><svg class="icon"><use href="#i-fb"/></svg></a>
         </div>
       </div>
-      <div><h3>Shop</h3><ul><li><a href="#new">New arrivals</a></li><li><a href="#shop">Shop all</a></li><li><a href="#shop-shorts">Shorts</a></li><li><a href="#shop-caps">Caps</a></li></ul></div>
+      <div><h3>Shop</h3><ul><li><a href="#new">New arrivals</a></li><li><a href="#shop">Shop all</a></li><li><a href="#shop-shorts">Shorts</a></li><li><a href="#shop-caps">Caps</a></li><li><a href="#mind">Inside the mind</a></li></ul></div>
       <div><h3>Help</h3><ul><li><a href="https://mindsstreet.com/policies/shipping-policy">Shipping</a></li><li><a href="https://mindsstreet.com/policies/refund-policy">Returns</a></li><li><a href="https://mindsstreet.com/pages/faqs">FAQ</a></li></ul></div>
       <div><h3>Contact</h3><ul><li class="num">787-564-7822</li><li>info@mindsstreet.com</li><li><a href="#visit">Store hours</a></li></ul></div>
     </div>
@@ -583,6 +600,11 @@ html.intro-on { overflow: hidden; }
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="mind-layer" id="mind" role="dialog" aria-modal="true" aria-label="MINDS Inside Your Mind, 3D experience" hidden>
+  <iframe title="MINDS Inside Your Mind, a scroll-driven 3D experience" allow="fullscreen"></iframe>
+  <p class="mind-load" aria-hidden="true">Loading the mind</p>
+  <button class="mind-x" type="button" data-act="mind-close"><span aria-hidden="true">✕</span> Back to store</button>
+</div>
 
 <script>
 (function () {
@@ -686,6 +708,13 @@ html.intro-on { overflow: hidden; }
       '<div class="sec-head"><h2 id="naTitle" data-reveal="rise"><span class="ri">New arrivals</span></h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
       '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
     '</div></section>' +
+    '<section class="campaign mind dark" aria-labelledby="mindTitle">' +
+      '<figure><img src="img/mind-poster.webp" alt="" loading="lazy" width="960" height="1200"></figure>' +
+      '<div class="copy"><p class="eyebrow">3D experience</p><h2 id="mindTitle" data-reveal="rise"><span class="ri">Step inside the mind.</span></h2>' +
+        '<p>Scroll from a single thought to a finished MINDS garment, then shop the pieces you see. It takes about a minute.</p>' +
+        '<div class="ctas"><a class="btn light" href="#mind">Enter the experience ' + arrow() + '</a></div>' +
+      '</div>' +
+    '</section>' +
     '<section aria-labelledby="pcTitle"><h2 id="pcTitle" class="sr">Shop by piece</h2><div class="pieces">' +
       piece("Shorts", "minds-short-6-0", "p-green") + piece("Pants", "minds-nylon-pants-0", "p-stone") + piece("Tops", "endlesshine-blue-0", "p-night") + piece("Caps", "minds-archive-cap-3-0", "p-satin") +
     '</div></section>' +
@@ -1160,7 +1189,16 @@ html.intro-on { overflow: hidden; }
 
   // Router
   function route() {
-    const h = (location.hash || "#home").slice(1);
+    const h0 = (location.hash || "#home").slice(1);
+    if (h0 === "mind") {
+      window.MINDS_MIND_PUSHED = renderedKey !== null;
+      setMind(true);
+      if (renderedKey !== null) return;           // keep the page underneath as it is
+    } else {
+      window.MINDS_MIND_PUSHED = false;
+      if (mindOpen) { setMind(false); if ("#" + h0 === renderedKey) return; }   // back to the page that was underneath
+    }
+    const h = h0 === "mind" ? "home" : h0;
     let html, title = "MINDS", current = "";
     if (h.indexOf("p-") === 0 && byH[h.slice(2)]) { const p = byH[h.slice(2)]; html = product(p); title = p.name + " · MINDS"; }
     else if (h === "new" || h.indexOf("shop") === 0) {
@@ -1211,11 +1249,64 @@ html.intro-on { overflow: hidden; }
       const vt = document.startViewTransition(swap);
       vt.finished.finally(() => { document.querySelectorAll("[style*='view-transition-name']").forEach(el => { el.style.viewTransitionName = ""; }); });
     } else swap();
+    if (mindOpen) { mindTitle = document.title; document.title = "Inside the mind · MINDS"; }
     lastProduct = toProduct ? h.slice(2) : (h.indexOf("p-") === 0 ? null : lastProduct);
     pendingMorph = null;
     renderedKey = key;
     booted = true;
   }
+  // Inside the mind: the 3D experience as a full-screen overlay. experience.html detects the store through
+  // window.MINDS_STORE, sends its shop links back here as hash routes, and posts "minds-mind-ready" once painted.
+  window.MINDS_STORE = true;
+  const mindEl = document.getElementById("mind"), mindFrame = mindEl.querySelector("iframe");
+  let mindOpen = false, mindReturn = null, mindTrigger = null, mindTitle = "", mindTimer = 0;
+  document.addEventListener("click", e => { const a = e.target.closest('a[href="#mind"]'); if (a) mindTrigger = a.closest("#navDrawer") ? document.querySelector("header.site .burger") : a; }, true);
+  function setMind(on) {
+    if (on === mindOpen) return;
+    mindOpen = on;
+    clearTimeout(mindTimer);
+    const others = [...document.body.children].filter(el => el !== mindEl && !/^(SCRIPT|DIALOG)$/.test(el.tagName) && !el.classList.contains("toast"));
+    if (on) {
+      mindReturn = mindTrigger && document.contains(mindTrigger) ? mindTrigger : document.activeElement;
+      mindTrigger = null;
+      mindTitle = document.title;
+      if (document.getElementById("navDrawer").classList.contains("open")) closeNav();
+      if (document.getElementById("cart").classList.contains("open")) closeCart();
+      mindEl.classList.remove("ready");
+      frameGo("experience.html");
+      mindEl.hidden = false;
+      void mindEl.offsetWidth;
+      mindEl.classList.add("open");
+      document.documentElement.classList.add("mind-on");
+      others.forEach(el => { el.inert = true; });
+      document.title = "Inside the mind · MINDS";
+      mindEl.querySelector(".mind-x").focus({ preventScroll: true });
+    } else {
+      mindEl.classList.remove("open");
+      document.documentElement.classList.remove("mind-on");
+      others.forEach(el => { el.inert = false; });
+      if (mindTitle) document.title = mindTitle;
+      // unload after the fade so the WebGL scene stops and frees the GPU
+      mindTimer = setTimeout(() => { mindEl.hidden = true; mindEl.classList.remove("ready"); frameGo("about:blank"); }, RM.matches ? 0 : 420);
+      const back = mindReturn && document.contains(mindReturn) && mindReturn !== document.body && mindReturn !== mindFrame ? mindReturn : main;
+      back.focus({ preventScroll: true });
+      mindReturn = null;
+    }
+  }
+  // location.replace, not iframe.src: changing src adds joint-history entries and Back would navigate the iframe
+  function frameGo(url) {
+    const href = url === "about:blank" ? url : new URL(url, location.href).href;
+    try { mindFrame.contentWindow.location.replace(href); } catch (e) { mindFrame.src = href; }
+  }
+  function closeMind() {
+    if (window.MINDS_MIND_PUSHED) history.back();
+    else location.hash = "#home";
+  }
+  window.addEventListener("message", e => {
+    if (e.origin !== location.origin || !e.data || e.data.type !== "minds-mind-ready" || !mindOpen) return;
+    mindEl.classList.add("ready");
+    if (document.activeElement === mindEl.querySelector(".mind-x") || document.activeElement === document.body) mindFrame.focus();
+  });
   window.addEventListener("hashchange", route);
 
   document.addEventListener("click", e => {
@@ -1261,10 +1352,12 @@ html.intro-on { overflow: hidden; }
     else if (a === "sg-close") document.getElementById("sizeGuide").close();
     else if (a === "clear") { st.cat = "All"; st.q = ""; st.inStock = false; route(); }
     else if (a === "skip-hero") { const t2 = document.getElementById("after-hero"); t2.scrollIntoView(); t2.focus({ preventScroll: true }); }
+    else if (a === "mind-close") closeMind();
     else if (a === "checkout") toast("Prototype only. On the live store this opens Shopify checkout.");
   });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
+    if (mindOpen) { closeMind(); return; }
     if (document.getElementById("cart").classList.contains("open")) closeCart();
     if (document.getElementById("navDrawer").classList.contains("open")) closeNav();
   });
