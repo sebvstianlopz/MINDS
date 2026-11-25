@@ -5,7 +5,7 @@ import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocess
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneMind } from './three/SceneMind.jsx';
-import { Header, SceneOneCopy, PlaceholderTag, STORE_URL } from './ui/Overlay.jsx';
+import { Header, SceneOneCopy, SceneTwoCopy, PlaceholderTag, STORE_URL } from './ui/Overlay.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +14,9 @@ const lowTier = () => window.matchMedia('(max-width: 760px), (pointer: coarse)')
 
 export default function App() {
   const progress = useRef(0);           // Scene 01 scroll progress, 0..1 (no React re-render)
+  const progress2 = useRef(0);          // Scene 02 scroll progress, 0..1
   const runway = useRef(null);
+  const runway2 = useRef(null);
   const copy = useRef(null);
   const [reduced, setReduced] = useState(prefersReduced);
   const [quality] = useState(() => (lowTier() ? 'low' : 'high'));
@@ -33,7 +35,12 @@ export default function App() {
 
   // Scroll → scene. One ScrollTrigger scrubs Scene 01; the copy timeline rides the same trigger.
   useLayoutEffect(() => {
-    if (reduced) { progress.current = 0; return; }
+    if (reduced) {
+      // no scrubbing: Scene 02 cuts straight to its end frame when its section arrives
+      progress.current = 0;
+      const st = ScrollTrigger.create({ trigger: runway2.current, start: 'top 60%', onEnter: () => { progress2.current = 1; }, onLeaveBack: () => { progress2.current = 0; } });
+      return () => st.kill();
+    }
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
       tl.to('.s1-a', { xPercent: -18, yPercent: -30, autoAlpha: 0 }, 0)
@@ -47,7 +54,19 @@ export default function App() {
         animation: tl,
         onUpdate: (self) => { progress.current = self.progress; },
       });
-    }, copy);
+      // Scene 02: one trigger scrubs the camera (via progress2) and the "Reset your mind." reveal
+      const tl2 = gsap.timeline({ defaults: { ease: 'none' } });
+      tl2.fromTo('.s2-title', { autoAlpha: 0, scale: 1.12, letterSpacing: '0.12em' }, { autoAlpha: 1, scale: 1, letterSpacing: '0.005em', duration: 0.2 }, 0.58)
+        .to('.s2-title', { duration: 0.22 }, 0.78);
+      ScrollTrigger.create({
+        trigger: runway2.current,
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        animation: tl2,
+        onUpdate: (self) => { progress2.current = self.progress; },
+      });
+    });
     return () => ctx.revert();
   }, [reduced]);
 
@@ -62,7 +81,7 @@ export default function App() {
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
+          <SceneMind progress={progress} progress2={progress2} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />
@@ -83,10 +102,17 @@ export default function App() {
           </div>
         </section>
 
-        {/* End of Stage 1. Scene 02 (Enter the mind) attaches here next. */}
+        {/* SCENE 02 — ENTER THE MIND: the camera closes in, the cortex turns to fibers, and we pass inside */}
+        <section className="s2" ref={runway2} aria-labelledby="s2-title">
+          <div className="s2-frame">
+            <SceneTwoCopy />
+          </div>
+        </section>
+
+        {/* End of Stage 2. Scene 03 (Neural universe) attaches here next. */}
         <section className="next">
-          <h2 className="next-title">Enter the mind</h2>
-          <p className="next-copy">Scene 02 is in production. Until then, the collection is open.</p>
+          <h2 className="next-title">The neural universe</h2>
+          <p className="next-copy">Scene 03 is in production. Until then, the collection is open.</p>
           <a className="btn" href={STORE_URL + '#new'}>Shop new arrivals</a>
         </section>
       </main>

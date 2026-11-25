@@ -29,6 +29,15 @@ export const SceneOneCopy = forwardRef(function SceneOneCopy(_, ref) {
   );
 });
 
+// Scene 02 copy: appears once the camera is inside the brain.
+export function SceneTwoCopy() {
+  return (
+    <div className="s2-copy">
+      <h2 className="s2-title" id="s2-title">Reset your mind.</h2>
+    </div>
+  );
+}
+
 export function PlaceholderTag() {
   if (!BRAIN_IS_PLACEHOLDER) return null;
   return <p className="ph-tag">Placeholder 3D brain<span className="ph-more"> · final model pending</span></p>;

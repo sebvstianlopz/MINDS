@@ -1,6 +1,6 @@
 # MINDS — Inside Your Mind
 
-A scroll-driven 3D experience for MINDS, built in stages. **Stage 1 (this build): Scene 01, "The Mind".**
+A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scene 01, "The Mind", and Scene 02, "Enter the Mind".**
 It's separate from the storefront prototype (`../prototype/`). Its header links go to the storefront.
 
 ## Stack
@@ -23,11 +23,25 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 | `src/three/SceneMind.jsx` | Scene 01: the void (background, fog, dust), lighting (warm key, cool rim, low fill, dim room environment), idle float and rotation, and the scroll-driven camera dolly and orbit. Everything is damped per frame, so scrubbing in either direction is smooth. |
 | `src/three/Brain.jsx` | **Model switch.** Uses `BRAIN_GLB_URL` when it's set, otherwise the procedural placeholder. |
 | `src/three/ProceduralBrain.jsx` | **PLACEHOLDER.** A brain generated in code: two hemispheres, warped-noise gyri and sulci, a lateral fissure and central sulcus, a cerebellum, a brainstem, and a wet physical material. |
+| `src/three/NeuralFibers.jsx` | Scene 02's neural network: about 430 nodes in the brain volume plus a corridor beyond it along −Z (for Scene 03), joined by curved fibres. A GPU shader sends light pulses along each fibre, and synapse points glow. Opacity is driven by a ref. |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
 | `src/ui/Overlay.jsx` | Header, the "What's on your mind?" copy and the placeholder label. |
 | `src/styles.css` | Dark editorial layout (Big Shoulders Display + Archivo). |
 
 **Scroll map:** Scene 01 is a 220svh runway. Progress 0 → 1 moves the camera from z 6.4 to 4.1 with a slight orbit and lift, adds a quarter turn to the brain, and moves the two headline lines apart as they fade. The camera distance scales up on tall screens.
+
+**Scene 02 scroll map** (a 300svh runway, `progress2`):
+
+| Progress | What happens |
+|---|---|
+| 0 → 0.45 | The camera approaches until the brain fills the frame, and the brain squares up to the camera. |
+| 0.2 → 0.42 | The fibres fade up and glow through the cortex. |
+| 0.26 → 0.44 | The cortex dissolves. A depth pre-pass draws only its outer layer, so no inner walls show. |
+| 0.45 → 0.8 | The camera passes inside the brain, and its gaze turns forward along −Z. |
+| 0.58 → 0.78 | "RESET YOUR MIND." resolves. |
+| 0.8 → 1 | The camera travels along the fibres toward Scene 03. |
+
+Under reduced motion, Scene 02 cuts straight to its end frame when the section arrives.
 
 **Performance:**
 - Device pixel ratio is capped at 2, and lowered automatically under load (`PerformanceMonitor`).
@@ -46,7 +60,7 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 
 ## Roadmap
 1. ✅ **Scene 01, The Mind:** a floating brain hero, cinematic lighting, a scroll camera and the headline.
-2. **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
+2. ✅ **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
 3. **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
 4. **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
 5. **Scene 05, Discover MINDS:** a pull-back to floating garments, then a hand-off into the collection.

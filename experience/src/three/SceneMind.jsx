@@ -9,9 +9,12 @@ import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { Brain } from './Brain.jsx';
+import { NeuralFibers } from './NeuralFibers.jsx';
 
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const damp = THREE.MathUtils.damp;
+const lerp = THREE.MathUtils.lerp;
+const band = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
 function DimEnvironment({ intensity = 0.14 }) {
   const { gl, scene } = useThree();
@@ -46,8 +49,11 @@ function Dust({ count = 700 }) {
   );
 }
 
-export function SceneMind({ progress, reduced, quality, onReady }) {
+export function SceneMind({ progress, progress2, reduced, quality, onReady }) {
   const brain = useRef();
+  const fiberOpacity = useRef(0);
+  const brainMats = useRef(null);
+  const depthMeshes = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
   const { camera, size } = useThree();
   const aspect = size.width / size.height;
@@ -61,27 +67,51 @@ export function SceneMind({ progress, reduced, quality, onReady }) {
 
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;
-    const p = reduced ? 0 : easeInOut(progress.current);
+    const k = reduced ? 1000 : 1;                       // reduced motion: snap, no easing
+    const p = reduced ? 0 : easeInOut(progress.current); // Scene 01
+    const q = progress2.current;                         // Scene 02 (0..1)
     const fit = Math.min(1.9, Math.max(1, 0.9 / aspect)); // pull back on tall screens so the brain fits the width
     const zStart = 6.4 * fit, zEnd = 4.1 * fit;
-    // camera: dolly in with a slight orbit and lift
-    const tx = Math.sin(p * Math.PI * 0.5) * 0.9 + pointer.current.x * 0.35;
-    const ty = 0.25 - p * 0.35 - pointer.current.y * 0.2;
-    const tz = THREE.MathUtils.lerp(zStart, zEnd, p);
-    camera.position.x = damp(camera.position.x, tx, 3.2, dt);
-    camera.position.y = damp(camera.position.y, ty, 3.2, dt);
-    camera.position.z = damp(camera.position.z, tz, 3.2, dt);
-    camera.lookAt(0, 0.02, 0);
+    // Scene 02 phases: approach until the brain fills the frame → pass through the cortex → travel the fibers
+    const approach = band(0, 0.45, q), enter = band(0.45, 0.8, q), travel = band(0.8, 1, q);
+    const calm = 1 - approach;                           // idle motion and parallax settle as we close in
+    let tx = Math.sin(p * Math.PI * 0.5) * 0.9 + pointer.current.x * 0.35 * calm;
+    let ty = 0.25 - p * 0.35 - pointer.current.y * 0.2 * calm;
+    let tz = lerp(zStart, zEnd, p);
+    tx = lerp(tx, 0, approach); ty = lerp(ty, 0.02, approach);
+    const near = 2.3 * Math.min(fit, 1.4);             // the whole brain still fits as it dissolves into fibers
+    tz = lerp(tz, near, approach); tz = lerp(tz, -0.3, enter); tz = lerp(tz, -1.7, travel);
+    camera.position.x = damp(camera.position.x, tx, 3.2 * k, dt);
+    camera.position.y = damp(camera.position.y, ty, 3.2 * k, dt);
+    camera.position.z = damp(camera.position.z, tz, 3.2 * k, dt);
+    camera.lookAt(0, 0.02, lerp(0, camera.position.z - 4, band(0.35, 0.6, q)));
+    // fibers fade up as the cortex turns translucent
+    fiberOpacity.current = band(0.2, 0.42, q);
     if (!brain.current) return;
-    // idle: float + organic rotation; scroll adds a quarter turn
-    const float = reduced ? 0 : Math.sin(t * 0.7) * 0.06 + Math.sin(t * 0.31) * 0.03;
-    brain.current.position.y = damp(brain.current.position.y, float, 4, dt);
-    const yaw = reduced ? -1.05 : -1.1 + Math.sin(t * 0.18) * 0.2 + p * 0.75;
-    const pitch = reduced ? 0.22 : 0.2 + Math.sin(t * 0.23) * 0.05;
-    const roll = reduced ? 0 : Math.sin(t * 0.15) * 0.03;
-    brain.current.rotation.y = damp(brain.current.rotation.y, yaw, 2.5, dt);
-    brain.current.rotation.x = damp(brain.current.rotation.x, pitch, 2.5, dt);
-    brain.current.rotation.z = damp(brain.current.rotation.z, roll, 2.5, dt);
+    if (!brainMats.current) {                            // collect materials once (works for the GLB too)
+      const mats = new Set(), meshes = [];
+      brain.current.traverse((o) => { if (o.isMesh && o.material && !o.material.isShaderMaterial) { mats.add(o.material); meshes.push(o); } });
+      if (mats.size) {
+        brainMats.current = [...mats];
+        brainMats.current.forEach((m) => { m.transparent = true; m.needsUpdate = true; });
+        // depth pre-pass: while the cortex fades, only its outermost layer is drawn (no inner walls showing through)
+        const depthOnly = new THREE.MeshBasicMaterial({ colorWrite: false });
+        depthMeshes.current = meshes.map((o) => { const d = new THREE.Mesh(o.geometry, depthOnly); d.renderOrder = -1; o.add(d); return d; });
+      }
+    }
+    const surface = 1 - band(0.26, 0.44, q);
+    if (brainMats.current) brainMats.current.forEach((m) => { m.opacity = surface; m.visible = surface > 0.005; });
+    if (depthMeshes.current) depthMeshes.current.forEach((d) => { d.visible = surface > 0.02; });
+    // idle float + organic rotation; Scene 01 adds a quarter turn, Scene 02 squares the brain to the camera
+    const float = reduced ? 0 : (Math.sin(t * 0.7) * 0.06 + Math.sin(t * 0.31) * 0.03) * calm;
+    brain.current.position.y = damp(brain.current.position.y, float, 4 * k, dt);
+    let yaw = reduced ? -1.05 : -1.1 + Math.sin(t * 0.18) * 0.2 + p * 0.75;
+    let pitch = reduced ? 0.22 : 0.2 + Math.sin(t * 0.23) * 0.05;
+    let roll = reduced ? 0 : Math.sin(t * 0.15) * 0.03;
+    yaw = lerp(yaw, 0, approach); pitch = lerp(pitch, 0, approach); roll = lerp(roll, 0, approach);
+    brain.current.rotation.y = damp(brain.current.rotation.y, yaw, 2.5 * k, dt);
+    brain.current.rotation.x = damp(brain.current.rotation.x, pitch, 2.5 * k, dt);
+    brain.current.rotation.z = damp(brain.current.rotation.z, roll, 2.5 * k, dt);
   });
 
   return (
@@ -98,6 +128,7 @@ export function SceneMind({ progress, reduced, quality, onReady }) {
       <pointLight position={[3, -2.5, 3]} intensity={6} distance={12} decay={2} color="#ffd2c4" />
       <group ref={brain} scale={1.05}>
         <Brain quality={quality} onReady={onReady} />
+        <NeuralFibers opacity={fiberOpacity} quality={quality} reduced={reduced} />
       </group>
       {quality === 'high' && <Dust />}
     </>
