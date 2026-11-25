@@ -57,6 +57,10 @@ main { position: relative; z-index: 2; }
 .s2-frame { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; pointer-events: none; padding: 0 var(--gr) 0 var(--gl); }
 .s2-title { margin: 0; text-align: center; font: 900 clamp(60px, 12vw, 210px)/.84 var(--display); text-transform: uppercase; letter-spacing: .005em; text-shadow: 0 0 40px rgba(5, 5, 6, .6); will-change: transform, opacity; }
 
+/* Scene 03 runway: a 350svh flight with no copy; the transformation is the content */
+.s3 { position: relative; height: 350svh; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 /* End of the built stages */
 .next { position: relative; min-height: 70svh; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; padding: 96px var(--gr) 120px var(--gl); background: linear-gradient(to bottom, rgba(5, 5, 6, 0), var(--void) 40%); }
 .next-title { margin: 0; font: 900 clamp(48px, 7vw, 96px)/.88 var(--display); text-transform: uppercase; }
@@ -75,4 +79,5 @@ main { position: relative; z-index: 2; }
   .stage { opacity: 1; }
   .s1 { height: 100svh; }
   .s2 { height: 100svh; }
+  .s3 { height: 100svh; }
 }

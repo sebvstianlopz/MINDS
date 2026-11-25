@@ -15,8 +15,10 @@ const lowTier = () => window.matchMedia('(max-width: 760px), (pointer: coarse)')
 export default function App() {
   const progress = useRef(0);           // Scene 01 scroll progress, 0..1 (no React re-render)
   const progress2 = useRef(0);          // Scene 02 scroll progress, 0..1
+  const progress3 = useRef(0);          // Scene 03 scroll progress, 0..1
   const runway = useRef(null);
   const runway2 = useRef(null);
+  const runway3 = useRef(null);
   const copy = useRef(null);
   const [reduced, setReduced] = useState(prefersReduced);
   const [quality] = useState(() => (lowTier() ? 'low' : 'high'));
@@ -39,7 +41,8 @@ export default function App() {
       // no scrubbing: Scene 02 cuts straight to its end frame when its section arrives
       progress.current = 0;
       const st = ScrollTrigger.create({ trigger: runway2.current, start: 'top 60%', onEnter: () => { progress2.current = 1; }, onLeaveBack: () => { progress2.current = 0; } });
-      return () => st.kill();
+      const st3 = ScrollTrigger.create({ trigger: runway3.current, start: 'top 60%', onEnter: () => { progress3.current = 1; }, onLeaveBack: () => { progress3.current = 0; } });
+      return () => { st.kill(); st3.kill(); };
     }
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
@@ -66,6 +69,14 @@ export default function App() {
         animation: tl2,
         onUpdate: (self) => { progress2.current = self.progress; },
       });
+      // Scene 03: camera flight + fiber-to-thread transformation
+      ScrollTrigger.create({
+        trigger: runway3.current,
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        onUpdate: (self) => { progress3.current = self.progress; },
+      });
     });
     return () => ctx.revert();
   }, [reduced]);
@@ -81,7 +92,7 @@ export default function App() {
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} progress2={progress2} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
+          <SceneMind progress={progress} progress2={progress2} progress3={progress3} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />
@@ -109,10 +120,15 @@ export default function App() {
           </div>
         </section>
 
-        {/* End of Stage 2. Scene 03 (Neural universe) attaches here next. */}
+        {/* SCENE 03 — NEURAL UNIVERSE: a flight through the fibers as some of them become thread */}
+        <section className="s3" ref={runway3} aria-label="Neural universe">
+          <h2 className="sr-only">Neural universe</h2>
+        </section>
+
+        {/* End of the built stages. Scene 04 (Fashion inside your mind) attaches here next. */}
         <section className="next">
-          <h2 className="next-title">The neural universe</h2>
-          <p className="next-copy">Scene 03 is in production. Until then, the collection is open.</p>
+          <h2 className="next-title">Fashion inside your mind</h2>
+          <p className="next-copy">Scene 04 is in production. Until then, the collection is open.</p>
           <a className="btn" href={STORE_URL + '#new'}>Shop new arrivals</a>
         </section>
       </main>

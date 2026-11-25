@@ -10,6 +10,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { Brain } from './Brain.jsx';
 import { NeuralFibers } from './NeuralFibers.jsx';
+import { NeuralUniverse } from './NeuralUniverse.jsx';
 
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const damp = THREE.MathUtils.damp;
@@ -49,9 +50,11 @@ function Dust({ count = 700 }) {
   );
 }
 
-export function SceneMind({ progress, progress2, reduced, quality, onReady }) {
+export function SceneMind({ progress, progress2, progress3, reduced, quality, onReady }) {
   const brain = useRef();
   const fiberOpacity = useRef(0);
+  const uniOpacity = useRef(0);
+  const uniMorph = useRef(0);
   const brainMats = useRef(null);
   const depthMeshes = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -70,6 +73,7 @@ export function SceneMind({ progress, progress2, reduced, quality, onReady }) {
     const k = reduced ? 1000 : 1;                       // reduced motion: snap, no easing
     const p = reduced ? 0 : easeInOut(progress.current); // Scene 01
     const q = progress2.current;                         // Scene 02 (0..1)
+    const r = progress3.current;                         // Scene 03 (0..1)
     const fit = Math.min(1.9, Math.max(1, 0.9 / aspect)); // pull back on tall screens so the brain fits the width
     const zStart = 6.4 * fit, zEnd = 4.1 * fit;
     // Scene 02 phases: approach until the brain fills the frame → pass through the cortex → travel the fibers
@@ -81,12 +85,19 @@ export function SceneMind({ progress, progress2, reduced, quality, onReady }) {
     tx = lerp(tx, 0, approach); ty = lerp(ty, 0.02, approach);
     const near = 2.3 * Math.min(fit, 1.4);             // the whole brain still fits as it dissolves into fibers
     tz = lerp(tz, near, approach); tz = lerp(tz, -0.3, enter); tz = lerp(tz, -1.7, travel);
+    // Scene 03: fly on through the neural universe along a gently swaying path
+    const fly = easeInOut(r);
+    const sway = (z) => [0.24 * Math.sin(z * 0.55), 0.02 + 0.14 * Math.sin(z * 0.41)];
+    if (r > 0) { tz = lerp(-1.7, -8.6, fly); const [sx, sy] = sway(tz); tx = lerp(tx, sx, band(0, 0.15, r)); ty = lerp(ty, sy, band(0, 0.15, r)); }
     camera.position.x = damp(camera.position.x, tx, 3.2 * k, dt);
     camera.position.y = damp(camera.position.y, ty, 3.2 * k, dt);
     camera.position.z = damp(camera.position.z, tz, 3.2 * k, dt);
-    camera.lookAt(0, 0.02, lerp(0, camera.position.z - 4, band(0.35, 0.6, q)));
+    const lookZ = camera.position.z - 3.5, [lx, ly] = sway(lookZ), inFlight = band(0, 0.2, r);
+    camera.lookAt(lerp(0, lx, inFlight), lerp(0.02, ly, inFlight), lerp(0, camera.position.z - 4, band(0.35, 0.6, q)));
     // fibers fade up as the cortex turns translucent
-    fiberOpacity.current = band(0.2, 0.42, q);
+    fiberOpacity.current = band(0.2, 0.42, q) * (1 - band(0.25, 0.6, r));   // brain fibers fall behind
+    uniOpacity.current = band(0.7, 1, q);                                 // the universe opens ahead
+    uniMorph.current = band(0.12, 0.95, r);                               // fibers turn into thread
     if (!brain.current) return;
     if (!brainMats.current) {                            // collect materials once (works for the GLB too)
       const mats = new Set(), meshes = [];
@@ -130,6 +141,7 @@ export function SceneMind({ progress, progress2, reduced, quality, onReady }) {
         <Brain quality={quality} onReady={onReady} />
         <NeuralFibers opacity={fiberOpacity} quality={quality} reduced={reduced} />
       </group>
+      <NeuralUniverse opacity={uniOpacity} morph={uniMorph} quality={quality} reduced={reduced} />
       {quality === 'high' && <Dust />}
     </>
   );

@@ -1,6 +1,6 @@
 # MINDS — Inside Your Mind
 
-A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scene 01, "The Mind", and Scene 02, "Enter the Mind".**
+A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scenes 01–03 ("The Mind", "Enter the Mind", "Neural Universe").**
 It's separate from the storefront prototype (`../prototype/`). Its header links go to the storefront.
 
 ## Stack
@@ -24,6 +24,7 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 | `src/three/Brain.jsx` | **Model switch.** Uses `BRAIN_GLB_URL` when it's set, otherwise the procedural placeholder. |
 | `src/three/ProceduralBrain.jsx` | **PLACEHOLDER.** A brain generated in code: two hemispheres, warped-noise gyri and sulci, a lateral fissure and central sulcus, a cerebellum, a brainstem, and a wet physical material. |
 | `src/three/NeuralFibers.jsx` | Scene 02's neural network: about 430 nodes in the brain volume plus a corridor beyond it along −Z (for Scene 03), joined by curved fibres. A GPU shader sends light pulses along each fibre, and synapse points glow. Opacity is driven by a ref. |
+| `src/three/NeuralUniverse.jsx` | Scene 03: about 160 long organic fibres flowing along −Z, with light pulses. 38 of them turn into textile threads (plied, lit tubes in MINDS bone, green and black) as a glowing front travels along each one. The threads converge on `THREAD_FOCUS` (0, 0, −15.5), the loom for Scene 04. |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
 | `src/ui/Overlay.jsx` | Header, the "What's on your mind?" copy and the placeholder label. |
 | `src/styles.css` | Dark editorial layout (Big Shoulders Display + Archivo). |
@@ -43,6 +44,16 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 
 Under reduced motion, Scene 02 cuts straight to its end frame when the section arrives.
 
+**Scene 03 scroll map** (a 350svh runway, `progress3`):
+
+| Progress | What happens |
+|---|---|
+| 0 → 1 | The camera flies from z −1.7 to −8.6 along a gently swaying path, looking ahead. |
+| 0.25 → 0.6 | The brain's own fibres fall behind. |
+| 0.12 → 0.95 | Fibres turn into thread, each with its own start delay, so the change spreads gradually. |
+
+Under reduced motion, Scene 03 cuts to its end frame (all threads formed).
+
 **Performance:**
 - Device pixel ratio is capped at 2, and lowered automatically under load (`PerformanceMonitor`).
 - Rendering pauses when the tab is hidden.
@@ -61,6 +72,6 @@ Under reduced motion, Scene 02 cuts straight to its end frame when the section a
 ## Roadmap
 1. ✅ **Scene 01, The Mind:** a floating brain hero, cinematic lighting, a scroll camera and the headline.
 2. ✅ **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
-3. **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
+3. ✅ **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
 4. **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
 5. **Scene 05, Discover MINDS:** a pull-back to floating garments, then a hand-off into the collection.
