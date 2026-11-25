@@ -1,0 +1,72 @@
+/* MINDS — Inside Your Mind. Single dark look by design (the void), so no light theme. */
+:root {
+  --void: #050506;
+  --bone: #f2eee6;
+  --bone-2: #a7a39b;
+  --line: rgba(242, 238, 230, .18);
+  --display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --gl: max(20px, env(safe-area-inset-left, 0px));
+  --gr: max(20px, env(safe-area-inset-right, 0px));
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--void); scrollbar-color: #2a2a2a var(--void); }
+body { margin: 0; background: var(--void); color: var(--bone); font: 400 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--bone); color: var(--void); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--bone); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+
+/* 3D stage: fixed behind everything, fades in once the brain is built */
+.stage { position: fixed; inset: 0; z-index: 0; opacity: 0; transition: opacity 1.4s var(--ease); }
+.stage.is-ready { opacity: 1; }
+.stage canvas { display: block; }
+
+/* Header: never blocks the canvas, always reachable */
+.hdr { position: fixed; z-index: 10; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gr) 18px var(--gl); pointer-events: none; }
+.hdr > * { pointer-events: auto; }
+.hdr-logo img { height: 22px; width: auto; filter: invert(1); opacity: .95; }
+.hdr-nav { display: flex; gap: 28px; }
+.hdr-nav a { font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; padding: 10px 0; border-bottom: 1px solid transparent; transition: border-color .25s ease; }
+.hdr-nav a:hover { border-bottom-color: var(--bone); }
+@media (max-width: 640px) { .hdr-nav { gap: 18px; } .hdr-nav a:nth-child(2) { display: none; } }
+
+/* Scene 01 runway + sticky frame for the copy */
+main { position: relative; z-index: 2; }
+.s1 { position: relative; height: 220svh; }
+.s1-frame { position: sticky; top: 0; height: 100svh; overflow: hidden; pointer-events: none; }
+.s1-copy { position: absolute; inset: 0; }
+.s1-title { margin: 0; font: 900 clamp(64px, 13.5vw, 232px)/.82 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
+.s1-line { position: absolute; display: block; white-space: nowrap; will-change: transform, opacity; }
+.s1-a { left: var(--gl); top: clamp(84px, 13svh, 140px); }
+.s1-b { right: var(--gr); bottom: clamp(64px, 11svh, 120px); text-align: right; }
+.s1-cue { position: absolute; left: var(--gl); bottom: calc(28px + env(safe-area-inset-bottom, 0px)); margin: 0; display: flex; align-items: center; gap: 12px; font: 600 11px/1 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--bone-2); }
+.s1-cue-bar { position: relative; width: 1px; height: 36px; background: var(--line); overflow: hidden; }
+.s1-cue-bar::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 40%; background: var(--bone); animation: cue 1.8s var(--ease) infinite; }
+@keyframes cue { from { transform: translateY(-100%); } to { transform: translateY(250%); } }
+@media (max-width: 640px) {
+  .s1-title { font-size: clamp(56px, 19vw, 120px); }
+  .s1-a { top: clamp(88px, 14svh, 130px); }
+  .s1-b { bottom: clamp(80px, 13svh, 120px); }
+}
+
+/* End of stage 1 */
+.next { position: relative; min-height: 70svh; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; padding: 96px var(--gr) 120px var(--gl); background: linear-gradient(to bottom, rgba(5, 5, 6, 0), var(--void) 40%); }
+.next-title { margin: 0; font: 900 clamp(48px, 7vw, 96px)/.88 var(--display); text-transform: uppercase; }
+.next-copy { margin: 0; color: var(--bone-2); max-width: 36ch; }
+.btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 28px; border: 1px solid var(--bone); font: 600 13px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: background .25s ease, color .25s ease; }
+.btn:hover { background: var(--bone); color: var(--void); }
+
+/* Placeholder asset label (shown while the procedural brain is in use) */
+.ph-tag { position: fixed; z-index: 11; right: var(--gr); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); margin: 0; padding: 7px 10px; border: 1px dashed rgba(242, 238, 230, .35); font: 600 10px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--bone-2); background: rgba(5, 5, 6, .6); pointer-events: none; }
+
+@media (max-width: 640px) { .ph-more { display: none; } .ph-tag { bottom: auto; top: calc(64px + env(safe-area-inset-top, 0px)); } }
+.nojs { position: relative; z-index: 3; padding: 120px var(--gr) 0 var(--gl); font-size: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .stage { opacity: 1; }
+  .s1 { height: 100svh; }
+}
