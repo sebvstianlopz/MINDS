@@ -5,7 +5,7 @@ import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocess
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneMind } from './three/SceneMind.jsx';
-import { Header, SceneOneCopy, SceneTwoCopy, PlaceholderTag, STORE_URL } from './ui/Overlay.jsx';
+import { Header, SceneOneCopy, SceneTwoCopy, SceneFourCopy, PlaceholderTag, STORE_URL } from './ui/Overlay.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,9 +16,11 @@ export default function App() {
   const progress = useRef(0);           // Scene 01 scroll progress, 0..1 (no React re-render)
   const progress2 = useRef(0);          // Scene 02 scroll progress, 0..1
   const progress3 = useRef(0);          // Scene 03 scroll progress, 0..1
+  const progress4 = useRef(0);          // Scene 04 scroll progress, 0..1
   const runway = useRef(null);
   const runway2 = useRef(null);
   const runway3 = useRef(null);
+  const runway4 = useRef(null);
   const copy = useRef(null);
   const [reduced, setReduced] = useState(prefersReduced);
   const [quality] = useState(() => (lowTier() ? 'low' : 'high'));
@@ -42,7 +44,8 @@ export default function App() {
       progress.current = 0;
       const st = ScrollTrigger.create({ trigger: runway2.current, start: 'top 60%', onEnter: () => { progress2.current = 1; }, onLeaveBack: () => { progress2.current = 0; } });
       const st3 = ScrollTrigger.create({ trigger: runway3.current, start: 'top 60%', onEnter: () => { progress3.current = 1; }, onLeaveBack: () => { progress3.current = 0; } });
-      return () => { st.kill(); st3.kill(); };
+      const st4 = ScrollTrigger.create({ trigger: runway4.current, start: 'top 60%', onEnter: () => { progress4.current = 1; }, onLeaveBack: () => { progress4.current = 0; } });
+      return () => { st.kill(); st3.kill(); st4.kill(); };
     }
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
@@ -77,6 +80,19 @@ export default function App() {
         scrub: 0.6,
         onUpdate: (self) => { progress3.current = self.progress; },
       });
+      // Scene 04: the garment weaves itself; copy and product link resolve once it is whole
+      const tl4 = gsap.timeline({ defaults: { ease: 'none' } });
+      tl4.fromTo('.s4-title', { autoAlpha: 0, yPercent: 30 }, { autoAlpha: 1, yPercent: 0, duration: 0.14 }, 0.76)
+        .fromTo('.s4-shop', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.84)
+        .to('.s4-copy', { duration: 0.06 }, 0.94);
+      ScrollTrigger.create({
+        trigger: runway4.current,
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        animation: tl4,
+        onUpdate: (self) => { progress4.current = self.progress; },
+      });
     });
     return () => ctx.revert();
   }, [reduced]);
@@ -92,7 +108,7 @@ export default function App() {
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} progress2={progress2} progress3={progress3} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
+          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} reduced={reduced} quality={quality} onReady={() => setReady(true)} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />
@@ -125,10 +141,17 @@ export default function App() {
           <h2 className="sr-only">Neural universe</h2>
         </section>
 
-        {/* End of the built stages. Scene 04 (Fashion inside your mind) attaches here next. */}
+        {/* SCENE 04 — FASHION INSIDE YOUR MIND: the threads weave a real MINDS tee */}
+        <section className="s4" ref={runway4} aria-labelledby="s4-title">
+          <div className="s4-frame">
+            <SceneFourCopy />
+          </div>
+        </section>
+
+        {/* End of the built stages. Scene 05 (Discover MINDS) attaches here next. */}
         <section className="next">
-          <h2 className="next-title">Fashion inside your mind</h2>
-          <p className="next-copy">Scene 04 is in production. Until then, the collection is open.</p>
+          <h2 className="next-title">Discover MINDS</h2>
+          <p className="next-copy">Scene 05 is in production. Until then, the collection is open.</p>
           <a className="btn" href={STORE_URL + '#new'}>Shop new arrivals</a>
         </section>
       </main>

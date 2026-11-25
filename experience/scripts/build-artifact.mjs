@@ -1,6 +1,6 @@
 // Turns the single-file Vite build (dist/index.html) into a claude.ai artifact page:
 // a body fragment (the host adds doctype/head/body) plus the public assets beside it.
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,5 +18,5 @@ const out = [title, '<meta name="theme-color" content="#050506">', ...fontLinks,
 const dest = join(root, 'artifact');
 mkdirSync(dest, { recursive: true });
 writeFileSync(join(dest, 'index.html'), out);
-for (const f of readdirSync(join(root, 'public'))) if (!f.startsWith('.')) { try { copyFileSync(join(root, 'public', f), join(dest, f)); } catch {} }
+for (const f of readdirSync(join(root, 'public'))) if (!f.startsWith('.')) cpSync(join(root, 'public', f), join(dest, f), { recursive: true });
 console.log('artifact page:', (out.length / 1024).toFixed(0) + ' KB');

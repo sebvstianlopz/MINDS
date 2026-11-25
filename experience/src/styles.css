@@ -61,6 +61,19 @@ main { position: relative; z-index: 2; }
 .s3 { position: relative; height: 350svh; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+/* Scene 04 runway: 320svh; statement and product link resolve once the tee is whole */
+.s4 { position: relative; height: 320svh; }
+.s4-frame { position: sticky; top: 0; height: 100svh; overflow: hidden; pointer-events: none; }
+.s4-copy { position: absolute; left: var(--gl); right: var(--gr); bottom: calc(clamp(28px, 6svh, 64px) + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; }
+.s4-title { margin: 0; max-width: 9ch; font: 900 clamp(48px, 7.4vw, 124px)/.84 var(--display); text-transform: uppercase; }
+.s4-shop { pointer-events: auto; display: grid; grid-template-columns: auto auto; gap: 6px 24px; align-items: baseline; padding: 16px 0 0; border-top: 1px solid var(--line); text-decoration: none; min-width: 260px; }
+.s4-name { font-weight: 600; font-size: 15px; }
+.s4-meta { color: var(--bone-2); font-weight: 400; }
+.s4-price { justify-self: end; font-variant-numeric: tabular-nums; }
+.s4-cta { grid-column: 1 / -1; justify-self: start; margin-top: 10px; display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border: 1px solid var(--bone); font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; transition: background .25s ease, color .25s ease; }
+.s4-shop:hover .s4-cta { background: var(--bone); color: var(--void); }
+@media (max-width: 640px) { .s4-title { font-size: clamp(44px, 13vw, 72px); } .s4-shop { min-width: 0; width: 100%; } }
+
 /* End of the built stages */
 .next { position: relative; min-height: 70svh; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; padding: 96px var(--gr) 120px var(--gl); background: linear-gradient(to bottom, rgba(5, 5, 6, 0), var(--void) 40%); }
 .next-title { margin: 0; font: 900 clamp(48px, 7vw, 96px)/.88 var(--display); text-transform: uppercase; }
@@ -80,4 +93,5 @@ main { position: relative; z-index: 2; }
   .s1 { height: 100svh; }
   .s2 { height: 100svh; }
   .s3 { height: 100svh; }
+  .s4 { height: 100svh; }
 }

@@ -10,7 +10,8 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { Brain } from './Brain.jsx';
 import { NeuralFibers } from './NeuralFibers.jsx';
-import { NeuralUniverse } from './NeuralUniverse.jsx';
+import { NeuralUniverse, THREAD_FOCUS } from './NeuralUniverse.jsx';
+import { Garment } from './Garment.jsx';
 
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const damp = THREE.MathUtils.damp;
@@ -50,11 +51,14 @@ function Dust({ count = 700 }) {
   );
 }
 
-export function SceneMind({ progress, progress2, progress3, reduced, quality, onReady }) {
+export function SceneMind({ progress, progress2, progress3, progress4, reduced, quality, onReady }) {
   const brain = useRef();
   const fiberOpacity = useRef(0);
   const uniOpacity = useRef(0);
   const uniMorph = useRef(0);
+  const garmentOpacity = useRef(0);
+  const garmentWeave = useRef(0);
+  const threadRetract = useRef(0);
   const brainMats = useRef(null);
   const depthMeshes = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -74,6 +78,7 @@ export function SceneMind({ progress, progress2, progress3, reduced, quality, on
     const p = reduced ? 0 : easeInOut(progress.current); // Scene 01
     const q = progress2.current;                         // Scene 02 (0..1)
     const r = progress3.current;                         // Scene 03 (0..1)
+    const g4 = progress4.current;                        // Scene 04 (0..1)
     const fit = Math.min(1.9, Math.max(1, 0.9 / aspect)); // pull back on tall screens so the brain fits the width
     const zStart = 6.4 * fit, zEnd = 4.1 * fit;
     // Scene 02 phases: approach until the brain fills the frame → pass through the cortex → travel the fibers
@@ -89,14 +94,21 @@ export function SceneMind({ progress, progress2, progress3, reduced, quality, on
     const fly = easeInOut(r);
     const sway = (z) => [0.24 * Math.sin(z * 0.55), 0.02 + 0.14 * Math.sin(z * 0.41)];
     if (r > 0) { tz = lerp(-1.7, -8.6, fly); const [sx, sy] = sway(tz); tx = lerp(tx, sx, band(0, 0.15, r)); ty = lerp(ty, sy, band(0, 0.15, r)); }
+    // Scene 04: settle in front of the loom, framing the garment as it weaves itself
+    const frame = easeInOut(band(0, 0.6, g4));
+    if (g4 > 0) { tz = lerp(-8.6, THREAD_FOCUS.z + 4.4 * Math.min(fit, 1.6), frame); tx = lerp(tx, 0, frame); ty = lerp(ty, THREAD_FOCUS.y, frame); }
     camera.position.x = damp(camera.position.x, tx, 3.2 * k, dt);
     camera.position.y = damp(camera.position.y, ty, 3.2 * k, dt);
     camera.position.z = damp(camera.position.z, tz, 3.2 * k, dt);
     const lookZ = camera.position.z - 3.5, [lx, ly] = sway(lookZ), inFlight = band(0, 0.2, r);
-    camera.lookAt(lerp(0, lx, inFlight), lerp(0.02, ly, inFlight), lerp(0, camera.position.z - 4, band(0.35, 0.6, q)));
+    const toLoom = band(0, 0.4, g4);
+    camera.lookAt(lerp(lerp(0, lx, inFlight), THREAD_FOCUS.x, toLoom), lerp(lerp(0.02, ly, inFlight), THREAD_FOCUS.y, toLoom), lerp(lerp(0, camera.position.z - 4, band(0.35, 0.6, q)), THREAD_FOCUS.z, toLoom));
     // fibers fade up as the cortex turns translucent
     fiberOpacity.current = band(0.2, 0.42, q) * (1 - band(0.25, 0.6, r));   // brain fibers fall behind
-    uniOpacity.current = band(0.7, 1, q);                                 // the universe opens ahead
+    uniOpacity.current = band(0.7, 1, q) * (1 - 0.7 * band(0.6, 0.95, g4)); // the universe opens ahead, then steps back for the garment
+    garmentOpacity.current = band(0, 0.08, g4);
+    garmentWeave.current = band(0.12, 0.8, g4);                           // threads weave the garment
+    threadRetract.current = band(0.1, 0.78, g4) * 0.995;                  // ...and are used up doing it
     uniMorph.current = band(0.12, 0.95, r);                               // fibers turn into thread
     if (!brain.current) return;
     if (!brainMats.current) {                            // collect materials once (works for the GLB too)
@@ -141,7 +153,8 @@ export function SceneMind({ progress, progress2, progress3, reduced, quality, on
         <Brain quality={quality} onReady={onReady} />
         <NeuralFibers opacity={fiberOpacity} quality={quality} reduced={reduced} />
       </group>
-      <NeuralUniverse opacity={uniOpacity} morph={uniMorph} quality={quality} reduced={reduced} />
+      <NeuralUniverse opacity={uniOpacity} morph={uniMorph} retract={threadRetract} quality={quality} reduced={reduced} />
+      <Garment opacity={garmentOpacity} weave={garmentWeave} quality={quality} reduced={reduced} />
       {quality === 'high' && <Dust />}
     </>
   );

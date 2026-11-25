@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { BRAIN_IS_PLACEHOLDER } from '../three/Brain.jsx';
+import { GARMENT, GARMENT_IS_PLACEHOLDER } from '../three/Garment.jsx';
 
 export const STORE_URL = 'https://claude.ai/artifact/DfHeg7AyNgYXgTWnWEntPH';
 
@@ -38,7 +39,22 @@ export function SceneTwoCopy() {
   );
 }
 
+// Scene 04 copy: the statement plus the real product it shows.
+export function SceneFourCopy() {
+  return (
+    <div className="s4-copy">
+      <h2 className="s4-title" id="s4-title">Wear what&rsquo;s on your mind.</h2>
+      <a className="s4-shop" href={STORE_URL + '#p-' + GARMENT.handle}>
+        <span className="s4-name">{GARMENT.name}<span className="s4-meta"> · {GARMENT.color}</span></span>
+        <span className="s4-price">{GARMENT.price}</span>
+        <span className="s4-cta">Shop the tee</span>
+      </a>
+    </div>
+  );
+}
+
 export function PlaceholderTag() {
-  if (!BRAIN_IS_PLACEHOLDER) return null;
-  return <p className="ph-tag">Placeholder 3D brain<span className="ph-more"> · final model pending</span></p>;
+  if (!BRAIN_IS_PLACEHOLDER && !GARMENT_IS_PLACEHOLDER) return null;
+  const what = BRAIN_IS_PLACEHOLDER && GARMENT_IS_PLACEHOLDER ? '3D models' : BRAIN_IS_PLACEHOLDER ? '3D brain' : 'garment model';
+  return <p className="ph-tag">Placeholder {what}<span className="ph-more"> · final models pending</span></p>;
 }

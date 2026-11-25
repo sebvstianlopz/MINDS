@@ -1,6 +1,6 @@
 # MINDS — Inside Your Mind
 
-A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scenes 01–03 ("The Mind", "Enter the Mind", "Neural Universe").**
+A scroll-driven 3D experience for MINDS, built in stages. **Built so far: Scenes 01–04 ("The Mind", "Enter the Mind", "Neural Universe", "Fashion Inside Your Mind").**
 It's separate from the storefront prototype (`../prototype/`). Its header links go to the storefront.
 
 ## Stack
@@ -25,6 +25,7 @@ npm run build    # vite build (single file) + scripts/build-artifact.mjs → art
 | `src/three/ProceduralBrain.jsx` | **PLACEHOLDER.** A brain generated in code: two hemispheres, warped-noise gyri and sulci, a lateral fissure and central sulcus, a cerebellum, a brainstem, and a wet physical material. |
 | `src/three/NeuralFibers.jsx` | Scene 02's neural network: about 430 nodes in the brain volume plus a corridor beyond it along −Z (for Scene 03), joined by curved fibres. A GPU shader sends light pulses along each fibre, and synapse points glow. Opacity is driven by a ref. |
 | `src/three/NeuralUniverse.jsx` | Scene 03: about 160 long organic fibres flowing along −Z, with light pulses. 38 of them turn into textile threads (plied, lit tubes in MINDS bone, green and black) as a glowing front travels along each one. The threads converge on `THREAD_FOCUS` (0, 0, −15.5), the loom for Scene 04. |
+| `src/three/Garment.jsx` | Scene 04: the **real** MINDS Endless Shine Tee (Cobalt) product cut-out, given a cloth-like surface (body wrap, folds, a floating ripple, sheen) at the loom. A shader weaves it in: warp threads, then weft, then it closes into fabric. The converging threads are drawn into it as it forms. **The geometry is a placeholder, but the product is real.** |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
 | `src/ui/Overlay.jsx` | Header, the "What's on your mind?" copy and the placeholder label. |
 | `src/styles.css` | Dark editorial layout (Big Shoulders Display + Archivo). |
@@ -54,6 +55,19 @@ Under reduced motion, Scene 02 cuts straight to its end frame when the section a
 
 Under reduced motion, Scene 03 cuts to its end frame (all threads formed).
 
+**Scene 04 scroll map** (a 320svh runway, `progress4`):
+
+| Progress | What happens |
+|---|---|
+| 0 → 0.6 | The camera settles in front of the loom. |
+| 0.12 → 0.8 | The tee weaves itself. |
+| 0.1 → 0.78 | The threads are consumed into it. |
+| 0.6 → 0.95 | The fibre field steps back. |
+| 0.76 | "WEAR WHAT'S ON YOUR MIND." appears. |
+| 0.84 | The product link appears (name, colour, price, "Shop the tee", linking to `#p-endlesshine-purple` on the storefront). |
+
+Under reduced motion, it cuts to the finished tee.
+
 **Performance:**
 - Device pixel ratio is capped at 2, and lowered automatically under load (`PerformanceMonitor`).
 - Rendering pauses when the tab is hidden.
@@ -66,12 +80,13 @@ Under reduced motion, Scene 03 cuts to its end frame (all threads formed).
 | Asset | Status | Replace by |
 |---|---|---|
 | Brain model | **Placeholder** (procedural) | Export a Draco-compressed GLB (aim for under 3 MB and about 100k triangles), centred at the origin, about 2 units long front to back, facing +Z. Save it as `public/models/brain.glb` and set `BRAIN_GLB_URL = 'models/brain.glb'` in `src/three/Brain.jsx`. The "Placeholder 3D brain" label disappears automatically. |
-| Garment models (Scenes 04–05) | Missing | Real MINDS hoodie and tee scans or models (GLB), plus their real artwork. Product graphics will not be invented. |
+| Garment model (Scene 04) | **Placeholder shape, real product photo** | Export the tee as a GLB with its real textures and set `GARMENT_GLB_URL` in `src/three/Garment.jsx` (the photo cloth is used until then). To feature another product, change `GARMENT` (name, colour, price, image, handle). |
+| Garment models (Scene 05) | Missing | Real MINDS garment models (GLB), or more product cut-outs, for the floating collection. |
 | Collection data (Scene 05) | Missing | Reuse the storefront catalogue, or connect Shopify. |
 
 ## Roadmap
 1. ✅ **Scene 01, The Mind:** a floating brain hero, cinematic lighting, a scroll camera and the headline.
 2. ✅ **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
 3. ✅ **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
-4. **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
+4. ✅ **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
 5. **Scene 05, Discover MINDS:** a pull-back to floating garments, then a hand-off into the collection.

@@ -87,7 +87,7 @@ const lineVert = /* glsl */`
     gl_Position = projectionMatrix * mv;
   }`;
 const lineFrag = /* glsl */`
-  uniform float uTime; uniform float uOpacity; uniform float uMorph; uniform vec3 uCool; uniform vec3 uWarm;
+  uniform float uTime; uniform float uOpacity; uniform float uMorph; uniform float uRetract; uniform vec3 uCool; uniform vec3 uWarm;
   varying float vT; varying float vSeed; varying float vThread; varying float vThr; varying float vFade;
   ${MORPH_GLSL}
   void main() {
@@ -98,7 +98,7 @@ const lineFrag = /* glsl */`
     float converted = vThread * (1.0 - smoothstep(f - 0.012, f, vT));            // behind the front: now a thread
     float spark = vThread * exp(-pow((vT - f) * 70.0, 2.0)) * step(0.001, f) * step(f, 1.0); // the transformation front glows
     vec3 col = mix(uCool, uWarm, vSeed) * (0.14 + pulse * 2.0) + vec3(1.0, 0.93, 0.82) * spark * 2.6;
-    float a = ((0.32 + pulse) * (1.0 - converted) + spark) * uOpacity * vFade;
+    float a = ((0.32 + pulse) * (1.0 - converted) + spark) * uOpacity * vFade * (1.0 - vThread * step(vT, uRetract));
     gl_FragColor = vec4(col, a);
   }`;
 const threadVert = /* glsl */`
@@ -111,12 +111,12 @@ const threadVert = /* glsl */`
     gl_Position = projectionMatrix * mv;
   }`;
 const threadFrag = /* glsl */`
-  uniform float uMorph; uniform float uOpacity; uniform vec3 uBg;
+  uniform float uMorph; uniform float uOpacity; uniform float uRetract; uniform vec3 uBg;
   varying vec2 vUv2; varying float vThr; varying float vSeed; varying vec3 vCol; varying vec3 vN; varying vec3 vV; varying float vDepth;
   ${MORPH_GLSL}
   void main() {
     float f = frontAt(uMorph, vThr);
-    if (vUv2.x > f || uOpacity < 0.01) discard;
+    if (vUv2.x > f || vUv2.x < uRetract || uOpacity < 0.01) discard;   // Scene 04: threads are drawn into the loom
     // three twisted plies: helical grooves along the thread, plus fine fibre hairs
     float twist = fract(vUv2.x * 900.0 + vUv2.y * 3.0);
     float ply = smoothstep(0.0, 0.18, twist) * smoothstep(1.0, 0.72, twist);
@@ -132,11 +132,11 @@ const threadFrag = /* glsl */`
     gl_FragColor = vec4(col, uOpacity);
   }`;
 
-export function NeuralUniverse({ opacity, morph, quality, reduced }) {
+export function NeuralUniverse({ opacity, morph, retract, quality, reduced }) {
   const { lines, threads } = useMemo(() => buildUniverse(quality), [quality]);
   const group = useRef();
   const uniforms = useMemo(() => ({
-    uTime: { value: 0 }, uOpacity: { value: 0 }, uMorph: { value: 0 },
+    uTime: { value: 0 }, uOpacity: { value: 0 }, uMorph: { value: 0 }, uRetract: { value: 0 },
     uCool: { value: new THREE.Color('#bcd0ff') }, uWarm: { value: new THREE.Color('#ffd8c8') }, uBg: { value: new THREE.Color('#050506') },
   }), []);
   useFrame((state) => {
@@ -144,6 +144,7 @@ export function NeuralUniverse({ opacity, morph, quality, reduced }) {
     if (group.current) group.current.visible = o > 0.002;
     uniforms.uOpacity.value = o;
     uniforms.uMorph.value = morph.current;
+    uniforms.uRetract.value = retract ? retract.current : 0;
     if (!reduced) uniforms.uTime.value = state.clock.elapsedTime;
   });
   return (
