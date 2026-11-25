@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { BRAIN_IS_PLACEHOLDER } from '../three/Brain.jsx';
 import { GARMENT, GARMENT_IS_PLACEHOLDER } from '../three/Garment.jsx';
 import { PRODUCTS } from '../data/products.js';
-import { EMBEDDED, closeToStore, storeLink } from './store.js';
+import { storeLink } from './store.js';
 
 export { STORE_URL } from './store.js';
 
@@ -13,9 +13,7 @@ export function Header() {
       <nav className="hdr-nav" aria-label="Main">
         <a {...storeLink('#shop')}>Shop</a>
         <a className="hdr-opt" {...storeLink('#new')}>New arrivals</a>
-        {EMBEDDED
-          ? <button type="button" className="hdr-back" onClick={closeToStore}><span aria-hidden="true">✕</span> Back to store</button>
-          : <a {...storeLink('#visit')}>Stores</a>}
+        <a {...storeLink('#visit')}>Stores</a>
       </nav>
     </header>
   );

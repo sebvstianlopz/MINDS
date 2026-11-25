@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneMind } from './three/SceneMind.jsx';
-import { EMBEDDED, closeToStore, signalReady } from './ui/store.js';
+import { getActive, subscribeActive } from './embedState.js';
 import { Header, SceneOneCopy, SceneTwoCopy, SceneFourCopy, SceneFiveCopy, CollectionGrid, Footer, PlaceholderTag } from './ui/Overlay.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +13,13 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const lowTier = () => window.matchMedia('(max-width: 760px), (pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4;
 
-export default function App() {
+// mode 'standalone': the full page (header, collection grid, footer).
+// mode 'home': the journey only, at the top of the store homepage (src/embed.jsx); the store supplies the rest.
+export default function App({ mode = 'standalone', onReady }) {
+  const home = mode === 'home';
+  const active = useSyncExternalStore(subscribeActive, getActive);
+  const journey = useRef(null);
+  const [inView, setInView] = useState(true);
   const progress = useRef(0);           // Scene 01 scroll progress, 0..1 (no React re-render)
   const progress2 = useRef(0);          // Scene 02 scroll progress, 0..1
   const progress3 = useRef(0);          // Scene 03 scroll progress, 0..1
@@ -31,13 +37,13 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
 
-  // Embedded in the store: Escape closes the experience and returns to the store.
+  // Store homepage: once the visitor scrolls past the journey into the store, the scene sleeps.
   useEffect(() => {
-    if (!EMBEDDED) return undefined;
-    const onKey = (e) => { if (e.key === 'Escape') closeToStore(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
+    if (!home) return undefined;
+    const st = ScrollTrigger.create({ trigger: journey.current, start: 'top bottom', end: 'bottom top', onToggle: (self) => setInView(self.isActive) });
+    setInView(st.isActive);
+    return () => st.kill();
+  }, [home]);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -124,16 +130,16 @@ export default function App() {
 
   return (
     <>
-      <div className={'stage' + (ready ? ' is-ready' : '')} aria-hidden="true">
+      <div className={'stage' + (ready ? ' is-ready' : '') + (home && !inView ? ' is-away' : '')} aria-hidden="true">
         <Canvas
           dpr={dpr}
           shadows={quality === 'high'}
-          frameloop={visible ? 'always' : 'never'}
+          frameloop={visible && active && inView ? 'always' : 'never'}
           gl={{ antialias: quality === 'high', powerPreference: 'high-performance', alpha: false }}
           camera={{ fov: 30, near: 0.1, far: 60, position: [0, 0.25, 7] }}
         >
           <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.5))} />
-          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} progress5={progress5} reduced={reduced} quality={quality} onReady={() => { setReady(true); signalReady(); }} />
+          <SceneMind progress={progress} progress2={progress2} progress3={progress3} progress4={progress4} progress5={progress5} reduced={reduced} quality={quality} onReady={() => { setReady(true); if (onReady) onReady(); }} />
           {quality === 'high' && (
             <EffectComposer multisampling={0}>
               <Bloom intensity={0.35} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />
@@ -144,9 +150,9 @@ export default function App() {
         </Canvas>
       </div>
 
-      <Header />
+      {!home && <Header />}
 
-      <main id="main">
+      <Main home={home} journey={journey}>
         {/* SCENE 01 — THE MIND: a 220vh scroll runway; the pinned copy sits in a sticky frame */}
         <section className="s1" ref={runway} aria-labelledby="s1-title">
           <div className="s1-frame">
@@ -180,13 +186,19 @@ export default function App() {
           </div>
         </section>
 
-        {/* Hand-off from the 3D experience to the shop */}
-        <CollectionGrid />
-      </main>
+        {/* Hand-off from the 3D experience to the shop (on the store homepage, the store itself follows) */}
+        {!home && <CollectionGrid />}
+      </Main>
 
-      <Footer />
+      {!home && <Footer />}
 
-      <PlaceholderTag />
+      {(!home || inView) && <PlaceholderTag />}
     </>
   );
+}
+
+// Standalone: the page's <main>. Store homepage: a plain block (the store owns <main>).
+function Main({ home, journey, children }) {
+  if (home) return <div className="mx-main" ref={journey}>{children}</div>;
+  return <main id="main">{children}</main>;
 }

@@ -2,8 +2,8 @@
 
 A scroll-driven 3D experience for MINDS, built in stages. **All five scenes are built: "The Mind", "Enter the Mind", "Neural Universe", "Fashion Inside Your Mind" and "Discover MINDS".**
 It runs in two places:
-- **Inside the store prototype** (the main way in): the store opens it full-screen at `#mind` (nav "Inside the mind", the homepage "Step inside the mind" band, the footer). It's published as `experience.html` next to the store page, so it's same-origin. Every shop link tells the store to navigate (`src/ui/store.js`): the overlay closes and the store shows that product, `#shop`, `#new` or `#visit`. "✕ Back to store" and Escape close it.
-- **Standalone**, at its own artifact link: the same links open the store artifact URL instead.
+- **As the store homepage** (the main way in): the journey is the top of the store prototype's homepage, and the store continues below it on the same page. `npm run build:embed` builds `src/embed.jsx` into `../prototype/mind.js` (one ES module, its CSS scoped under `.mx` so it can't touch the store's styles) and copies `garments/` beside it. The store loads it on the homepage, pauses it on other pages and once you scroll past it into the store, and collapses the slot if WebGL or the module fails. In this mode the store supplies the header and everything after Scene 05, and "Shop the tee" is a plain `#p-…` link on the same page.
+- **Standalone**, at its own artifact link (`npm run build` → `artifact/`): the full page with its own header, collection grid and footer. Its store links open the store artifact URL.
 
 ## Stack
 - React 18 + Vite 5 (JavaScript/JSX; the repo has no TypeScript)
@@ -14,9 +14,10 @@ It runs in two places:
 ```bash
 npm install
 npm run dev      # local dev server
-npm run build    # vite build (single file) + scripts/build-artifact.mjs → artifact/
+npm run build        # standalone: vite build (single file) + scripts/build-artifact.mjs → artifact/
+npm run build:embed  # store homepage: src/embed.jsx → ../prototype/mind.js (+ garments/)
 ```
-To publish inside the store, publish `prototype/index.html` with `experience.html` ← `dist/index.html`, plus `garments/` and `logo-ink.webp` (see the root of the store artifact). `artifact/index.html` is the standalone page: a body fragment with inlined JS and CSS, with `logo-ink.webp` and `garments/` beside it.
+For the store homepage, run `npm run build:embed`, then publish `prototype/index.html` with `mind.js` and `garments/` beside it. `artifact/index.html` is the standalone page: a body fragment with inlined JS and CSS, with `logo-ink.webp` and `garments/` beside it.
 
 ## Architecture
 | File | Role |
@@ -31,7 +32,8 @@ To publish inside the store, publish `prototype/index.html` with `experience.htm
 | `src/three/Collection3D.jsx` | Scene 05: the other seven catalogue products as floating photo-cloth garments around the hero tee, each weaving in on its own delay. Desktop and tablet use one constellation (`SLOTS`, squeezed sideways on narrower screens). Portrait phones get their own column layout (`PHONE_SLOTS`) that stays between the header and the title. |
 | `src/data/products.js` | **The product list** for Scenes 04–05 and the collection grid: handle (the storefront route), name, colour, price, cut-out image and aspect. The first entry is the Scene 04 hero. |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
-| `src/ui/store.js` | Links to the store: embedded detection (`window.MINDS_STORE` on the parent), `storeLink(hash)`, `closeToStore()`, and the ready message that hides the store's loading state. |
+| `src/ui/store.js` | Store links: plain hash routes on the store homepage, the store artifact URL when standalone (`storeLink(hash)`). |
+| `src/embed.jsx`, `src/embedState.js`, `vite.embed.config.js`, `scripts/build-embed.mjs` | The store-homepage build: `mount(el)` returns `setActive(on)`, `refresh()` and `destroy()`. |
 | `src/ui/Overlay.jsx` | Header, the scene copy, the collection grid (`CollectionGrid`), the footer and the placeholder label. |
 | `src/styles.css` | Dark editorial layout (Big Shoulders Display + Archivo). |
 

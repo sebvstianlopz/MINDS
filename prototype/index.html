@@ -473,21 +473,21 @@ html.intro-on { overflow: hidden; }
   .ml-tag, .ml-hint { opacity: 1; }
   .minds-loader.leaving { transition: opacity .2s ease !important; }
 }
-/* Inside the mind: the 3D experience (experience.html) in a full-screen overlay at #mind */
-.campaign.mind figure { order: 2; border-right: clamp(12px, 1.4vw, 20px) solid var(--night); border-left: 0; background: #050506; }
-.campaign.mind figure img { object-position: 50% 54%; }
-.campaign.mind .eyebrow { font: 600 12px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-2); }
-@media (max-width: 899px) { .campaign.mind figure { order: 0; aspect-ratio: 5 / 4; max-height: 62svh; width: 100%; } .campaign.mind figure img { object-position: 50% 56%; } }
-.mind-layer { position: fixed; inset: 0; z-index: 150; pointer-events: none; background: #050506; color: var(--on-dark); opacity: 0; visibility: hidden; transition: opacity .4s ease, visibility 0s linear .4s; }
-.mind-layer.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .4s ease; }
-.mind-layer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #050506; color-scheme: dark; }
-.mind-load { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font: 600 11px/1 var(--body); letter-spacing: .24em; text-transform: uppercase; color: var(--on-dark-2); pointer-events: none; transition: opacity .4s ease; }
-.mind-x { position: absolute; z-index: 2; top: max(14px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: transparent; color: var(--on-dark); border: 1px solid rgba(242, 238, 230, .4); font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: opacity .3s ease, background .2s ease, color .2s ease; }
-.mind-x:hover { background: var(--on-dark); color: var(--night); }
-.mind-x:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
-.mind-layer.ready .mind-load, .mind-layer.ready .mind-x { opacity: 0; pointer-events: none; visibility: hidden; }
-html.mind-on, html.mind-on body { overflow: hidden; }
-@media (prefers-reduced-motion: reduce) { .mind-layer, .mind-layer.open, .mind-load, .mind-x { transition: none; } }
+/* Homepage: the 3D journey (mind.js, built from experience/) sits above the store content.
+   Its fixed canvas lies under everything; the store's <main> slides over it like a page. */
+#mx-home { min-height: 1490svh; }
+#mx-home[hidden] { display: none; }
+#main { position: relative; z-index: 1; background: var(--bone); }
+.announce, footer.site { position: relative; z-index: 1; }
+body.mx-on { background: #050506; }
+body.mx-on::before { background: #050506; }
+body.mx-on header.site { background: rgba(5, 5, 6, .55); color: var(--on-dark); border-bottom-color: rgba(242, 238, 230, .14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+body.mx-on header.site .logo img { filter: invert(1); }
+body.mx-on header.site :focus-visible { outline-color: var(--on-dark); }
+body.mx-on nav.main a:hover, body.mx-on nav.main a[aria-current="page"] { border-bottom-color: var(--on-dark); }
+body.mx-on .iconbtn:hover { color: var(--on-dark); opacity: .75; }
+header.site { transition: transform .35s var(--ease), background-color .35s ease, color .35s ease, border-color .35s ease; }
+@media (prefers-reduced-motion: reduce) { #mx-home { min-height: 500svh; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -533,7 +533,6 @@ html.mind-on, html.mind-on body { overflow: hidden; }
         <a href="#shop">Shop all</a>
         <a href="#shop-caps">Caps</a>
         <a href="#visit">Stores</a>
-        <a href="#mind">Inside the mind</a>
       </nav>
     </div>
     <div class="tools">
@@ -550,10 +549,10 @@ html.mind-on, html.mind-on body { overflow: hidden; }
     <a href="#shop" data-act="nav-close">Shop all</a>
     <a href="#shop-caps" data-act="nav-close">Caps</a>
     <a href="#visit" data-act="nav-close">Stores</a>
-    <a href="#mind" data-act="nav-close">Inside the mind</a>
   </nav>
 </div>
 
+<div id="mx-home" aria-label="What's on your mind? A scroll-driven 3D journey" role="region" hidden></div>
 <main id="main" tabindex="-1"></main>
 
 <footer class="site dark">
@@ -569,7 +568,7 @@ html.mind-on, html.mind-on body { overflow: hidden; }
           <a class="iconbtn" href="https://www.facebook.com/profile.php?id=61560906219548" aria-label="MINDS on Facebook"><svg class="icon"><use href="#i-fb"/></svg></a>
         </div>
       </div>
-      <div><h3>Shop</h3><ul><li><a href="#new">New arrivals</a></li><li><a href="#shop">Shop all</a></li><li><a href="#shop-shorts">Shorts</a></li><li><a href="#shop-caps">Caps</a></li><li><a href="#mind">Inside the mind</a></li></ul></div>
+      <div><h3>Shop</h3><ul><li><a href="#new">New arrivals</a></li><li><a href="#shop">Shop all</a></li><li><a href="#shop-shorts">Shorts</a></li><li><a href="#shop-caps">Caps</a></li></ul></div>
       <div><h3>Help</h3><ul><li><a href="https://mindsstreet.com/policies/shipping-policy">Shipping</a></li><li><a href="https://mindsstreet.com/policies/refund-policy">Returns</a></li><li><a href="https://mindsstreet.com/pages/faqs">FAQ</a></li></ul></div>
       <div><h3>Contact</h3><ul><li class="num">787-564-7822</li><li>info@mindsstreet.com</li><li><a href="#visit">Store hours</a></li></ul></div>
     </div>
@@ -600,11 +599,6 @@ html.mind-on, html.mind-on body { overflow: hidden; }
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="mind-layer" id="mind" role="dialog" aria-modal="true" aria-label="MINDS Inside Your Mind, 3D experience" hidden>
-  <iframe title="MINDS Inside Your Mind, a scroll-driven 3D experience" allow="fullscreen"></iframe>
-  <p class="mind-load" aria-hidden="true">Loading the mind</p>
-  <button class="mind-x" type="button" data-act="mind-close"><span aria-hidden="true">✕</span> Back to store</button>
-</div>
 
 <script>
 (function () {
@@ -686,6 +680,8 @@ html.mind-on, html.mind-on body { overflow: hidden; }
   }
   const pickupLine = '<p class="pickup">' + ico("store") + '<span><strong>Pick up at MINDS Orlando</strong>, The Florida Mall.<br><span class="muted">Usually ready in 24 hours.</span></span></p>';
 
+  // The 3D journey's "What's on your mind?" is the homepage h1; if the journey can't run, the hero takes it back.
+  const heroTag = () => (document.getElementById("mx-home").dataset.failed ? "h1" : "h2");
   function home() {
     const jacket = byH["minds-legacy-croc-jacket"];
     return '' +
@@ -694,7 +690,7 @@ html.mind-on, html.mind-on body { overflow: hidden; }
       '<div class="tempo-runway"><div class="tempo-frame">' +
         '<img class="tempo-photo" src="img/hero-studio.webp" alt="Model in a green satin shirt, shorts and bucket hat, seated in a leather lounge chair beside palms and a wooden speaker" width="1536" height="1024">' +
         '<div class="tempo-shade" aria-hidden="true"></div>' +
-        '<h1 id="heroTitle" class="sr">Reset your mindset.</h1>' +
+        '<' + heroTag() + ' id="heroTitle" class="sr">Reset your mindset.</' + heroTag() + '>' +
         '<div class="tempo-rows" aria-hidden="true"><div class="tempo-row r0" data-unit="Reset your ·"></div><div class="tempo-row r1" data-unit="Mindset."></div></div>' +
         '<div class="tempo-copy">' +
           '<p>The new season is in. Recon Cargo, Femme Noir and Orbit Studs just landed. Shop them here or try them on at The Florida Mall.</p>' +
@@ -708,13 +704,6 @@ html.mind-on, html.mind-on body { overflow: hidden; }
       '<div class="sec-head"><h2 id="naTitle" data-reveal="rise"><span class="ri">New arrivals</span></h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
       '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
     '</div></section>' +
-    '<section class="campaign mind dark" aria-labelledby="mindTitle">' +
-      '<figure><img src="img/mind-poster.webp" alt="" loading="lazy" width="960" height="1200"></figure>' +
-      '<div class="copy"><p class="eyebrow">3D experience</p><h2 id="mindTitle" data-reveal="rise"><span class="ri">Step inside the mind.</span></h2>' +
-        '<p>Scroll from a single thought to a finished MINDS garment, then shop the pieces you see. It takes about a minute.</p>' +
-        '<div class="ctas"><a class="btn light" href="#mind">Enter the experience ' + arrow() + '</a></div>' +
-      '</div>' +
-    '</section>' +
     '<section aria-labelledby="pcTitle"><h2 id="pcTitle" class="sr">Shop by piece</h2><div class="pieces">' +
       piece("Shorts", "minds-short-6-0", "p-green") + piece("Pants", "minds-nylon-pants-0", "p-stone") + piece("Tops", "endlesshine-blue-0", "p-night") + piece("Caps", "minds-archive-cap-3-0", "p-satin") +
     '</div></section>' +
@@ -1013,6 +1002,8 @@ html.mind-on, html.mind-on body { overflow: hidden; }
       else if (y > lastY + 4) document.body.classList.add("hdr-hide");
       else if (y < lastY - 4) document.body.classList.remove("hdr-hide");
       lastY = y;
+      const journey = document.getElementById("mx-home");
+      document.body.classList.toggle("mx-on", !journey.hidden && journey.getBoundingClientRect().bottom > header.offsetHeight);
     });
     header.addEventListener("focusin", () => document.body.classList.remove("hdr-hide"));
   })();
@@ -1190,15 +1181,7 @@ html.mind-on, html.mind-on body { overflow: hidden; }
   // Router
   function route() {
     const h0 = (location.hash || "#home").slice(1);
-    if (h0 === "mind") {
-      window.MINDS_MIND_PUSHED = renderedKey !== null;
-      setMind(true);
-      if (renderedKey !== null) return;           // keep the page underneath as it is
-    } else {
-      window.MINDS_MIND_PUSHED = false;
-      if (mindOpen) { setMind(false); if ("#" + h0 === renderedKey) return; }   // back to the page that was underneath
-    }
-    const h = h0 === "mind" ? "home" : h0;
+    const h = h0 === "mind" ? "home" : h0;        // old "Inside the mind" links: the journey is the homepage now
     let html, title = "MINDS", current = "";
     if (h.indexOf("p-") === 0 && byH[h.slice(2)]) { const p = byH[h.slice(2)]; html = product(p); title = p.name + " · MINDS"; }
     else if (h === "new" || h.indexOf("shop") === 0) {
@@ -1220,6 +1203,7 @@ html.mind-on, html.mind-on body { overflow: hidden; }
     if (!useVT) { main.style.animation = "none"; void main.offsetWidth; main.style.animation = ""; }
     else main.style.animation = "none";
     main.innerHTML = html;
+    showJourney(h === "home" || h === "visit");
     document.title = title === "MINDS" ? "MINDS Storefront" : title;
     document.querySelectorAll("nav.main a").forEach(a => a.getAttribute("href") === current ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (document.getElementById("results")) {
@@ -1249,64 +1233,33 @@ html.mind-on, html.mind-on body { overflow: hidden; }
       const vt = document.startViewTransition(swap);
       vt.finished.finally(() => { document.querySelectorAll("[style*='view-transition-name']").forEach(el => { el.style.viewTransitionName = ""; }); });
     } else swap();
-    if (mindOpen) { mindTitle = document.title; document.title = "Inside the mind · MINDS"; }
     lastProduct = toProduct ? h.slice(2) : (h.indexOf("p-") === 0 ? null : lastProduct);
     pendingMorph = null;
     renderedKey = key;
     booted = true;
   }
-  // Inside the mind: the 3D experience as a full-screen overlay. experience.html detects the store through
-  // window.MINDS_STORE, sends its shop links back here as hash routes, and posts "minds-mind-ready" once painted.
-  window.MINDS_STORE = true;
-  const mindEl = document.getElementById("mind"), mindFrame = mindEl.querySelector("iframe");
-  let mindOpen = false, mindReturn = null, mindTrigger = null, mindTitle = "", mindTimer = 0;
-  document.addEventListener("click", e => { const a = e.target.closest('a[href="#mind"]'); if (a) mindTrigger = a.closest("#navDrawer") ? document.querySelector("header.site .burger") : a; }, true);
-  function setMind(on) {
-    if (on === mindOpen) return;
-    mindOpen = on;
-    clearTimeout(mindTimer);
-    const others = [...document.body.children].filter(el => el !== mindEl && !/^(SCRIPT|DIALOG)$/.test(el.tagName) && !el.classList.contains("toast"));
-    if (on) {
-      mindReturn = mindTrigger && document.contains(mindTrigger) ? mindTrigger : document.activeElement;
-      mindTrigger = null;
-      mindTitle = document.title;
-      if (document.getElementById("navDrawer").classList.contains("open")) closeNav();
-      if (document.getElementById("cart").classList.contains("open")) closeCart();
-      mindEl.classList.remove("ready");
-      frameGo("experience.html");
-      mindEl.hidden = false;
-      void mindEl.offsetWidth;
-      mindEl.classList.add("open");
-      document.documentElement.classList.add("mind-on");
-      others.forEach(el => { el.inert = true; });
-      document.title = "Inside the mind · MINDS";
-      mindEl.querySelector(".mind-x").focus({ preventScroll: true });
-    } else {
-      mindEl.classList.remove("open");
-      document.documentElement.classList.remove("mind-on");
-      others.forEach(el => { el.inert = false; });
-      if (mindTitle) document.title = mindTitle;
-      // unload after the fade so the WebGL scene stops and frees the GPU
-      mindTimer = setTimeout(() => { mindEl.hidden = true; mindEl.classList.remove("ready"); frameGo("about:blank"); }, RM.matches ? 0 : 420);
-      const back = mindReturn && document.contains(mindReturn) && mindReturn !== document.body && mindReturn !== mindFrame ? mindReturn : main;
-      back.focus({ preventScroll: true });
-      mindReturn = null;
-    }
+  // Homepage journey: the 3D "Inside your mind" experience (mind.js, built from experience/ with
+  // `npm run build:embed`) mounts above the homepage content. It loads once, sleeps on other pages and when
+  // scrolled past, and wakes when the visitor comes back. If WebGL or the module fails, the slot collapses.
+  const mxEl = document.getElementById("mx-home");
+  let mx = null, mxLoading = null;
+  function showJourney(on) {
+    if (mxEl.dataset.failed) on = false;
+    mxEl.hidden = !on;
+    if (!on) { document.body.classList.remove("mx-on"); if (mx) mx.setActive(false); return; }
+    if (mx) { mx.setActive(true); return; }
+    if (mxLoading) return;
+    const gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
+    if (!gl) { journeyFailed(); return; }
+    mxLoading = import("./mind.js").then(m => { mx = m.mount(mxEl); if (mxEl.hidden) mx.setActive(false); }).catch(journeyFailed);
   }
-  // location.replace, not iframe.src: changing src adds joint-history entries and Back would navigate the iframe
-  function frameGo(url) {
-    const href = url === "about:blank" ? url : new URL(url, location.href).href;
-    try { mindFrame.contentWindow.location.replace(href); } catch (e) { mindFrame.src = href; }
+  function journeyFailed() {
+    const y = window.scrollY, h = mxEl.offsetHeight;
+    mxEl.dataset.failed = "1"; mxEl.hidden = true; document.body.classList.remove("mx-on");
+    const t = document.getElementById("heroTitle");
+    if (t && t.tagName === "H2") { const h1 = document.createElement("h1"); h1.id = t.id; h1.className = t.className; h1.textContent = t.textContent; t.replaceWith(h1); }
+    if (y > h) window.scrollTo(0, y - h);
   }
-  function closeMind() {
-    if (window.MINDS_MIND_PUSHED) history.back();
-    else location.hash = "#home";
-  }
-  window.addEventListener("message", e => {
-    if (e.origin !== location.origin || !e.data || e.data.type !== "minds-mind-ready" || !mindOpen) return;
-    mindEl.classList.add("ready");
-    if (document.activeElement === mindEl.querySelector(".mind-x") || document.activeElement === document.body) mindFrame.focus();
-  });
   window.addEventListener("hashchange", route);
 
   document.addEventListener("click", e => {
@@ -1352,12 +1305,10 @@ html.mind-on, html.mind-on body { overflow: hidden; }
     else if (a === "sg-close") document.getElementById("sizeGuide").close();
     else if (a === "clear") { st.cat = "All"; st.q = ""; st.inStock = false; route(); }
     else if (a === "skip-hero") { const t2 = document.getElementById("after-hero"); t2.scrollIntoView(); t2.focus({ preventScroll: true }); }
-    else if (a === "mind-close") closeMind();
     else if (a === "checkout") toast("Prototype only. On the live store this opens Shopify checkout.");
   });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
-    if (mindOpen) { closeMind(); return; }
     if (document.getElementById("cart").classList.contains("open")) closeCart();
     if (document.getElementById("navDrawer").classList.contains("open")) closeNav();
   });
@@ -1401,6 +1352,9 @@ html.mind-on, html.mind-on body { overflow: hidden; }
     const field = document.getElementById("mlField"), shade = document.getElementById("mlShade"), store = loader.querySelector(".ml-store");
     const reduced = RM.matches, timers = [], anims = [];
     let done = false, cx = 0, cy = 0, k = 1, t0 = 0;
+    // The homepage now opens on the 3D journey: the zoom reveals the brain in the void, then the live scene.
+    const journey = document.getElementById("mx-home"), toJourney = journey && !journey.hidden;
+    if (toJourney && photo) { photo.src = "img/mind-poster.webp"; photo.width = 960; photo.height = 1200; store.style.background = "#050506"; }
     const later = (fn, ms) => timers.push(setTimeout(fn, ms));
     function layout() {
       const vw = window.innerWidth, vh = window.innerHeight;
@@ -1415,7 +1369,11 @@ html.mind-on, html.mind-on body { overflow: hidden; }
       text.style.top = (cy + (BH - BCY) * k + 28) + "px";
       // copy the hero frame exactly: field, photo geometry, fit and tint
       const frame = document.querySelector(".tempo-frame"), hp = frame && frame.querySelector(".tempo-photo"), hs = frame && frame.querySelector(".tempo-shade");
-      if (frame && hp) {
+      if (toJourney) {
+        Object.assign(field.style, { inset: "0", background: "#050506" });
+        if (photo) Object.assign(photo.style, { left: "0", top: "0", width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%" });
+        shade.style.display = "none";
+      } else if (frame && hp) {
         const fr = frame.getBoundingClientRect(), pr = hp.getBoundingClientRect(), pcs = getComputedStyle(hp);
         Object.assign(field.style, { left: fr.left + "px", top: fr.top + "px", width: fr.width + "px", height: fr.height + "px", background: getComputedStyle(frame).backgroundColor });
         Object.assign(photo.style, { left: (pr.left - fr.left) + "px", top: (pr.top - fr.top) + "px", width: pr.width + "px", height: pr.height + "px", objectFit: pcs.objectFit, objectPosition: pcs.objectPosition, webkitMaskImage: pcs.webkitMaskImage || pcs.maskImage, maskImage: pcs.maskImage });

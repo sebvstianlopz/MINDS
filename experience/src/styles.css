@@ -22,6 +22,7 @@ img { max-width: 100%; display: block; }
 /* 3D stage: fixed behind everything, fades in once the brain is built */
 .stage { position: fixed; inset: 0; z-index: 0; opacity: 0; transition: opacity 1.4s var(--ease); }
 .stage.is-ready { opacity: 1; }
+.stage.is-away { visibility: hidden; }
 .stage canvas { display: block; }
 
 /* Header: never blocks the canvas, always reachable */
@@ -29,14 +30,12 @@ img { max-width: 100%; display: block; }
 .hdr > * { pointer-events: auto; }
 .hdr-logo img { height: 22px; width: auto; filter: invert(1); opacity: .95; }
 .hdr-nav { display: flex; gap: 28px; }
-.hdr-nav a, .hdr-back { font: 600 12px/1 var(--body); color: inherit; background: none; border: 0; cursor: pointer; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; padding: 10px 0; border-bottom: 1px solid transparent; transition: border-color .25s ease; }
-.hdr-nav a:hover, .hdr-back:hover { border-bottom-color: var(--bone); }
-.hdr-back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: -7px 0; }
-.hdr-back span { font-size: 13px; }
+.hdr-nav a { font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; padding: 10px 0; border-bottom: 1px solid transparent; transition: border-color .25s ease; }
+.hdr-nav a:hover { border-bottom-color: var(--bone); }
 @media (max-width: 640px) { .hdr-nav { gap: 18px; } .hdr-opt { display: none; } }
 
 /* Scene 01 runway + sticky frame for the copy */
-main { position: relative; z-index: 2; }
+main, .mx-main { position: relative; z-index: 2; }
 .s1 { position: relative; height: 220svh; }
 .s1-frame { position: sticky; top: 0; height: 100svh; overflow: hidden; pointer-events: none; }
 .s1-copy { position: absolute; inset: 0; }
