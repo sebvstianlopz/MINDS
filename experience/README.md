@@ -1,8 +1,8 @@
 # MINDS — Inside Your Mind
 
-A scroll-driven 3D experience for MINDS, built in stages. **All five scenes are built: "The Mind", "Enter the Mind", "Neural Universe", "Fashion Inside Your Mind" and "Discover MINDS".**
+A scroll-driven 3D experience for MINDS, built in stages. **Four scenes: "The Mind", "Enter the Mind", "Neural Universe" and "Fashion Inside Your Mind".** (Scene 05, "Discover MINDS" with the floating collection, was removed at the owner's request.)
 It runs in two places:
-- **As the store homepage** (the main way in): the journey is the top of the store prototype's homepage, and the store continues below it on the same page. `npm run build:embed` builds `src/embed.jsx` into `../prototype/mind.js` (one ES module, its CSS scoped under `.mx` so it can't touch the store's styles) and copies `garments/` beside it. The store loads it on the homepage, pauses it on other pages and once you scroll past it into the store, and collapses the slot if WebGL or the module fails. After Scene 05, a 120svh tail (`.mx-tail`) holds the last frame while the store opens through a window shaped like the MINDS brain: the store's hero frame is pinned under the tail, masked to the brain silhouette from the loader artwork, and grows until it fills the screen (scroll-controlled, reversible; skipped under reduced motion). The store's `mountTempo()` drives it and reads the tail's height. In this mode the store supplies the header and everything after Scene 05, and "Shop the tee" is a plain `#p-…` link on the same page.
+- **As the store homepage** (the main way in): the journey is the top of the store prototype's homepage, and the store continues below it on the same page. `npm run build:embed` builds `src/embed.jsx` into `../prototype/mind.js` (one ES module, its CSS scoped under `.mx` so it can't touch the store's styles) and copies `garments/` beside it. The store loads it on the homepage, pauses it on other pages and once you scroll past it into the store, and collapses the slot if WebGL or the module fails. After Scene 04, a 120svh tail (`.mx-tail`) holds the last frame while the store opens through a window shaped like the MINDS brain: the store's hero frame is pinned under the tail, masked to the brain silhouette (the logo artwork, kept in the store page as `#brainArt`), and grows until it fills the screen (scroll-controlled, reversible; skipped under reduced motion). The store's `mountTempo()` drives it and reads the tail's height. In this mode the store supplies the header and everything after Scene 04, and "Shop the tee" is a plain `#p-…` link on the same page.
 - **Standalone**, at its own artifact link (`npm run build` → `artifact/`): the full page with its own header, collection grid and footer. Its store links open the store artifact URL.
 
 ## Stack
@@ -29,8 +29,7 @@ For the store homepage, run `npm run build:embed`, then publish `prototype/index
 | `src/three/NeuralFibers.jsx` | Scene 02's neural network: about 430 nodes in the brain volume plus a corridor beyond it along −Z (for Scene 03), joined by curved fibres. A GPU shader sends light pulses along each fibre, and synapse points glow. Opacity is driven by a ref. |
 | `src/three/NeuralUniverse.jsx` | Scene 03: about 160 long organic fibres flowing along −Z, with light pulses. 38 of them turn into textile threads (plied, lit tubes in MINDS bone, green and black) as a glowing front travels along each one. The threads converge on `THREAD_FOCUS` (0, 0, −15.5), the loom for Scene 04. |
 | `src/three/Garment.jsx` | Scene 04: the **real** MINDS Endless Shine Tee (Cobalt) product cut-out, given a cloth-like surface (body wrap, folds, a floating ripple, sheen) at the loom. A shader weaves it in: warp threads, then weft, then it closes into fabric. The converging threads are drawn into it as it forms. **The geometry is a placeholder, but the product is real.** |
-| `src/three/Collection3D.jsx` | Scene 05: the other seven catalogue products as floating photo-cloth garments around the hero tee, each weaving in on its own delay. Desktop and tablet use one constellation (`SLOTS`, squeezed sideways on narrower screens). Portrait phones get their own column layout (`PHONE_SLOTS`) that stays between the header and the title. |
-| `src/data/products.js` | **The product list** for Scenes 04–05 and the collection grid: handle (the storefront route), name, colour, price, cut-out image and aspect. The first entry is the Scene 04 hero. |
+| `src/data/products.js` | **The product list** for Scene 04 and the standalone collection grid: handle (the storefront route), name, colour, price, cut-out image and aspect. The first entry is the Scene 04 hero. |
 | `src/three/noise.js` | A small seeded 3D simplex noise. |
 | `src/ui/store.js` | Store links: plain hash routes on the store homepage, the store artifact URL when standalone (`storeLink(hash)`). |
 | `src/embed.jsx`, `src/embedState.js`, `vite.embed.config.js`, `scripts/build-embed.mjs` | The store-homepage build: `mount(el)` returns `setActive(on)`, `refresh()` and `destroy()`. |
@@ -75,20 +74,7 @@ Under reduced motion, Scene 03 cuts to its end frame (all threads formed).
 
 Under reduced motion, it cuts to the finished tee.
 
-**Scene 05 scroll map** (a 300svh runway, `progress5`):
-
-| Progress | What happens |
-|---|---|
-| 0 → 0.12 | The Scene 04 copy clears. |
-| 0 → 0.75 | The camera pulls back from the loom (shorter on tall screens), with a slight lift and a slow sideways drift. |
-| 0 → 0.6 | The fibre field dims further. |
-| 0.15 → 0.89 | The seven other garments weave in one after another, then keep their own idle float and sway. |
-| 0.3 → 0.48 | "DISCOVER MINDS" resolves. |
-| after the runway | **The collection** section scrolls up over the scene: a grid of the eight product cards (cut-out, name, colour, price), each linking to its storefront product, plus "Shop the full collection" and the footer. The 3D garments stay faintly visible behind it. |
-
-Scrolling up reverses everything, so the garments un-weave and the camera returns to the tee. Under reduced motion, Scene 05 cuts to its end frame.
-
-**Changing the featured products:** edit `src/data/products.js`. Put each product's transparent cut-out (WebP) in `public/garments/`, and set `aspect` to the image's width divided by its height. `handle` must match the storefront product route. Scene 05 shows up to seven products around the hero, and the grid shows every entry.
+**Changing the featured products:** edit `src/data/products.js`. Put each product's transparent cut-out (WebP) in `public/garments/`, and set `aspect` to the image's width divided by its height. `handle` must match the storefront product route. The first entry is the tee woven in Scene 04, and the standalone collection grid shows every entry.
 
 **Performance:**
 - Device pixel ratio is capped at 2, and lowered automatically under load (`PerformanceMonitor`).
@@ -103,13 +89,12 @@ Scrolling up reverses everything, so the garments un-weave and the camera return
 |---|---|---|
 | Brain model | **Placeholder** (procedural) | Export a Draco-compressed GLB (aim for under 3 MB and about 100k triangles), centred at the origin, about 2 units long front to back, facing +Z. Save it as `public/models/brain.glb` and set `BRAIN_GLB_URL = 'models/brain.glb'` in `src/three/Brain.jsx`. The "Placeholder 3D brain" label disappears automatically. |
 | Garment model (Scene 04) | **Placeholder shape, real product photo** | Export the tee as a GLB with its real textures and set `GARMENT_GLB_URL` in `src/three/Garment.jsx` (the photo cloth is used until then). To feature another product, change `GARMENT` (name, colour, price, image, handle). |
-| Garment models (Scene 05) | **Placeholder shape, real product photos** | The same photo-cloth surface as Scene 04, built from the storefront's own cut-outs. Swap in GLBs per product when they exist. |
-| Collection data (Scene 05) | **Real, static** (`src/data/products.js`, copied from the storefront catalogue) | Connect the Shopify Storefront API to keep names, prices and stock live. |
+| Collection data (standalone grid) | **Real, static** (`src/data/products.js`, copied from the storefront catalogue) | Connect the Shopify Storefront API to keep names, prices and stock live. |
 
 ## Roadmap
 1. ✅ **Scene 01, The Mind:** a floating brain hero, cinematic lighting, a scroll camera and the headline.
 2. ✅ **Scene 02, Enter the Mind:** the camera approaches and enters the brain, neural fibres with light pulses, "RESET YOUR MIND."
 3. ✅ **Scene 03, Neural Universe:** a flight through fibres, some turning into textile threads.
 4. ✅ **Scene 04, Fashion Inside Your Mind:** threads weave into a MINDS garment (needs real assets), "WEAR WHAT'S ON YOUR MIND."
-5. ✅ **Scene 05, Discover MINDS:** a pull-back to floating real MINDS garments, "DISCOVER MINDS", then a hand-off into the shoppable collection grid.
+5. ~~**Scene 05, Discover MINDS**~~: removed. On the store homepage the journey now ends on the woven tee and opens into the store through the brain-shaped reveal.
 6. **Next:** real garment and brain GLBs, live Shopify product data, and a final quality pass (accessibility, SEO, performance on real devices).

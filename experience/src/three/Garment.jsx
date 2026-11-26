@@ -1,5 +1,5 @@
 /*
- * Garments (Scenes 04–05).
+ * Garment (Scene 04).
  *
  * PLACEHOLDER GEOMETRY, REAL PRODUCTS: each garment is a cloth-like surface built from the real
  * MINDS product cut-out photo (see src/data/products.js). No artwork is invented. Replace with

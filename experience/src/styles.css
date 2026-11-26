@@ -80,11 +80,6 @@ main, .mx-main { position: relative; z-index: 2; }
 .s4-shop:hover .s4-cta { background: var(--bone); color: var(--void); }
 @media (max-width: 640px) { .s4-title { font-size: clamp(44px, 13vw, 72px); } .s4-shop { min-width: 0; width: 100%; } }
 
-/* Scene 05 runway: 300svh pull-back; the title sits top-left so the constellation stays clear */
-.s5 { position: relative; height: 300svh; }
-.s5-frame { position: sticky; top: 0; height: 100svh; overflow: hidden; pointer-events: none; }
-.s5-copy { position: absolute; left: var(--gl); right: var(--gr); bottom: calc(clamp(28px, 6svh, 64px) + env(safe-area-inset-bottom, 0px)); }
-.s5-title { margin: 0; font: 900 clamp(52px, 9vw, 150px)/.84 var(--display); text-transform: uppercase; }
 
 /* Collection hand-off: the void becomes a page */
 .coll { position: relative; padding: clamp(120px, 18svh, 220px) var(--gr) clamp(72px, 10vw, 128px) var(--gl); background: linear-gradient(to bottom, rgba(5, 5, 6, 0), rgba(5, 5, 6, .9) 180px, rgba(5, 5, 6, .97)); }
@@ -124,6 +119,5 @@ main, .mx-main { position: relative; z-index: 2; }
   .s2 { height: 100svh; }
   .s3 { height: 100svh; }
   .s4 { height: 100svh; }
-  .s5 { height: 100svh; }
   .mx-tail { height: 0; }
 }

@@ -12,7 +12,6 @@ import { Brain } from './Brain.jsx';
 import { NeuralFibers } from './NeuralFibers.jsx';
 import { NeuralUniverse, THREAD_FOCUS } from './NeuralUniverse.jsx';
 import { Garment, GarmentLights } from './Garment.jsx';
-import { Collection3D } from './Collection3D.jsx';
 
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const damp = THREE.MathUtils.damp;
@@ -52,12 +51,11 @@ function Dust({ count = 700 }) {
   );
 }
 
-export function SceneMind({ progress, progress2, progress3, progress4, progress5, reduced, quality, onReady }) {
+export function SceneMind({ progress, progress2, progress3, progress4, reduced, quality, onReady }) {
   const brain = useRef();
   const fiberOpacity = useRef(0);
   const uniOpacity = useRef(0);
   const uniMorph = useRef(0);
-  const collectionReveal = useRef(0);
   const garmentWeave = useRef(0);
   const threadRetract = useRef(0);
   const brainMats = useRef(null);
@@ -80,7 +78,6 @@ export function SceneMind({ progress, progress2, progress3, progress4, progress5
     const q = progress2.current;                         // Scene 02 (0..1)
     const r = progress3.current;                         // Scene 03 (0..1)
     const g4 = progress4.current;                        // Scene 04 (0..1)
-    const g5 = progress5.current;                        // Scene 05 (0..1)
     const fit = Math.min(1.9, Math.max(1, 0.9 / aspect)); // pull back on tall screens so the brain fits the width
     const zStart = 6.4 * fit, zEnd = 4.1 * fit;
     // Scene 02 phases: approach until the brain fills the frame → pass through the cortex → travel the fibers
@@ -99,13 +96,6 @@ export function SceneMind({ progress, progress2, progress3, progress4, progress5
     // Scene 04: settle in front of the loom, framing the garment as it weaves itself
     const frame = easeInOut(band(0, 0.6, g4));
     if (g4 > 0) { tz = lerp(-8.6, THREAD_FOCUS.z + 4.4 * Math.min(fit, 1.6), frame); tx = lerp(tx, 0, frame); ty = lerp(ty, THREAD_FOCUS.y, frame); }
-    // Scene 05: pull back to reveal the collection floating around the hero, with a slight lift and a slow drift
-    const pull = easeInOut(band(0, 0.75, g5));
-    if (g5 > 0) {
-      tz = lerp(THREAD_FOCUS.z + 4.4 * Math.min(fit, 1.6), THREAD_FOCUS.z + 10.2 * Math.min(fit, 1.25), pull);
-      ty = lerp(THREAD_FOCUS.y, THREAD_FOCUS.y + 0.35, pull);
-      tx = reduced ? 0 : Math.sin(t * 0.12) * 0.35 * Math.min(1, aspect) * pull;
-    }
     camera.position.x = damp(camera.position.x, tx, 3.2 * k, dt);
     camera.position.y = damp(camera.position.y, ty, 3.2 * k, dt);
     camera.position.z = damp(camera.position.z, tz, 3.2 * k, dt);
@@ -114,8 +104,7 @@ export function SceneMind({ progress, progress2, progress3, progress4, progress5
     camera.lookAt(lerp(lerp(0, lx, inFlight), THREAD_FOCUS.x, toLoom), lerp(lerp(0.02, ly, inFlight), THREAD_FOCUS.y, toLoom), lerp(lerp(0, camera.position.z - 4, band(0.35, 0.6, q)), THREAD_FOCUS.z, toLoom));
     // fibers fade up as the cortex turns translucent
     fiberOpacity.current = band(0.2, 0.42, q) * (1 - band(0.25, 0.6, r));   // brain fibers fall behind
-    uniOpacity.current = band(0.7, 1, q) * (1 - 0.7 * band(0.6, 0.95, g4)) * (1 - 0.5 * band(0, 0.6, g5)); // the universe opens ahead, then steps back
-    collectionReveal.current = g5;                                        // the rest of the collection weaves in
+    uniOpacity.current = band(0.7, 1, q) * (1 - 0.7 * band(0.6, 0.95, g4)); // the universe opens ahead, then steps back
     garmentWeave.current = band(0.12, 0.8, g4);                           // threads weave the garment
     threadRetract.current = band(0.1, 0.78, g4) * 0.995;                  // ...and are used up doing it
     uniMorph.current = band(0.12, 0.95, r);                               // fibers turn into thread
@@ -165,7 +154,6 @@ export function SceneMind({ progress, progress2, progress3, progress4, progress5
       <NeuralUniverse opacity={uniOpacity} morph={uniMorph} retract={threadRetract} quality={quality} reduced={reduced} />
       <GarmentLights />
       <Garment weave={garmentWeave} quality={quality} reduced={reduced} />
-      <Collection3D reveal={collectionReveal} quality={quality} reduced={reduced} />
       {quality === 'high' && <Dust />}
     </>
   );

@@ -351,16 +351,14 @@ The hero is a pinned frame inside a 250svh scroll runway.
 - **Accessibility:** the rows are `aria-hidden`; "Reset your mindset." is the visually hidden H1. The intro line and the two CTAs sit top-left on wide frames and bottom-left over a dark gradient on narrow ones. A skip button jumps past the runway.
 - **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
 
-### Intro Loader (signature)
-A once-per-session intro on the first home-page load. It is adapted from the owner's supplied loader and keeps its line-art brain and layout.
-- **Brain artwork:** traced from the owner-supplied drawing (`redesign/assets/brain-source.webp`, traced with `redesign/assets/brain-trace.py`), with the background mesh left out. It has two layers. The first is 241 centreline strokes (bone, about 6.6 units wide, round caps) that draw themselves outside-in over about 1.2s. The second is a filled "ink" copy of the exact strokes, which crossfades in at 1.12s so the settled brain matches the drawing. The window is the brain's symmetric silhouette, and the zoom scale uses its inscribed radius (`data-r`).
-- **Opt-in:** a tiny inline script adds `html.intro-on` only when the session flag is unset and the entry route is home, so with no JS there is never an overlay. Opening the page with `#intro` always plays it, on every refresh, which is handy for reviewing.
-- **Draw:** on a green-black ground, the eight bone brain strokes draw on with `stroke-dashoffset` (70ms stagger, 0.52s each). The MINDS letters (Big Shoulders 900) rise masked, "Reset your mindset" fades in, and a "Tap anywhere to enter" hint follows.
-- **Open:** at about 1.6s, or once the hero photo is decoded and the fonts are ready (capped at 3.6s, with the brain breathing while it waits), the letters fall away and the brain's interior opens. A brain-shaped hole in an SVG mask reveals the hero photo inside it.
-- **Dive:** the curtain scales from 1 → *s* about the brain's centre over 1.05s with `cubic-bezier(.7, 0, .2, 1)`. *s* is computed so the hole covers the viewport. The outline fades out in the first third, and the photo settles from 1.06 to 1.
-- **Hand-off:** the photo layer is laid out at the measured rect of the hero frame, with the same fit, edge fade and tint, so the last frame is the hero itself. The overlay fades out in 0.4s, then scroll unlocks and focus moves to `main`.
-- **Skip:** clicking or tapping anywhere, any key except Tab, or the square "Skip intro" button.
-- **Reduced motion:** the complete static logo, then a 0.2s fade once the hero is ready (600ms at most).
+### Brain Reveal (signature)
+The homepage has no loading screen (the line-art intro loader was removed at the owner's request). It opens directly on the 3D journey ("What's on your mind?" through the woven tee), and the store is revealed through the MINDS brain.
+- **Brain artwork:** traced from the owner-supplied drawing (`redesign/assets/brain-source.webp`, traced with `redesign/assets/brain-trace.py`). The page keeps it in a hidden `#brainArt` SVG: a silhouette path for the mask and a filled line-art path.
+- **Reveal:** after Scene 04, a 120svh tail holds the last 3D frame. The hero's own frame is already pinned underneath, masked to the brain silhouette. With scroll the brain grows from nothing (size ∝ progress^2.4: a slow start, then it opens) until it covers the frame corners × 1.12. The bone line art is drawn over the small window and fades out by the midpoint. The hero's type rows and CTAs fade in over the last third, and the header turns from dark-translucent to bone as the reveal completes.
+- **Continuity:** it is the real hero frame, so the last reveal frame is the hero itself. The hero's own opposing-type animation then runs over its usual distance.
+- **Reversible:** everything is scroll-derived, so scrolling up closes the brain onto the tee.
+- **Focus:** if keyboard focus lands on a hero control while the brain is still closed, the page scrolls to the revealed hero.
+- **Reduced motion, or no WebGL:** no reveal. The hero follows directly (and takes back the page's H1 if the journey can't run).
 
 ### Motion
 One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–900ms, hovers 250–400ms and staggers 60–120ms.
@@ -450,7 +448,7 @@ The user chose "Design freely", so the prototype is not limited to Spotlight 13'
 - **Uppercase display face:** Big Shoulders Display must be uploaded as a theme asset with an `@font-face` rule if it is not in Shopify's font library; uppercase headings, weight 900 and line-height under 0.9 need custom CSS regardless (Spotlight has no heading-case or heading line-height setting, and its heading scale stops short of 96px).
 - **Opposing scroll type hero:** the pinned 250svh runway, the scroll-linked opposing rows, the right-aligned portrait on the forest field, and the reduced-motion static state. This needs a custom section (Liquid, CSS and a small script).
 - **Motion system:** the reveal observer, the shared scroll engine, the scrubbed band, footer and parallax effects, fly-to-bag, Quick add, the store-photo cursor follow, the live open pill and View Transitions all need a custom theme script. A few hundred lines of vanilla JS can be loaded once in `theme.liquid`. Theme sections then carry the `data-reveal` attributes.
-- **Intro loader:** the overlay, the SVG brain mask and its zoom need a custom snippet in `theme.liquid`. The snippet holds the inline opt-in script, the overlay markup and about 120 lines of JS. Set it to show on the home template only, with the hero image URL passed in from the section settings.
+- **3D journey and brain reveal:** the WebGL journey (`mind.js`) and the brain-masked hero reveal need a custom homepage section with the module as a theme asset; the reveal script hooks the hero section's scroll logic.
 - **Alpha cut-outs on stone tiles:** the soft drop-shadow on product flats, the multiply blend for on-model photos, and contain-fit with percentage padding versus cover-fit chosen per product.
 - **Name and price on one row:** native cards stack the price under the name.
 - **Image zoom on hover:** the native hover effects lift the card; a slow image scale needs CSS.

@@ -55,15 +55,6 @@ export function SceneFourCopy() {
   );
 }
 
-// Scene 05 copy.
-export function SceneFiveCopy() {
-  return (
-    <div className="s5-copy">
-      <h2 className="s5-title" id="s5-title">Discover MINDS</h2>
-    </div>
-  );
-}
-
 // The shop hand-off: the same real products, as a browsable grid linking into the storefront.
 export function CollectionGrid() {
   return (
