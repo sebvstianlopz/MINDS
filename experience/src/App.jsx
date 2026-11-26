@@ -186,6 +186,9 @@ export default function App({ mode = 'standalone', onReady }) {
           </div>
         </section>
 
+        {/* Store homepage: extra scroll after Scene 05 while the store opens through a brain-shaped window */}
+        {home && <div className="mx-tail" aria-hidden="true" />}
+
         {/* Hand-off from the 3D experience to the shop (on the store homepage, the store itself follows) */}
         {!home && <CollectionGrid />}
       </Main>

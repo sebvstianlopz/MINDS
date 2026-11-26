@@ -36,6 +36,11 @@ img { max-width: 100%; display: block; }
 
 /* Scene 01 runway + sticky frame for the copy */
 main, .mx-main { position: relative; z-index: 2; }
+/* Store homepage: the journey layer overlaps the store's opening hero during the reveal, so it never takes clicks
+   (its links still do). The tail is the reveal's scroll distance, read by the store. */
+.mx-main { pointer-events: none; }
+.mx-main a { pointer-events: auto; }
+.mx-tail { height: 120svh; pointer-events: none; }
 .s1 { position: relative; height: 220svh; }
 .s1-frame { position: sticky; top: 0; height: 100svh; overflow: hidden; pointer-events: none; }
 .s1-copy { position: absolute; inset: 0; }
@@ -120,4 +125,5 @@ main, .mx-main { position: relative; z-index: 2; }
   .s3 { height: 100svh; }
   .s4 { height: 100svh; }
   .s5 { height: 100svh; }
+  .mx-tail { height: 0; }
 }

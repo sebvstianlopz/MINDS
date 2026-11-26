@@ -475,7 +475,7 @@ html.intro-on { overflow: hidden; }
 }
 /* Homepage: the 3D journey (mind.js, built from experience/) sits above the store content.
    Its fixed canvas lies under everything; the store's <main> slides over it like a page. */
-#mx-home { min-height: 1490svh; }
+#mx-home { min-height: 1610svh; }
 #mx-home[hidden] { display: none; }
 #main { position: relative; z-index: 1; background: var(--bone); }
 .announce, footer.site { position: relative; z-index: 1; }
@@ -488,6 +488,17 @@ body.mx-on nav.main a:hover, body.mx-on nav.main a[aria-current="page"] { border
 body.mx-on .iconbtn:hover { color: var(--on-dark); opacity: .75; }
 header.site { transition: transform .35s var(--ease), background-color .35s ease, color .35s ease, border-color .35s ease; }
 @media (prefers-reduced-motion: reduce) { #mx-home { min-height: 500svh; } }
+/* Brain reveal: the journey ends with a 120svh tail (.mx-tail). The store's <main> starts at the top of that tail,
+   so the opening hero's frame is already pinned there, masked to the MINDS brain, which grows (mountTempo) until
+   the hero fills the screen. Then the hero's own type animation runs over its usual distance. */
+@media (prefers-reduced-motion: no-preference) {
+  body.mx-home #main { margin-top: -120svh; background: transparent; }
+  body.mx-home .tempo { background: transparent; }
+  body.mx-home .tempo-runway { height: calc(250svh + 120svh); }
+}
+.tempo-frame.revealing { -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.mx-ink { position: absolute; z-index: 4; left: 0; top: 0; pointer-events: none; overflow: visible; transform-origin: 0 0; will-change: transform, opacity; }
+.mx-ink path { fill: var(--on-dark); }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -872,6 +883,14 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
 
   // Shared scroll engine: one passive listener, one requestAnimationFrame for every scroll-linked effect
   const RM = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // The MINDS brain (from the intro loader's artwork): silhouette for the homepage reveal mask, line art on top.
+  const BRAIN = (() => {
+    const g = document.getElementById("mlBrain"), hole = document.querySelector("#mlHoleG .ml-hole"), ink = g && g.querySelector(".ml-ink");
+    if (!g || !hole) return null;
+    const w = +g.dataset.w, h = +g.dataset.h;
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '"><path d="' + hole.getAttribute("d") + '"/></svg>';
+    return { w, h, cx: +g.dataset.cx, cy: +g.dataset.cy, r: +g.dataset.r, mask: 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")', ink: ink ? (() => { const c = ink.cloneNode(false); c.removeAttribute("class"); return c; })() : null };
+  })();
   const Scroll = (() => {
     const fns = new Set(); let raf = 0;
     const run = () => { raf = 0; fns.forEach(f => f()); };
@@ -1014,10 +1033,53 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
     if (!runway) return null;
     const frame = runway.querySelector(".tempo-frame");
     const rows = Array.prototype.slice.call(frame.querySelectorAll(".tempo-row"));
+    const layers = [frame.querySelector(".tempo-rows"), frame.querySelector(".tempo-copy")].filter(Boolean);   // type + CTAs
     const header = document.querySelector("header.site");
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const shift = [0, 0];
     let W = 0, alive = true;
+    // Homepage brain reveal (only while the 3D journey leads the page): ink = brain line art drawn over the window.
+    let ink = null, revealed = true;
+    if (BRAIN && BRAIN.ink) {
+      ink = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      ink.setAttribute("class", "mx-ink"); ink.setAttribute("aria-hidden", "true");
+      ink.setAttribute("viewBox", "0 0 " + BRAIN.w + " " + BRAIN.h); ink.setAttribute("width", BRAIN.w); ink.setAttribute("height", BRAIN.h);
+      ink.appendChild(BRAIN.ink.cloneNode(false)); ink.style.display = "none";
+      frame.appendChild(ink);
+    }
+    const tail = () => document.querySelector("#mx-home .mx-tail");
+    const revealOn = () => BRAIN && document.body.classList.contains("mx-home") && !mq.matches;
+    function reveal(rp) {
+      if (rp >= 0.995 || !revealOn()) {
+        if (!revealed) { frame.classList.remove("revealing"); frame.style.webkitMaskImage = frame.style.maskImage = ""; if (ink) ink.style.display = "none"; layers.forEach(l => { l.style.opacity = ""; }); revealed = true; }
+        return;
+      }
+      revealed = false;
+      const fw = frame.clientWidth, fh = frame.clientHeight, cx = fw * 0.5, cy = fh * 0.46;
+      const dmax = Math.max(Math.hypot(cx, cy), Math.hypot(fw - cx, cy), Math.hypot(cx, fh - cy), Math.hypot(fw - cx, fh - cy));
+      const k = (dmax / BRAIN.r) * 1.12 * Math.pow(rp, 2.4);        // slow start, then opens up
+      const bw = BRAIN.w * k, bh = BRAIN.h * k, x = cx - BRAIN.cx * k, y = cy - BRAIN.cy * k;
+      if (!frame.classList.contains("revealing")) { frame.classList.add("revealing"); frame.style.webkitMaskImage = frame.style.maskImage = BRAIN.mask; }
+      frame.style.webkitMaskSize = frame.style.maskSize = bw.toFixed(1) + "px " + bh.toFixed(1) + "px";
+      frame.style.webkitMaskPosition = frame.style.maskPosition = x.toFixed(1) + "px " + y.toFixed(1) + "px";
+      // the small window shows only the photo and the brain drawing; the hero's type and buttons arrive at the end
+      const lo = Math.min(1, Math.max(0, (rp - 0.62) / 0.33));
+      layers.forEach(l => { l.style.opacity = lo.toFixed(3); });
+      if (ink) {
+        const o = 1 - Math.min(1, Math.max(0, (rp - 0.1) / 0.4));
+        ink.style.display = o > 0 ? "" : "none";
+        ink.style.opacity = o.toFixed(3);
+        ink.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) scale(" + k.toFixed(4) + ")";
+      }
+    }
+    // Keyboard focus never lands on a hero control that is still hidden behind the closed brain.
+    function onFocus() {
+      if (revealed) return;
+      const R = tail() ? tail().offsetHeight : 0, top = parseFloat(getComputedStyle(frame).top) || 0;
+      const pin = top - runway.getBoundingClientRect().top;
+      if (pin < R) window.scrollTo(0, Math.ceil(window.scrollY + (R - pin)) + 2);
+    }
+    frame.addEventListener("focusin", onFocus);
     function fill() {
       if (!alive) return;
       document.documentElement.style.setProperty("--hdr", header.offsetHeight + "px");
@@ -1036,11 +1098,14 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
     }
     function update() {
       if (!alive) return;
-      if (mq.matches) { rows.forEach(r => { r.style.transform = ""; }); return; }
+      if (mq.matches) { rows.forEach(r => { r.style.transform = ""; }); reveal(1); return; }
       const rect = runway.getBoundingClientRect();
       const top = parseFloat(getComputedStyle(frame).top) || 0;
-      const span = runway.offsetHeight - frame.clientHeight;
-      const p = Math.min(1, Math.max(0, (top - rect.top) / (span > 0 ? span : 1)));
+      const R = revealOn() && tail() ? tail().offsetHeight : 0;   // the reveal comes first, then the hero's own scroll
+      const pin = top - rect.top;
+      reveal(R > 0 ? Math.max(0, pin) / R : 1);
+      const span = runway.offsetHeight - frame.clientHeight - R;
+      const p = Math.min(1, Math.max(0, (pin - R) / (span > 0 ? span : 1)));
       const x0 = -(p - 0.5) * W * 0.8, x1 = (p - 0.5) * W * 0.8;
       rows[0].style.transform = "translate3d(" + (x0 - shift[0]).toFixed(2) + "px,0,0)";
       rows[1].style.transform = "translate3d(" + (x1 - shift[1]).toFixed(2) + "px,0,0)";
@@ -1054,6 +1119,7 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
     return () => {
       alive = false;
       offScroll();
+      frame.removeEventListener("focusin", onFocus);
       ro.disconnect();
       mq.removeEventListener("change", fill);
     };
@@ -1246,6 +1312,7 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
   function showJourney(on) {
     if (mxEl.dataset.failed) on = false;
     mxEl.hidden = !on;
+    document.body.classList.toggle("mx-home", on);
     if (!on) { document.body.classList.remove("mx-on"); if (mx) mx.setActive(false); return; }
     if (mx) { mx.setActive(true); return; }
     if (mxLoading) return;
@@ -1255,7 +1322,7 @@ header.site { transition: transform .35s var(--ease), background-color .35s ease
   }
   function journeyFailed() {
     const y = window.scrollY, h = mxEl.offsetHeight;
-    mxEl.dataset.failed = "1"; mxEl.hidden = true; document.body.classList.remove("mx-on");
+    mxEl.dataset.failed = "1"; mxEl.hidden = true; document.body.classList.remove("mx-on", "mx-home");
     const t = document.getElementById("heroTitle");
     if (t && t.tagName === "H2") { const h1 = document.createElement("h1"); h1.id = t.id; h1.className = t.className; h1.textContent = t.textContent; t.replaceWith(h1); }
     if (y > h) window.scrollTo(0, y - h);
