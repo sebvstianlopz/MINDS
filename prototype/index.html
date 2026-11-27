@@ -194,17 +194,18 @@ fieldset.sizes legend { font-weight: 500; font-size: 14px; padding: 0; margin-bo
 .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
 .duo .shot { aspect-ratio: 4 / 5; max-height: 112svh; }
 .duo .shot > img { object-position: 50% 18%; }
-.duo .shot:nth-child(2)::after { opacity: .35; }
-@media (max-width: 749px) { .duo { grid-template-columns: minmax(0, 1fr); } .duo .shot:nth-child(2) { display: none; } }
+@media (max-width: 749px) { .duo { grid-template-columns: minmax(0, 1fr); } }
 
 /* Story cards: the Orlando store and the list, side by side */
-.stories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.stories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
+.stories-band { padding-bottom: 0; }
 .stories .shot { aspect-ratio: 5 / 4; }
 .story-store > img { object-position: 50% 40%; }
-.story-news > img { object-position: 50% 46%; }
+.story-news > img { object-position: 50% 100%; }
 .stories .shot::after { background: linear-gradient(to top, rgba(var(--shade), .86) 0, rgba(var(--shade), .62) 50%, rgba(var(--shade), .16) 80%, rgba(var(--shade), 0) 92%); }
 .stories .story-news::after { background: linear-gradient(to top, rgba(var(--shade), .88) 0, rgba(var(--shade), .66) 52%, rgba(var(--shade), .2) 84%, rgba(var(--shade), .04) 100%); }
 @media (max-width: 849px) { .stories { grid-template-columns: minmax(0, 1fr); } .stories .shot { aspect-ratio: 4 / 5; } }
+.stories-band + section.band { padding-top: var(--section) !important; }
 #visit-orlando { scroll-margin-top: calc(var(--hdr) + 16px); }
 .hrs-line { font-size: 15px; color: rgba(255, 255, 255, .9); }
 .open-pill { display: inline-flex; align-items: center; gap: 9px; justify-self: start; padding: 0 14px; min-height: 30px; border-radius: 999px; background: #fff; color: var(--ink); font: 500 13px/1 var(--sans); }
@@ -236,17 +237,17 @@ fieldset.sizes legend { font-weight: 500; font-size: 14px; padding: 0; margin-bo
 /* Store list */
 .stores { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
 .stores-wrap { position: relative; }
-.stores li a { position: relative; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) auto; gap: 8px 24px; align-items: center; padding: 22px 8px; text-decoration: none; }
+.stores li a { position: relative; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) auto; gap: 8px 24px; align-items: center; padding: 20px 0; text-decoration: none; }
 .stores li a > span { position: relative; z-index: 1; }
 .stores li a::before { content: ""; position: absolute; inset: 0; background: var(--bone-hi); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
 .stores li a:hover::before, .stores li a:focus-visible::before { transform: scaleX(1); }
 .stores li a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--rule); transform-origin: left; transition: transform .8s var(--ease) calc(var(--i, 0) * 80ms); }
 .stores li.rv:not(.in) a::after { transform: scaleX(0); }
-.stores .city { font: 600 clamp(26px, 3vw, 40px)/1 var(--sans); letter-spacing: -.035em; transition: opacity .8s ease calc(var(--i, 0) * 80ms), transform .45s var(--ease); }
+.stores .city { font: 500 24px/1.1 var(--sans); letter-spacing: -.02em; transition: opacity .8s ease calc(var(--i, 0) * 80ms), transform .45s var(--ease); }
 .stores li.rv:not(.in) .city { opacity: 0; }
 .stores li a > span:not(.city) { transition: opacity .7s ease calc(var(--i, 0) * 80ms + 120ms); }
 .stores li.rv:not(.in) a > span:not(.city) { opacity: 0; }
-.stores li a:hover .city { transform: translateX(6px); }
+.stores li a:hover .city { transform: translateX(4px); }
 .store-peek { position: absolute; left: 0; top: 0; width: 240px; aspect-ratio: 4 / 3; object-fit: cover; pointer-events: none; z-index: 5; opacity: 0; scale: .92; transition: opacity .3s ease, scale .45s var(--ease); box-shadow: 0 24px 48px rgba(var(--shade), .22); }
 .store-peek.on { opacity: 1; scale: 1; }
 .stores .go { display: inline-flex; gap: 8px; align-items: center; font: 500 15px/1 var(--sans); }
@@ -492,7 +493,7 @@ main { animation: in .45s var(--ease); }
     ["minds-jorts", "Recon Cargo 3/4 Shorts", "Camo", 120, "Shorts", "2026-11-15", WAIST, ["30"]],
     ["minds-pants-9", "Recon Cargo Pants", "Camo", 140, "Pants", "2026-11-15", WAIST, []],
     ["minds-noir-femme-top", "Femme Noir Top", "Black", 75, "Tops", "2026-11-09", ["XS", "S", "M", "L", "XL", "2XL"], [], "minds-noir-femme-top-1", true],
-    ["minds-femme-noir-top-2", "Femme Noir Short", "Black", 75, "Shorts", "2026-11-09", ["XS", "S", "M", "L", "XL", "2XL"], ["XL"], "minds-femme-noir-top-2-1", true],
+    ["minds-femme-noir-top-2", "Femme Noir Short", "Black", 75, "Shorts", "2026-11-09", ["XS", "S", "M", "L", "XL", "2XL"], ["XL"], "minds-femme-noir-top-2-0", false, "minds-femme-noir-top-2-1", true],
     ["minds-shorts-1", "Orbit 3/4 Studs", "Green", 110, "Shorts", "2026-11-09", ALPHA, []],
     ["minds-tracksuit-top", "Tracksuit Top", "Cobalt", 140, "Outerwear", "2026-11-07", ALPHA, []],
     ["minds-nylon-pants", "Nylon Pants", "Cobalt", 110, "Pants", "2026-11-06", ALPHA, ["XXL"]],
@@ -522,7 +523,7 @@ main { animation: in .45s var(--ease); }
     ["minds-legacy-croc-jacket", "Legacy Croc Jacket", "Black", 300, "Outerwear", "2026-09-04", ALPHA, []],
     ["forever-minds-tee", "Forever Minds Tee", "Heather", 80, "Tops", "2026-10-23", ALPHA, []]
   ];
-  const P = RAW.map(r => ({ h: r[0], name: r[1], color: r[2], price: r[3], cat: r[4], date: r[5], sizes: r[6], sold: r[7], alt: r[8] || null, model: !!r[9] }));
+  const P = RAW.map(r => ({ h: r[0], name: r[1], color: r[2], price: r[3], cat: r[4], date: r[5], sizes: r[6], sold: r[7], alt: r[8] || null, model: !!r[9], lead: r[10] || null, altModel: !!r[11] }));
   const byH = Object.fromEntries(P.map(p => [p.h, p]));
   const NEW = ["minds-jorts", "minds-pants-9", "minds-noir-femme-top", "minds-femme-noir-top-2", "minds-shorts-1", "minds-tracksuit-top", "minds-nylon-pants", "ydb-db"].map(h => byH[h]);
   const DESC = {
@@ -532,14 +533,15 @@ main { animation: in .45s var(--ease); }
     "minds-femme-noir-top-2": ["Stretch. Runs true to size. Model is wearing size M."]
   };
   const money = n => "$" + n;
-  const img = h => "img/" + h + "-0.webp";
+  const LEAD = Object.fromEntries(RAW.filter(r => r[10]).map(r => [r[0], r[10]]));
+  const img = h => "img/" + (LEAD[h] || h + "-0") + ".webp";
   const ico = (id, cls) => '<svg class="icon' + (cls ? " " + cls : "") + '" aria-hidden="true"><use href="#i-' + id + '"/></svg>';
   const arrow = () => ico("arrow", "arrow");
 
   function card(p, opts) {
     const rev = !!(opts && opts.reveal);
     const first = '<img class="first' + (p.alt ? " has-alt" : "") + (p.model ? " model" : "") + '" src="' + img(p.h) + '" alt="' + p.name + ", " + p.color + '" loading="lazy" width="720" height="900">';
-    const second = p.alt ? '<img class="alt" src="img/' + p.alt + '.webp" alt="" loading="lazy" width="720" height="900">' : "";
+    const second = p.alt ? '<img class="alt' + (p.altModel ? " model" : "") + '" src="img/' + p.alt + '.webp" alt="" loading="lazy" width="720" height="900">' : "";
     const qa = '<div class="qa" role="group" aria-label="Quick add ' + p.name + ', ' + p.color + '"><span class="qa-l">Quick add</span>' +
       p.sizes.map(sz => { const sold = p.sold.indexOf(sz) > -1; return '<button type="button" class="qa-s" data-qa="' + p.h + '" data-size="' + sz + '"' + (sold ? ' disabled aria-label="' + sz + ', sold out"' : '') + '>' + (sz === "One size" ? "Add" : sz) + '</button>'; }).join("") + '</div>';
     return '<div class="card-wrap"' + (rev ? ' data-reveal="fade"' : '') + '><a class="card" href="#p-' + p.h + '"><div class="tile">' + first + second + '</div>' +
@@ -566,21 +568,24 @@ main { animation: in .45s var(--ease); }
       '</div>' +
     '</section>' +
     '<section aria-label="Shop by category"><div class="cats">' +
-      catTile("Shorts", "minds-shorts-1-0") + catTile("Pants", "minds-pants-9-0") + catTile("Tops", "endlesshine-purple-0") + catTile("Caps", "minds-archive-cap-3-0") +
+      catTile("Shorts", "minds-shorts-1-0") + catTile("Pants", "minds-pants-9-0") + catTile("Tops", "endlesshine-purple-0") + catTile("Caps", "minds-archive-cap-0") +
     '</div></section>' +
     '<section class="band" aria-labelledby="naTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="naTitle" data-reveal="fade">New arrivals</h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
       '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
     '</div></section>' +
     '<section class="duo on-photo" aria-labelledby="fnTitle">' +
-      '<div class="shot"><img src="img/minds-femme-noir-top-2-0.webp" alt="Model wearing the black Femme Noir top and short" loading="lazy" width="900" height="1350">' +
-        '<div class="copy"><h2 id="fnTitle">Femme Noir</h2><p>A stretch top and short in black and sky blue, $75 each. Made to wear together.</p>' +
-        '<div class="ctas"><a class="btn light" href="#p-minds-noir-femme-top">Shop the top</a><a class="btn ghost-light" href="#p-minds-femme-noir-top-2">Shop the short</a></div></div></div>' +
-      '<div class="shot"><img src="img/minds-noir-femme-top-0.webp" alt="Model wearing the black Femme Noir top" loading="lazy" width="900" height="1350"></div>' +
+      '<div class="shot"><img src="img/minds-femme-noir-top-2-0.webp" alt="Model wearing the black Femme Noir top with black track pants" loading="lazy" width="900" height="1350">' +
+        '<div class="copy"><h2 id="fnTitle">Femme Noir</h2><p class="num">Stretch top in black and sky blue · $75</p>' +
+        '<div class="ctas"><a class="btn light" href="#p-minds-noir-femme-top">Shop the top</a></div></div></div>' +
+      '<div class="shot"><img src="img/minds-noir-femme-top-0.webp" alt="Model wearing the black Femme Noir top and short" loading="lazy" width="900" height="1350">' +
+        '<div class="copy"><h2>The short</h2><p class="num">Made to wear with the top · $75</p>' +
+        '<div class="ctas"><a class="btn light" href="#p-minds-femme-noir-top-2">Shop the short</a></div></div></div>' +
     '</section>' +
-    '<section class="band" aria-label="Visit and newsletter"><div class="wrap stories on-photo">' +
+    '<section class="band stories-band" aria-label="Visit and newsletter"><div class="stories on-photo">' +
       '<article class="shot story-store" id="visit-orlando" aria-labelledby="vTitle" data-reveal="fade"><img src="img/store-fl.webp" alt="MINDS store front at The Florida Mall, Orlando" loading="lazy" width="1168" height="1168">' +
-        '<div class="copy"><p class="open-pill" id="openPill" aria-live="polite"></p><h2 id="vTitle">Visit MINDS Orlando</h2>' +
+        '<div class="copy"><h2 id="vTitle">Visit MINDS Orlando</h2>' +
+        '<p class="open-pill" id="openPill" aria-live="polite"></p>' +
         '<p class="hrs-line num"><span class="nw">The Florida Mall</span> · <span class="nw">Mon to Sat 9am to 8pm</span> · <span class="nw">Sun 11am to 7pm</span></p>' +
         '<div class="ctas"><a class="btn light" href="' + MAPS.fl + '">' + ico("pin", "pin") + 'Get directions</a><a class="btn ghost-light" href="#new">Shop for pickup</a></div></div>' +
       '</article>' +
@@ -600,10 +605,10 @@ main { animation: in .45s var(--ease); }
     return '<section class="band" style="padding-top:0" aria-labelledby="sTitle"><div class="wrap stores-wrap">' +
       '<div class="sec-head"><h2 id="sTitle" data-reveal="fade">More MINDS stores</h2></div>' +
       '<ul class="stores" data-stagger="list">' +
-        s("Kissimmee", "Plaza del Sol", "Mon to Sat 10:00am to 8:00pm · Sun 11:00am to 7:00pm", MAPS.kis, "store-kis") +
-        s("Miami", "Miami International Mall", "Mon to Sat 10:00am to 9:00pm · Sun 11:00am to 7:00pm", MAPS.mia, "store-mia") +
+        s("Kissimmee", "Plaza del Sol", "Mon to Sat 10am to 8pm · Sun 11am to 7pm", MAPS.kis, "store-kis") +
+        s("Miami", "Miami International Mall", "Mon to Sat 10am to 9pm · Sun 11am to 7pm", MAPS.mia, "store-mia") +
         s("Wynwood", "Miami", "Hours on Google Maps", MAPS.wyn, "store-wyn") +
-        s("San Juan", "Plaza las Américas, Puerto Rico", "Mon to Sat 9:00am to 9:00pm · Sun 11:00am to 7:00pm", MAPS.pr, "store-pr") +
+        s("San Juan", "Plaza las Américas, Puerto Rico", "Mon to Sat 9am to 9pm · Sun 11am to 7pm", MAPS.pr, "store-pr") +
       '</ul></div></section>';
   }
   const CATS = ["All", "Shorts", "Pants", "Tops", "Outerwear", "Caps"];
@@ -653,7 +658,7 @@ main { animation: in .45s var(--ease); }
 
   function product(p) {
     const views = [{ src: img(p.h), model: p.model, alt: p.name + ", " + p.color + ", main view" }];
-    if (p.alt) views.push({ src: "img/" + p.alt + ".webp", model: false, alt: p.name + ", " + p.color + ", product view" });
+    if (p.alt) views.push({ src: "img/" + p.alt + ".webp", model: p.altModel, alt: p.name + ", " + p.color + (p.altModel ? ", on model" : ", product view") });
     const need = ["Back view", "Detail close-up", "On model"];
     const thumbs = views.map((v, i) => '<button class="t tile" type="button" data-view="' + i + '" aria-label="Show view ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img class="' + (v.model ? "model" : "") + '" src="' + v.src + '" alt="" loading="lazy"></button>');
     while (thumbs.length < 4) thumbs.push('<div class="t need">' + ico("camera") + '<span>' + need[thumbs.length - 1] + '<br>photo needed</span></div>');
