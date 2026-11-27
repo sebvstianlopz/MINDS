@@ -405,7 +405,9 @@ A 30px white pill beneath the Orlando store heading: a status dot and "Open now 
 A rule above, then rows divided by hairlines that draw in from the left with an 80ms stagger: a 24px city, place in graphite, tabular hours in one "10am to 8pm" format, and "Directions" with an arrow. Hover wipes in bone-light from the left and shifts the city 4px; on mouse devices a store photo follows the cursor with eased lag.
 
 ### Footer
-A `night` footer opening with the Display Closer line, then an `on-dark` 20% rule and four columns: logo with a one-line description and social icons, Shop, Help and Contact. A legal row in `on-dark-2` closes it.
+A `night` footer opening with the Display Closer line, then an `on-dark` 20% rule and four columns: a one-line description with social icons, Shop, Help and Contact. A legal row in `on-dark-2` follows.
+
+**Pinned wordmark:** the footer ends with the MINDS wordmark in `on-dark`, edge to edge inside the page gutters, set as an inline SVG (`#minds-wordmark`, also `prototype/img/minds-wordmark.svg`). It is a vector trace of the real MINDS logo from mindsstreet.com (IoU 0.9955 against the original; never redrawn). It is `position: sticky; bottom: 0` on the `night` ground: as the footer arrives the wordmark pins to the bottom of the screen and the footer scrolls up into place above it, coming to rest under the legal row at the page end. It is sticky positioning, not animation, so it behaves the same under reduced motion. It replaces the small footer logo.
 
 ### Motion
 One calm grammar. CSS uses one easing, `cubic-bezier(.16, 1, .3, 1)`; script-driven moves (grid FLIP, gallery crossfade, product morph) use `cubic-bezier(.2, .8, .2, 1)`, and the fly-to-bag arc uses `cubic-bezier(.5, 0, .2, 1)` because a travel path needs an ease-in.
@@ -469,5 +471,6 @@ The owner chose "Design freely", so the prototype is not limited to Spotlight 13
 - **Pill size selectors:** the bottom-up ink fill on selection and the hatched sold-out state; the quick-add size pills.
 - **Ruled store list:** city rows with hairlines that draw in, tabular hours, an arrowed Directions link, the hover wipe and the cursor-following store photo. Multicolumn renders cards, not ruled rows.
 - **Name and price on one row:** native cards stack the price under the name.
+- **Pinned footer wordmark:** the full-width MINDS wordmark SVG with `position: sticky; bottom: 0` at the end of the footer. Needs the SVG as a theme asset or snippet and a few lines of CSS in a custom footer section.
 - **Footer closer:** the large "And the world will be yours." line inside the footer. A Rich text section in the Night scheme just above the footer is the nearest native workaround.
 - **Motion system:** the reveal observer, the shared scroll engine, the hero settle and copy rise, and the reduced-motion handling. A few hundred lines of vanilla JS loaded once in `theme.liquid`; sections then carry `data-reveal` attributes.
