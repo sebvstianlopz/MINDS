@@ -36,13 +36,21 @@ MINDS is its own label. Every piece is designed by MINDS and sold in MINDS store
 - **Name:** MINDS, written in capitals in running text.
 - **Logo:** a bold condensed wordmark, with a brain glyph in place of the "D".
 - **Message:** "Reset your mindset, focus on your vision and the World will be yours."
-- **Owner's taste, from 5 reference sites shared 22 Nov 2026** (inspiration only, never to be copied):
+- **Owner's taste, from 4 reference screens shared 27 Nov 2026** (a streetwear store; inspiration only, never to be copied). This supersedes the 22 Nov typography and layout notes below:
+  - photography carries the page: full-bleed, cinematic, lifestyle images, with very little interface on top
+  - one text formula over images: a big, tight grotesk headline in sentence case, a short line, and white pill buttons, bottom-left
+  - a transparent header with white type over the hero, and a slim warm announcement strip
+  - four edge-to-edge category tiles of product flat-lays on soft grey concrete, each with one underlined uppercase label
+  - big 2-up image cards that end in pills
+  - calm and premium: pills are the only rounded shapes; everything else is square
+- **Decisions confirmed 27 Nov:** headlines in a clean grotesk, sentence case (replacing tall condensed capitals); the hero is one full-screen photo with no moving text; the intro loader and the 3D journey are removed. Images come only from MINDS (the owner's photos and mindsstreet.com).
+- **Earlier taste, from 5 reference sites shared 22 Nov 2026** (inspiration only, never to be copied):
   - photography leads, with studio and campaign shots of people in the clothes
   - a warm neutral base plus one rich accent taken from the clothes
   - tall condensed uppercase headlines
   - image tiles with labels and arrows laid over them, ruled lists, and the name and price on one row
   - one-sentence breaks between sections, and a dark footer
-- **Decisions confirmed 22 Nov:**
+- **Decisions confirmed 22 Nov** (headline style superseded on 27 Nov):
   - Accent: MINDS's own campaign green.
   - Ground: warm light page with cinematic photo or deep-colour bands and a dark footer.
   - Headlines: tall condensed capitals.
