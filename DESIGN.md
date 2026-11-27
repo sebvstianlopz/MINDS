@@ -1,180 +1,233 @@
 ---
 name: MINDS
-description: A campaign studio on warm bone, with stone product tiles, tall condensed capitals and MINDS campaign green as the one accent.
+description: A quiet lookbook you can shop. Full-bleed MINDS photography on a warm bone page, concrete product tiles, Host Grotesk in sentence case, and white pills as the only rounded shape.
 colors:
   bone: "#ECE8E1"
   bone-hi: "#F6F3EE"
-  stone: "#DCD6CB"
+  concrete: "#D5D2CC"
+  concrete-lit: "#E0DDD7"
   rule: "#CDC6B9"
   ink: "#171613"
-  ink-2: "#514E47"
+  ink-hover: "#2E2C27"
+  ink-2: "#56524A"
+  peach: "#F3E2D2"
   green: "#1F3D2B"
-  green-deep: "#142A1D"
-  satin: "#6E9456"
-  night: "#0F1912"
-  on-dark: "#F2EEE6"
-  on-dark-2: "#B9B6AC"
+  signal-green: "#2F7A4B"
+  white: "#FFFFFF"
+  night: "#121513"
+  on-dark: "#F4F1EB"
+  on-dark-2: "#B5B1A8"
 typography:
   display:
-    fontFamily: "Big Shoulders Display, Arial Narrow, Helvetica Neue, sans-serif"
-    fontSize: "clamp(60px, 7.2vw, 96px)"
-    fontWeight: 900
-    lineHeight: 0.84
-    letterSpacing: "0.005em"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(54px, 7.6vw, 96px)"
+    fontWeight: 600
+    lineHeight: 0.92
+    letterSpacing: "-0.04em"
   display-closer:
-    fontFamily: "Big Shoulders Display, Arial Narrow, Helvetica Neue, sans-serif"
-    fontSize: "clamp(52px, 8vw, 96px)"
-    fontWeight: 900
-    lineHeight: 0.86
-    letterSpacing: "0.005em"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(44px, 6.4vw, 96px)"
+    fontWeight: 600
+    lineHeight: 0.95
+    letterSpacing: "-0.04em"
   headline:
-    fontFamily: "Big Shoulders Display, Arial Narrow, Helvetica Neue, sans-serif"
-    fontSize: "clamp(48px, 6vw, 88px)"
-    fontWeight: 900
-    lineHeight: 0.88
-    letterSpacing: "0.005em"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(44px, 6vw, 80px)"
+    fontWeight: 600
+    lineHeight: 0.98
+    letterSpacing: "-0.04em"
+  headline-photo:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(40px, 4.6vw, 68px)"
+    fontWeight: 600
+    lineHeight: 0.95
+    letterSpacing: "-0.04em"
   title:
-    fontFamily: "Big Shoulders Display, Arial Narrow, Helvetica Neue, sans-serif"
-    fontSize: "clamp(36px, 4vw, 60px)"
-    fontWeight: 900
-    lineHeight: 0.88
-    letterSpacing: "0.005em"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(36px, 4.4vw, 60px)"
+    fontWeight: 600
+    lineHeight: 0.98
+    letterSpacing: "-0.035em"
+  title-product:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(36px, 3.8vw, 56px)"
+    fontWeight: 600
+    lineHeight: 0.98
+    letterSpacing: "-0.04em"
+  title-sheet:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "30px"
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: "-0.035em"
   title-list:
-    fontFamily: "Big Shoulders Display, Arial Narrow, Helvetica Neue, sans-serif"
-    fontSize: "clamp(32px, 3.4vw, 48px)"
-    fontWeight: 900
-    lineHeight: 0.9
-  interlude:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(28px, 3.6vw, 52px)"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "24px"
     fontWeight: 500
-    lineHeight: 1.12
-    letterSpacing: "-0.015em"
+    lineHeight: 1.1
+    letterSpacing: "-0.02em"
   price:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "22px"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "20px"
     fontWeight: 500
-    lineHeight: 1.55
+    lineHeight: 1.5
     fontFeature: "tnum"
   lead:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
-    lineHeight: 1.55
+    lineHeight: 1.45
   body:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
     fontSize: "16px"
     fontWeight: 400
-    lineHeight: 1.55
-  name-row:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    lineHeight: 1.5
+    letterSpacing: "-0.005em"
+  action:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
     fontSize: "15px"
-    fontWeight: 600
-    lineHeight: 1.55
-  label:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontWeight: 500
+    lineHeight: 1
+    letterSpacing: "-0.005em"
+  name-row:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15px"
+    fontWeight: 500
+    lineHeight: 1.5
+  category-label:
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
     fontSize: "14px"
     fontWeight: 600
     lineHeight: 1
-    letterSpacing: "0.07em"
+    letterSpacing: "0.05em"
   small:
-    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
     fontSize: "13px"
     fontWeight: 400
-    lineHeight: 1.55
-    letterSpacing: "0.02em"
+    lineHeight: 1.5
 rounded:
   none: "0px"
+  pill: "999px"
+  dot: "50%"
 spacing:
   gutter: "16px"
   gutter-wide: "32px"
   container: "1320px"
-  gap-xs: "8px"
-  gap-sm: "12px"
-  gap-md: "24px"
-  grid-row: "44px"
-  grid-col: "20px"
+  hairline-gap: "2px"
+  grid-row: "40px"
+  grid-col: "12px"
+  grid-row-compact: "28px"
+  grid-col-compact: "8px"
+  photo-inset: "clamp(16px, 2.4vw, 36px)"
   section: "clamp(64px, 9vw, 128px)"
-  interlude: "clamp(88px, 12vw, 176px)"
 components:
-  button-primary:
-    backgroundColor: "{colors.green}"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 26px"
-    height: "50px"
-  button-primary-hover:
-    backgroundColor: "{colors.green-deep}"
-    textColor: "{colors.on-dark}"
+  button-ink:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.bone}"
+    typography: "{typography.action}"
+    rounded: "{rounded.pill}"
+    padding: "0 24px"
+    height: "48px"
+  button-ink-hover:
+    backgroundColor: "{colors.ink-hover}"
+    textColor: "{colors.bone}"
   button-ghost:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 26px"
-    height: "50px"
+    typography: "{typography.action}"
+    rounded: "{rounded.pill}"
+    padding: "0 24px"
+    height: "48px"
   button-ghost-hover:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.bone}"
   button-light:
-    backgroundColor: "{colors.on-dark}"
-    textColor: "{colors.green}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 26px"
-    height: "50px"
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
+    typography: "{typography.action}"
+    rounded: "{rounded.pill}"
+    padding: "0 24px"
+    height: "48px"
+  button-light-hover:
+    backgroundColor: "{colors.bone}"
+    textColor: "{colors.ink}"
   button-ghost-light:
     backgroundColor: "transparent"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 26px"
-    height: "50px"
+    textColor: "{colors.white}"
+    typography: "{typography.action}"
+    rounded: "{rounded.pill}"
+    padding: "0 24px"
+    height: "48px"
   button-ghost-light-hover:
-    backgroundColor: "{colors.on-dark}"
-    textColor: "{colors.night}"
-  product-tile:
-    backgroundColor: "{colors.stone}"
-    rounded: "{rounded.none}"
-    padding: "11%"
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
   size-pill:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "0 14px"
+    rounded: "{rounded.pill}"
+    padding: "0 16px"
     height: "44px"
   size-pill-selected:
-    backgroundColor: "{colors.green}"
-    textColor: "{colors.on-dark}"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.bone}"
+  quick-add-size:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+    padding: "0 10px"
+    height: "32px"
   filter-chip:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "0 14px"
+    rounded: "{rounded.pill}"
+    padding: "0 16px"
     height: "38px"
   filter-chip-pressed:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.bone}"
+  open-pill:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+    padding: "0 14px"
+    height: "30px"
+  newsletter-pill:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+    padding: "4px"
+    width: "min(100%, 440px)"
+  bag-count:
     backgroundColor: "{colors.green}"
     textColor: "{colors.on-dark}"
-  buy-card:
+    rounded: "{rounded.pill}"
+    height: "18px"
+  product-tile:
+    backgroundColor: "{colors.concrete}"
+    rounded: "{rounded.none}"
+    padding: "11%"
+  category-tile:
+    backgroundColor: "{colors.concrete}"
+    textColor: "{colors.ink}"
+    typography: "{typography.category-label}"
+    rounded: "{rounded.none}"
+  buy-panel:
     backgroundColor: "{colors.bone-hi}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
     padding: "clamp(24px, 3vw, 40px)"
-  text-input:
-    backgroundColor: "{colors.bone-hi}"
+  announcement-strip:
+    backgroundColor: "{colors.peach}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "0 16px"
-    height: "52px"
-  announcement-bar:
-    backgroundColor: "{colors.green}"
-    textColor: "{colors.on-dark}"
     typography: "{typography.small}"
-    height: "38px"
+    height: "36px"
   header:
     backgroundColor: "{colors.bone}"
     textColor: "{colors.ink}"
+    height: "70px"
+  header-over-photo:
+    backgroundColor: "transparent"
+    textColor: "{colors.white}"
     height: "70px"
   footer:
     backgroundColor: "{colors.night}"
@@ -185,270 +238,236 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Campaign Studio"**
+**Creative North Star: "The Shoppable Lookbook"**
 
-MINDS is shown the way a label shows a season: campaign photography and tall condensed capitals carry the page, the clothes sit on warm studio stone, and the brand mantra runs from the hero to the footer. The page itself is a warm bone ground, quiet enough that the product reads first. Depth comes from the clothes (alpha cut-outs throwing a soft studio shadow onto stone), not from interface chrome.
+MINDS is shown the way a lookbook shows a season: one photograph per idea, edge to edge, with the interface stepping back to a few words and white pills. The page is a warm bone ground; the clothes sit on soft concrete-grey tiles, each flat casting its own contact shadow. Type is a single grotesk (Host Grotesk) at 600 with tight negative tracking, always in sentence case, laid bottom-left over photographs on a soft dark fade.
 
-Rhythm alternates between the light studio and cinematic dark bands. A deep forest-green split hero opens the page, product tiles sit on bone, a full-bleed row of colour-blocked "Shop by piece" panels breaks the grid, a green-black campaign band frames on-model photography, and a green-black footer closes the mantra in giant type. One-sentence interludes in large Archivo sit between sections as breaths. Everything is square-cornered and ruled with hairlines; actions are uppercase labels in solid or outline buttons, with an arrow wherever the action moves you somewhere.
+The homepage reads top to bottom as photo, tiles, grid, photo, photo: a full-screen campaign photo under a transparent header, four edge-to-edge category tiles, a contained grid of new arrivals, a 2-up pair of full-bleed portraits, and a 2-up pair of story cards (the Orlando store and the newsletter), then a ruled list of the other stores and a dark footer. Full-bleed blocks are separated by 2px hairline gaps of the bone page, never by margins. MINDS green has shrunk to a signal: the bag count and the pickup store icon, with a brighter signal green for the live "Open now" dot.
 
-The system refuses the stock streetwear grid: a black hero with a centred outline button, followed by equal white cards. Green is the only accent and is never used as a decorative tint.
+The system refuses the dense streetwear homepage of colour-block bands, badges and stacked banners. It replaces the earlier "Campaign Studio" world (condensed capitals, forest-green bands, square buttons), which was retired on 27 Nov 2026.
 
 **Key Characteristics:**
-- Warm bone page (`bone`) with stone product tiles (`stone`) and near-black ink.
-- MINDS campaign green as the one accent: forest `green` for actions, bars and bands, `satin` only as a colour-block.
-- Green-black (`night`) for cinematic bands and the footer.
-- Big Shoulders Display 900, uppercase and tightly leaded, for every heading; Archivo for reading and labels.
-- Square corners everywhere; 1px hairline rules and 1.5px ink or green strokes.
-- Product flats are alpha cut-outs with a soft drop-shadow on stone; on-model photos are multiplied onto stone.
-- The mantra split in three: hero, campaign band, footer.
+- Warm bone page (`bone`), concrete product and category tiles (`concrete`), near-black ink.
+- Photography carries every feature moment, full-bleed, with words and pills bottom-left.
+- Host Grotesk only: 600 for headings with -0.035 to -0.04em tracking, sentence case.
+- Pills (999px) are the only rounded shape; images, tiles, cards, panels and dialogs are square.
+- Full-bleed blocks meet with 2px hairline gaps.
+- A pale peach announcement strip, a transparent header over the hero that turns solid bone, and a `night` footer.
+- Green is a small signal, never a surface.
 
 ## Colors
 
-A warm, desaturated studio palette (bone, stone, ink) with one deep campaign green and its satin and green-black relatives.
+A warm, desaturated studio palette (bone, concrete, ink) with a pale peach strip, white for everything laid on photographs, and green held back to signals.
 
 ### Primary
-- **Campaign Forest** (`green`): the action colour and the hero ground. Solid buttons, the announcement bar, the hero panel, selected size pills, pressed filter chips, the bag count badge, active nav underline, focus outlines and text selection.
-- **Deep Forest** (`green-deep`): hover state of the solid forest button only.
+- **Ink** (`ink`): the action colour on light grounds. Solid pill buttons, selected size pills, pressed filter chips, the checked state of every control, text, focus outlines, text selection. Hover deepens to **Ink Lifted** (`ink-hover`).
+- **Photo White** (`white`): the action colour on photographs. Light pills, the outline of ghost-light pills, the open-status pill, the newsletter pill, the header's logo and type while it sits over the hero, focus outlines on photos and in the footer.
 
 ### Secondary
-- **Satin Green** (`satin`): the green of the satin campaign set, used only as a full colour-block (the "Caps" panel in Shop by piece). Text on it is `ink`, never `on-dark`.
+- **Pickup Peach** (`peach`): the announcement strip only, with ink text. It is the one warm tint in the interface.
 
 ### Tertiary
-- **Green-Black** (`night`): cinematic bands and the footer. The Femme Noir campaign band, the footer, the toast, the "Tops" colour-block, and the frame around the campaign photo. Scrims and drawer shadows are `night` at 45% and 18% alpha.
+- **MINDS Green** (`green`): small signals only. The bag count badge on the solid header and the store icon beside pickup lines. While the header is over the hero, the count turns white with ink text.
+- **Signal Green** (`signal-green`): the live "Open now" dot and its pulse inside the open-status pill. Closed shows the dot in `ink-2`.
 
 ### Neutral
-- **Warm Bone** (`bone`): the page ground, the sticky header and the sticky filter bar.
-- **Bone Light** (`bone-hi`): raised studio surfaces: the floating buy card, the PDP buy panel, dialogs, the bag sheet, the mobile nav drawer, text inputs, the Visit section ground, store-row hover.
-- **Studio Stone** (`stone`): every product image tile (grid cards, feature tile, bag thumbnails, campaign picks) and the "Pants" colour-block.
-- **Warm Rule** (`rule`): 1px hairlines: header bottom, section dividers, accordions, table rows, store rows, disabled pill hatch.
-- **Ink** (`ink`): text, outline-button strokes, input strokes, the heavy top rule on the store list and filter bar.
-- **Graphite** (`ink-2`): secondary text (colour names, place names, counts, helper text) and the idle border of pills and chips.
-- **On Dark** (`on-dark`) / **On Dark Muted** (`on-dark-2`): primary and secondary text on `green` and `night`. Dark-band hairlines are `on-dark` at 22% alpha.
+- **Warm Bone** (`bone`): the page ground, the solid header, the sticky filter bar, the colour of the 2px gaps between full-bleed blocks, and the view-transition ground.
+- **Bone Light** (`bone-hi`): raised surfaces. The PDP buy panel, dialogs, the bag sheet, the mobile nav drawer, filter inputs and selects, the store-row hover wipe, the quick-add bar (at 95%), the photo-needed slot.
+- **Concrete** (`concrete`) with **Concrete Lit** (`concrete-lit`): every product and category tile, bag thumbnails and PDP gallery frames. Concrete Lit is the soft top light: a radial gradient (110% by 85% at 50% 36%) fading to concrete by 72%, over a fine SVG grain.
+- **Warm Rule** (`rule`): 1px hairlines. Header bottom, filter bar edges, store rows, accordions, table rows, bag lines, and the hatch on sold-out sizes.
+- **Graphite** (`ink-2`): secondary text (colours, places, counts, helper text, breadcrumbs) and the idle 1px border of pills, chips and selects.
+- **Night** (`night`), **On Dark** (`on-dark`), **On Dark Muted** (`on-dark-2`): the footer and the toast. Footer hairlines are `on-dark` at 20%.
+
+Scrims, photo fades and interface shadows are all drawn from one warm black, `rgb(18, 17, 15)` (`--shade`), at stated alphas; see Elevation & Depth.
 
 ### Named Rules
-**The One Accent Rule.** Green is the only hue. Forest carries actions and bands; satin appears only as a whole colour-block panel; green-black is a ground. No other accent colour enters the system.
+**The Signal Green Rule.** Green never fills a button, band, strip or panel. It marks state: how many things are in the bag, where pickup happens, whether the store is open.
 
-**The Stone Tile Rule.** Product imagery always sits on `stone`, never on the bone page directly and never on white.
+**The White-on-Photo Rule.** Anything laid on a photograph is white: headline, line, pills, status pill, newsletter field. Ink pills appear on photographs only inside a white container (the newsletter pill's Subscribe button).
 
-- **Satin Light (#B5D99A):** used only for the outlined hero row. It is a lighter tint of the campaign green, about 7.6:1 on forest.
+**The Concrete Tile Rule.** Product imagery sits on concrete, never directly on the bone page and never on white.
 
 ## Typography
 
-**Display Font:** Big Shoulders Display (with Arial Narrow, Helvetica Neue)
-**Body Font:** Archivo (with Helvetica Neue, Arial)
+**Display and Body Font:** Host Grotesk (with Helvetica Neue, Arial), weights 400, 500, 600 and 700 loaded.
 
-**Character:** Tall condensed capitals at weight 900, leaded tighter than their size (0.84 to 0.9), give the campaign-poster voice; Archivo at 400 to 600 keeps names, prices and instructions calm and legible.
+**Character:** One grotesk does everything. Headings at 600 with tight negative tracking and sub-1 leading read as a fashion headline; the same face at 400 and 500 keeps names, prices and instructions calm. Hierarchy comes from size and tracking, never from a second family or from capitals.
 
 ### Hierarchy
-- **Display** (900, clamp(60px, 7.2vw, 96px), 0.84): the hero mantra line only, set as two stacked lines.
-- **Display Closer** (900, clamp(52px, 8vw, 96px), 0.86, max 12ch): the footer's closing mantra line.
-- **Headline** (900, clamp(48px, 6vw, 88px), 0.88): section heads. Campaign (up to 96px), Visit (88px), feature and newsletter (72 to 80px), and PDP title (76px) use nearby clamps in the same voice.
-- **Title** (900, clamp(36px, 4vw, 60px)): colour-block panel labels. **Title List** (900, clamp(32px, 3.4vw, 48px), 0.9) for store-list city names; 34px for mobile drawer links.
-- **Interlude** (Archivo 500, clamp(28px, 3.6vw, 52px), 1.12, -0.015em, max 20ch, centred): the one-sentence breaks between sections.
-- **Lead** (Archivo 400, 17px, max 36 to 42ch): hero, campaign and visit body copy.
-- **Body** (Archivo 400, 16px, 1.55): running text.
-- **Name Row** (Archivo 600, 15px): product name and price on one row, colour below in 14px graphite.
-- **Price** (Archivo 500, 22px, tabular): the price on the buy card and PDP.
-- **Label** (Archivo 600, 14px, 0.07em, uppercase): buttons, text links and the store "Directions" action (13px). Footer column heads use 13px at 0.08em.
-- **Small** (Archivo 400, 13px): announcement bar, piece counts, breadcrumbs.
+- **Display** (600, clamp(54px, 7.6vw, 96px), 0.92, -0.04em): the hero headline only ("New season").
+- **Display Closer** (600, clamp(44px, 6.4vw, 96px), 0.95, -0.04em, max 13ch): the footer line "And the world will be yours." in `on-dark`.
+- **Headline** (600, clamp(44px, 6vw, 80px)): collection page titles.
+- **Headline Photo** (600, clamp(40px, 4.6vw, 68px), 0.95): headlines on full-bleed photo cards, with a faint 28px text shadow from `--shade` at 30%.
+- **Title** (600, clamp(36px, 4.4vw, 60px), 0.98, -0.035em): section heads on the bone page ("New arrivals", "More MINDS stores", "More shorts").
+- **Title Product** (600, clamp(36px, 3.8vw, 56px)): the PDP product name.
+- **Title Sheet** (600, 28 to 30px): dialog, bag and mobile-drawer headings and drawer links.
+- **Title List** (500, 24px, 1.1, -0.02em): city names in the store list.
+- **Price** (500, 20px, tabular): the PDP price.
+- **Lead** (400, 17px, 1.45, max 40ch): the hero line, in white at 90%; photo-card lines use 16px.
+- **Body** (400, 16px, 1.5, -0.005em): running text.
+- **Action** (500, 15px, 1): pill buttons, text links, nav links, "Directions".
+- **Name Row** (500, 15px): product name and price on one row; colour below at 14px in graphite.
+- **Category Label** (600, 14px, 0.05em, uppercase, 1.5px underline at 7px offset; 13px under 600px): category tiles only.
+- **Small** (400, 13px): announcement strip, breadcrumbs, quick-add sizes; footer column heads at 500 and 0.02em in `on-dark-2`.
 
 ### Named Rules
-**The Capitals Rule.** Every h1, h2 and h3 is Big Shoulders Display 900, uppercase, balanced, with line-height under 0.9. Body copy is never set in the display face.
+**The Sentence Case Rule.** Every heading, button and nav link is sentence case. The only uppercase in the system is the category tile label.
 
-**The Tabular Price Rule.** Prices, counts, hours and phone numbers use tabular figures.
+**The Line Beneath Rule.** Supporting copy sits under its heading, never above it. There are no eyebrows or kickers.
+
+**The Tabular Figures Rule.** Prices, counts, hours and phone numbers use tabular figures.
 
 ## Layout
 
-Mobile-first, with a 16px gutter (respecting safe-area insets) widening to 32px from 750px, inside a 1320px container. Sections breathe with `section` vertical padding; interludes take the larger `interlude` padding. Full-bleed moments (hero, Shop by piece, campaign band, Visit, footer) break out of the container; everything else sits within it.
+Mobile-first. A 16px gutter (respecting safe-area insets) widens to 32px from 750px, inside a 1320px container. Bone-page sections take `section` vertical padding. Photography and tiles break out of the container to the viewport edge; grids, section heads and the store list stay inside it.
 
-- **Split hero:** a 5/7 grid. The forest panel holds bottom-aligned type, its left padding aligned to the container edge; the portrait fills the right column at full height (clamp(560px, 100svh - 108px, 860px)). Below 900px it stacks with the photo first (44svh, max 440px), then the panel.
-- **Product grid:** 4 columns with 44px row and 20px column gaps; 2 columns with 32px and 12px below 990px. Tiles are 4:5.
-- **Shop by piece:** 4 edge-to-edge 3:4 panels with no gaps; 2 by 2 below 900px.
-- **Feature:** a 12-column grid; the 5:4 stone tile spans 1 to 8 and the buy card overlaps it from 8 to 13. Below 900px the card sits under the tile, pulled up 48px and inset 12px.
-- **Campaign, Visit, Newsletter:** two equal columns, stacking below 900px (750px for the newsletter).
-- **Store list:** a ruled 4-column row (city, place, hours, action); below 750px, city and action share the first row and the details stack under the city. Day groups never break mid-phrase.
-- **PDP:** 7/5 gallery and sticky buy panel; below 850px a horizontal snap gallery and a flat buy panel.
+- **Hero:** full viewport height minus the announcement strip (min 560px), pulled up under the header so the header floats over its top edge. Copy is pinned bottom-left at clamp(24px, 6svh, 56px) from the bottom, max 760px wide: headline, one line, a row of pills. The photo is cover-fit, focused at 62% 42% (68% 30% under 750px).
+- **Category tiles:** four edge-to-edge 3:4 tiles with 2px gaps, 2 by 2 under 900px. The flat is contained at 70% by 66%, centred slightly above middle; the label sits bottom-left.
+- **Product grid:** 4 columns with 40px rows and 12px columns; 2 columns with 28px and 8px under 990px. Tiles are 4:5.
+- **Femme Noir pair:** two 4:5 full-bleed portraits, 2px apart (max 112svh tall), stacking under 750px. Each ends in its own headline, line and pill.
+- **Story cards:** two 5:4 full-bleed cards, 2px apart, stacking and turning 4:5 under 850px. Copy sits bottom-left at `photo-inset`.
+- **Store list:** a ruled four-column row (city, place, hours, action) inside the container; under 750px the city and "Directions" share the first row and details stack beneath. Day groups never break mid-phrase.
+- **Collection:** breadcrumbs, a title with the product count at right, then a sticky filter bar under the header.
+- **PDP:** a 7/5 gallery and sticky buy panel; under 850px a horizontal snap gallery (78% slides) and a flat buy panel.
 - **Breakpoints:** 600, 750, 850, 900 and 990px. No horizontal scroll at 360px.
 
-**The Full-Bleed Break Rule.** The contained grid is interrupted only by full-bleed bands of photography or solid colour, never by inset cards with margins.
+**The Hairline Gap Rule.** Full-bleed blocks meet with a 2px gap of bone. They are never inset with margins or rounded into cards.
 
 ## Elevation & Depth
 
-The interface is flat and tonal: bone, bone-light and stone layers, hairline rules, and dark bands. Shadow belongs to the product, not the interface. Alpha product cut-outs cast a soft studio drop-shadow onto stone; on-model photographs carry no shadow and are multiplied onto the stone instead. The one interface shadow is the bag sheet's, cast leftward over the page.
+The interface is flat and tonal: bone, bone-light and concrete layers, hairline rules and photographs. Depth belongs to the clothes and the photographs. Alpha flats cast a soft contact shadow onto concrete; on-model photos on concrete are multiplied and carry none. Photographs take a warm dark fade from the bottom so white copy reads. Only two interface layers cast a shadow: the bag sheet over the page and the cursor-following store photo.
 
 ### Shadow Vocabulary
-- **Studio cast** (`filter: drop-shadow(0 16px 18px rgba(23, 22, 19, .14))`): product cut-outs on stone tiles.
-- **Panel cast** (`filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .18))`): product cut-outs on colour-block panels.
-- **Sheet** (`box-shadow: -16px 0 48px rgba(15, 25, 18, .18)`): the bag drawer only.
-- **Scrim** (`rgba(15, 25, 18, .45)`): behind the drawer, the nav drawer and dialogs.
+- **Contact cast** (`filter: drop-shadow(0 16px 18px rgba(23, 22, 19, .14))`): product flats on product tiles.
+- **Category cast** (`filter: drop-shadow(0 22px 22px rgba(23, 22, 19, .2))`): flats on category tiles.
+- **Photo fade** (`linear-gradient(to top, rgba(18,17,15,.82) 0, .55 at 38%, .14 at 64%, 0 at 80%)`): under copy on photo cards; stronger stops on phones and story cards. The hero adds a 34% top fade for the header.
+- **Sheet** (`box-shadow: -16px 0 48px rgba(18, 17, 15, .18)`): the bag drawer.
+- **Peek** (`box-shadow: 0 24px 48px rgba(18, 17, 15, .22)`): the store photo that follows the cursor.
+- **Scrim** (`rgba(18, 17, 15, .45)`): behind the bag, the nav drawer and dialogs.
 
 ### Named Rules
-**The Product Casts the Shadow Rule.** Cards, buttons and panels never carry a box-shadow. Depth comes from the cut-out's drop-shadow, the bone-light surface and its 1px rule.
+**The Product Casts the Shadow Rule.** Pills, tiles, cards and panels never carry a box-shadow. Depth comes from the flat's drop-shadow, the photo fade, or a bone-light surface with a 1px rule.
 
-**The Multiply Rule.** On-model photographs on stone use `mix-blend-mode: multiply`, cover-fit and no padding; alpha flats use contain-fit with 11% padding (12% on the feature tile) and the studio cast.
+**The Multiply Rule.** On-model photos on concrete use `mix-blend-mode: multiply`, cover-fit and no padding; flats use contain-fit, 11% padding and the contact cast.
 
 ## Shapes
 
-Every surface is a square-cornered rectangle: tiles, panels, buttons, pills, chips, inputs, dialogs, the bag badge. Image aspect ratios are fixed by role: 4:5 product tiles and thumbnails, 3:4 colour-block panels, 5:4 feature tile, 1:1 PDP main image, 4:3 store photo on phones. Strokes come in two weights: 1px `rule` hairlines for dividers and surfaces, 1.5px `ink` or `green` for interactive outlines and the heavy top edge of ruled lists. The campaign photo is framed by a clamp(12px, 1.4vw, 20px) `night` border so it sits inside the band like a print. Icons are 1.5px-stroke line drawings at 22px; arrows are 20px (28px on panels).
+Two shapes only. Every pill (buttons, size pills, chips, quick-add sizes, filter inputs and selects, the open-status pill, the newsletter field, the bag count) is fully rounded at 999px. Everything else is a square-cornered rectangle: photographs, tiles, cards, the buy panel, dialogs, the bag sheet, the drawer, the toast. The status dot is the one circle. Aspect ratios are fixed by role: 4:5 product tiles, thumbnails and Femme Noir portraits; 3:4 category tiles; 5:4 story cards (4:5 on phones); 1:1 PDP main image; 4:3 store peek. Strokes are 1px: `rule` hairlines for dividers and `ink-2` or `ink` for interactive outlines. Icons are 1.5px-stroke line drawings at 22px; arrows are 18px.
 
-**The Square Corner Rule.** Border-radius is zero on every component.
+**The Only Curve Rule.** If it is not a pill or the status dot, its corners are square.
 
 ## Components
 
 ### Buttons
-Confident uppercase labels in solid or outline boxes.
-- **Shape:** square (0px), minimum height 50px (52px beside the newsletter input), 26px side padding, 1.5px border, 12px icon gap.
-- **Primary:** forest fill with on-dark label; hover deepens to deep forest. Used for Add to bag, Get directions, Subscribe.
-- **Ghost:** transparent with ink stroke and label; hover fills ink with a bone label.
-- **Light / Ghost Light:** on green and night grounds, a solid on-dark fill with a forest label, or an on-dark outline that fills on hover with a night label.
-- **Arrow:** any button or link that takes you elsewhere ends in the line arrow, which nudges 4px right on hover (0.35s).
-- **Text link:** the uppercase label with a 1.5px underline rule and an arrow ("Shop all new →", "Full details →").
-- **Transitions:** background, colour and border at 0.25s.
+Quiet pills; the photograph or the product does the shouting.
+- **Shape:** pill (999px), 48px tall, 24px side padding, 1px border, 10px icon gap, Action type.
+- **Ink:** ink fill, bone label; hover lifts to `ink-hover`. Add to bag, Check out, Subscribe.
+- **Ghost:** transparent, ink stroke and label; hover fills ink. Empty-state recoveries.
+- **Light:** white fill, ink label; hover turns bone. The primary pill on photographs ("Shop now", "Femme Noir", "Shop the top", "Get directions").
+- **Ghost Light:** transparent, white label, white stroke at 85%; hover fills white. The quiet second action on photos ("Shop for pickup").
+- **Press:** every pill scales to 0.98 on `:active`. Colour transitions take 0.25s.
+- **Text link:** Action type with a 1px underline at 6px offset that thickens to 2px on hover, ending in the arrow ("Shop all new"). Arrows nudge 4px right on hover.
 
 ### Chips and Size Pills
-- **Filter chip:** 38px, transparent with a 1px graphite border; ink border on hover; pressed fills forest with on-dark text.
-- **Size pill:** 44px by at least 54px, same idle treatment; selected fills forest; sold-out shows a 135° hairline hatch in `rule` with graphite text; focus draws a 2px forest outline.
+- **Filter chip:** 38px pill, 1px graphite border; ink border on hover; pressed fills ink with a bone label.
+- **Size pill:** 44px by at least 54px. Selected fills ink from the bottom up (0.3s); sold-out shows a 135° hairline hatch in `rule` with graphite text and a visually hidden "(sold out)"; focus draws a 2px ink outline.
+- **Quick-add size:** 32px pill in the quick-add bar; hover fills ink; sold-out hatched.
 
 ### Product Card
-- **Tile:** a 4:5 stone rectangle. Flats contain-fit with padding and the studio cast; on-model images multiplied and cover-fit.
-- **Hover (hover devices):** the image scales 1.035 over 0.8s, a second view cross-fades in when one exists, and the product name underlines.
-- **Meta:** name and price on one row (600, 15px), colour below (14px graphite).
+- **Tile:** a 4:5 concrete rectangle. Flats contained with padding and the contact cast; on-model images multiplied and cover-fit.
+- **Hover (hover devices):** the image scales 1.035 over 0.8s, a second view cross-fades in where one exists, and the name underlines.
+- **Meta:** name and price on one row (Name Row), colour below in graphite.
+- **Quick add:** on hover or focus a bone-light bar (95%) rises over the bottom of the tile with "Quick add" and a pill per size. One-size items show "Add". Hidden on touch devices.
 
 ### Cards / Containers
-- **Buy card:** bone-light with a 1px rule border and clamp(24px, 3vw, 40px) padding; no shadow. It floats over the feature tile on desktop and becomes the sticky PDP buy panel.
-- **Photo needed slot:** bone-light with a dashed graphite border, a camera icon and a label; a placeholder for owner-blocked photography, not a decorative device.
+- **Photo card ("shot"):** square-cornered, full-bleed photograph with the photo fade; copy bottom-left in white: Headline Photo, a 16px line, pills. The image eases to 1.025 on hover over 1.4s.
+- **Buy panel:** bone-light with a 1px rule border and clamp(24px, 3vw, 40px) padding; sticky beside the PDP gallery, flat and borderless on phones.
+- **Photo-needed slot:** bone-light with a dashed graphite border, a camera icon and a label. A placeholder for photography the owner has not supplied, not a decorative device.
 
 ### Inputs / Fields
-- **Style:** square, 1.5px ink stroke, bone-light fill, 52px tall (38px in the filter bar), graphite placeholder. The newsletter input butts directly against its button (no right border).
-- **Focus:** the global 2px forest outline at 3px offset (on-dark inside dark bands).
+- **Newsletter pill:** a white pill (4px padding, max 440px) holding a borderless 44px field and an ink Subscribe pill; focus-within draws a 2px white outline at 3px. Success swaps the label for a check and "Done"; an invalid address shakes the field once and shows a line beneath.
+- **Filter controls:** 38px pills in bone-light with a 1px graphite border; checkboxes take an ink accent.
+- **Focus:** the global 2px ink outline at 3px offset; white on photographs, over the hero header and in the footer.
 
 ### Navigation
-- **Announcement bar:** forest, 13px on-dark text, centred, a bold store-hours link.
-- **Header:** sticky bone bar, 70px (58px on phones), 1px rule beneath; the logo with four inline Archivo 500 links that take a 1.5px forest underline on hover and when current. Below 900px a burger opens a bone-light drawer of 34px display-capital links divided by rules.
-- **Filter bar:** sticky under the header, bone, ink top rule and rule bottom.
+- **Announcement strip:** pale peach, 36px, centred 13px ink text with a 600-weight "Store hours" link; the second clause hides under 600px.
+- **Header:** sticky, 70px (58px on phones). Over the hero it is transparent with a white (inverted) logo, white links and icons, and a white bag count; once the hero's bottom passes under it, it turns solid bone with a 1px rule (0.35s). It hides on scroll down after the hero and returns on scroll up, never while focused or while a drawer is open.
+- **Links:** Action type, sentence case, a 1px current-colour underline on hover and when current. Under 900px a burger opens a bone-light drawer of 30px 600 links divided by rules.
+- **Filter bar:** sticky under the header, bone, rules top and bottom.
 
-### Shop by Piece Panels (signature)
-Edge-to-edge 3:4 colour-blocks in forest, stone, green-black and satin, each with a centred product cut-out (scales 1.05 on hover over 0.9s), and the label laid over the bottom: a display-capital title, a small style count and an arrow.
+### Category Tiles (signature)
+Four edge-to-edge 3:4 concrete tiles, 2px apart, each a real MINDS flat with the category cast and one underlined uppercase label bottom-left. The flat scales 1.045 on hover over 1s.
 
-### Campaign Band (signature)
-A green-black two-column band: the on-model photo framed in night on the left, and on the right bottom-aligned copy with the mantra line as its headline, a light button, and a ruled list of picks (56px stone thumbnail, name, colour and price, arrow) divided by 22% on-dark hairlines.
+### Open-Status Pill (signature)
+A 30px white pill beneath the Orlando store heading: a status dot and "Open now · closes 8pm" or "Closed · opens 9am", computed from Florida Mall hours in Orlando time and repainted every minute. While open, the dot is signal green and pulses three times.
 
 ### Ruled Store List (signature)
-An ink top rule, then rows divided by hairlines: a display-capital city, place, tabular hours and an uppercase "Directions →" action. Rows take a bone-light hover.
+A rule above, then rows divided by hairlines that draw in from the left with an 80ms stagger: a 24px city, place in graphite, tabular hours in one "10am to 8pm" format, and "Directions" with an arrow. Hover wipes in bone-light from the left and shifts the city 4px; on mouse devices a store photo follows the cursor with eased lag.
 
-### Footer Closer (signature)
-A green-black footer opening with "And the world will be yours." in giant display capitals (max 12ch), then a rule and four columns of logo, Shop, Help and Contact.
-
-### Hero: Opposing Scroll Type (signature)
-The hero is a pinned frame inside a 250svh scroll runway.
-- **Frame:** sticky under the header; its height is the viewport minus the header.
-- **Photo:** the campaign photo sits behind the type. The photo is the 1536 × 1024 studio campaign frame. When the frame is wider than 6:5, the whole photo is shown right-aligned at full frame height, its left edge fading into a matching warm field (`--hero-field: #A98C6B`). Narrower frames cover the frame with the photo, keeping the model in view. The tint is kept light so the photo reads warm. On wide frames, a soft night glow sits only behind the top-left copy, with a faint left fade. On narrow frames, a bottom gradient sits under the copy. The solid row carries a soft night drop-shadow, and the intro text is full on-dark (about 4.7:1 measured) so the bone type stays legible over the tan wall.
-- **Type rows:** two repeated display rows at 11% of frame width (container units), line-height 1, placed 39% down and starting 26% past the left edge.
-  - "RESET YOUR ·" in solid on-dark.
-  - "MINDSET." as a `satin-light` (#B5D99A) outline, max(1.75px, 0.022em), with a soft night drop-shadow (0 2px 10px at 45%) that follows the stroke so it reads over the photo.
-- **Scroll mapping:** progress p = clamp01((stickyTop − runway.top) / (runway height − frame height)). Row 0 moves x = −(p − 0.5) × frameWidth × 0.8 and row 1 the mirror. It uses translate3d, a passive scroll listener with one requestAnimationFrame update, and measures the frame (ResizeObserver, `document.fonts.ready`).
-- **Coverage:** whole repeats are prepended so both rows cover the frame at both endpoints.
-- **Accessibility:** the rows are `aria-hidden`; "Reset your mindset." is the visually hidden H1. The intro line and the two CTAs sit top-left on wide frames and bottom-left over a dark gradient on narrow ones. A skip button jumps past the runway.
-- **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
-
-### Homepage opening
-The homepage opens directly on the studio hero (opposing scroll type). There is no loading screen and no 3D intro: the line-art intro loader and the 3D "Inside your mind" journey with its brain-shaped reveal were both removed at the owner's request. The journey's code is kept in `experience/` but is no longer published anywhere.
+### Footer
+A `night` footer opening with the Display Closer line, then an `on-dark` 20% rule and four columns: logo with a one-line description and social icons, Shop, Help and Contact. A legal row in `on-dark-2` closes it.
 
 ### Motion
-One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–900ms, hovers 250–400ms and staggers 60–120ms.
+One calm grammar. CSS uses one easing, `cubic-bezier(.16, 1, .3, 1)`; script-driven moves (grid FLIP, gallery crossfade, product morph) use `cubic-bezier(.2, .8, .2, 1)`, and the fly-to-bag arc uses `cubic-bezier(.5, 0, .2, 1)` because a travel path needs an ease-in.
+- **Hero:** the photo settles from 1.06 over 2.2s; headline, line and pills rise 16px from 40% opacity, staggered 90ms.
+- **Reveals:** sections, tiles, cards and photo cards fade and rise 18px over 0.9s, staggered 70ms per row. JS marks only elements that start below the fold, so content shows without JS, and anything skipped by an anchor jump is revealed at once.
+- **Header handover:** transparent to solid bone over 0.35s as the hero leaves.
+- **Product morph:** the product tile morphs into the PDP gallery frame (View Transitions, `prod`, 0.6s) and back; the old page fades out in 0.14s before the new one fades in. Without support, routes fade in (0.45s).
+- **Shop grid:** FLIP on filter or sort changes (480ms); the product count rolls (380ms).
+- **Bag:** a ghost of the product arcs into the header bag (650ms), then the count pops; buy forms open the bag after the flight, quick add shows a toast. Bag lines stagger in (50ms) and the subtotal counts.
+- **Reduced motion:** nothing is marked for reveal, there is no fly, morph, count roll or header hiding, and all CSS animation and transition is off.
 
-**The motion language**
-- **Masked rise for type:** headings carry `data-reveal="rise"`, and their `.ri` span slides up out of a clip.
-- **Hairline draw for rules:** list and hours rules scale from 0 to 1 on X, starting from the left.
-- **Curtain unveil for images:** the tile opens bottom-up while the image settles from 1.08.
-- **Scroll-scrub:** used only where scroll position carries meaning.
-
-**Mechanics**
-- **Reveals:** an IntersectionObserver reveals each element once. JS adds `.rv` only to elements that start below the fold, so content is visible without JS. Anything skipped by an anchor jump is revealed as soon as it is above the viewport.
-- **Scroll engine:** all scroll-linked effects (hero, scrubs, header) share one passive listener and one requestAnimationFrame loop. There is no scroll-jacking, and only transform, opacity, clip-path and background-color are animated.
-
-**By section**
-- **Interlude:** words fill from 22% to 100% opacity as the line crosses the viewport.
-- **New arrivals:** heading rise; curtain tiles staggered 70ms left to right.
-- **Shop by piece:**
-  - Shutters: a bone cover lifts (0.85s, staggered 90ms), matching the curtain.
-  - Cut-outs drift ±40px at different speeds.
-  - Hover: the cut-out lifts and tilts −2° while the sibling panels dim through an opacity overlay.
-  - The cut-out leans up to 8px toward the cursor (mouse only).
-- **Featured product:** tile curtain, then the buy card rises 60px after 150ms.
-- **Campaign band:** once the band fills half the viewport, the page ground scrubs from bone to night through a green midpoint, and back after. The photo opens from a centred slit with a 1.15 → 1 push-in. The headline rises and the pick rules draw.
-- **Visit:** the photo drifts at about 0.85× scroll; heading rise; the hours rules draw. A live open/closed pill uses Orlando time; while the store is open, its green dot pulses three times. The pin drops on hover.
-- **Store list:**
-  - Rows draw with an 80ms stagger.
-  - Hover: a bone-light wipe, and the city shifts 8px.
-  - A store photo follows the cursor with eased lag (mouse only).
-- **Newsletter:**
-  - Heading rise.
-  - Focus thickens the input stroke and nudges the arrow.
-  - Success swaps the button label for a check mark; an error shakes the input once.
-- **Footer:** the mantra fills from a satin-light outline to solid on-dark, reaching full exactly at the page end.
-
-**Site-wide**
-- **Header:** hides on scroll down once the hero is passed and returns on scroll up. It never hides while focused or while a drawer is open.
-- **Product morph:** the product tile frame morphs into the PDP gallery frame with the View Transitions API (`prod`), and back. The old page fades out in 0.14s before the new one fades in (0.3s, delayed 0.08s) over a bone ground, so two pages' text never overlap. Without support, routes fade in (0.45s).
-- **Shop grid:** FLIP-animates on filter or sort changes (480ms), and the product count rolls (380ms).
-- **Bag and buying:**
-  - Size pills fill from the bottom, and buttons press to 0.98.
-  - Adding to the bag flies a ghost of the product along an arc into the header bag (650ms), then the count pops. The arc is the one deliberate easing exception, `cubic-bezier(.5, 0, .2, 1)`, because a travel path needs an ease-in as well as an ease-out.
-  - Buy forms open the bag after the flight; Quick add shows a toast instead.
-  - Bag lines stagger in (50ms) and the subtotal counts.
-- **PDP:** the gallery crossfades with a 1.03 settle, the size guide scales in from 0.98, and the accordions animate height where `::details-content` is supported.
-
-**Reduced motion**
-Under `prefers-reduced-motion`, nothing is marked for reveal, every scrub shows its end state, there is no fly, morph or header hiding, and all CSS animation and transition is off.
+### Homepage opening
+The homepage opens directly on the full-screen hero photograph, with no moving text. There is no loading screen and no 3D intro: the line-art intro loader and the 3D "Inside your mind" journey with its brain-shaped reveal were both removed at the owner's request. The journey's code is kept in `experience/` but is no longer published anywhere.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** put every product image on a `stone` tile: alpha flats contain-fit with the studio drop-shadow, on-model photos multiplied and cover-fit.
-- **Do** set all headings in Big Shoulders Display 900 uppercase with line-height 0.84 to 0.9.
-- **Do** keep forest green for actions, bars and bands; use satin only as a full colour-block with ink text.
-- **Do** alternate the bone studio with full-bleed green or green-black bands, and close every page with the green-black footer.
-- **Do** show the name and price on one row, with tabular figures.
-- **Do** end any link that moves you elsewhere with the line arrow.
-- **Do** use 1px `rule` hairlines to divide lists, accordions and surfaces, and a 1px ink top rule to open a ruled list.
+- **Do** let one MINDS photograph carry each feature moment, full-bleed, with a headline, one line and pills bottom-left over the photo fade.
+- **Do** put every product image on a concrete tile: flats contained with the contact cast, on-model photos multiplied and cover-fit.
+- **Do** set every heading in Host Grotesk 600, sentence case, tracked -0.035 to -0.04em, leading under 1.
+- **Do** make every action a pill: ink on light grounds, white on photographs, an outline for the quieter second action.
+- **Do** join full-bleed blocks with 2px bone gaps.
+- **Do** keep green to the bag count, the pickup icon and the open dot.
+- **Do** show the name and price on one row, with tabular figures, and write hours in one "10am to 8pm" format.
 
 ### Don't:
-- **Don't** round corners on any component.
-- **Don't** add box-shadows to cards, buttons or panels; the product casts the shadow.
-- **Don't** introduce a second accent hue or tint the page with green.
+- **Don't** round anything that is not a pill or the status dot: photos, tiles, cards, panels and dialogs stay square.
+- **Don't** add eyebrows or kickers above headings; supporting lines go beneath.
+- **Don't** fill buttons, strips, bands or panels with green, or add colour-block bands to the homepage.
+- **Don't** set headings in capitals or in a second typeface; uppercase is reserved for category tile labels.
+- **Don't** add box-shadows to pills, tiles, cards or panels.
 - **Don't** place product flats on white or directly on the bone page.
-- **Don't** build the stock streetwear grid: a black hero with a centred outline button followed by equal white cards.
-- **Don't** set body copy, prices or instructions in the display face.
+- **Don't** use photography that is not MINDS's own.
 
 ## Needs custom code in Shopify
 
-The user chose "Design freely", so the prototype is not limited to Spotlight 13's settings. This conflicts with PRODUCT.md's "No custom code" stack constraint; the owner decides which items to commission. Spotlight 13 is a Dawn-family theme; the split below is against its built-in sections and theme settings.
+The owner chose "Design freely", so the prototype is not limited to Spotlight 13's settings (PRODUCT.md records this). The owner decides which items to commission. Spotlight 13 is a Dawn-family theme; the split below is against its built-in sections and theme settings.
 
 ### Maps to native settings
-- **Colour schemes:** four schemes cover the palette: Bone (bone ground, ink text, forest solid button), Bone Light (bone-hi ground for the Visit section and drawers), Forest (green ground, on-dark text, light button) and Night (night ground, on-dark text, for the campaign band and footer).
-- **Body font:** Archivo from Shopify's font library (confirm it is listed in the theme editor).
-- **Buttons:** corner radius 0, no shadow, border thickness 1 to 2px (1.5px rounds to a whole pixel); solid and outline variants.
-- **Product grid:** 4 columns on desktop and 2 on mobile; "show second image on hover" for the alt view; card style with a stone card colour scheme and image padding as an approximation of the tile.
-- **Announcement bar:** forest scheme with a link.
+- **Colour schemes:** four schemes cover the palette. Bone (bone ground, ink text, ink solid button), Bone Light (drawers and the buy panel), Peach (the announcement bar) and Night (the footer).
+- **Body and heading font:** Host Grotesk, if it is in Shopify's font library (confirm in the theme editor); otherwise it must be uploaded (see below).
+- **Buttons:** a large corner radius gives pills, no shadow, 1px border; solid and outline variants.
+- **Product grid:** 4 columns on desktop and 2 on mobile; "show second image on hover" for the alt view; a concrete card scheme with image padding as an approximation of the tile.
+- **Announcement bar:** the Peach scheme with a link.
 - **Sticky header, menu drawer and cart drawer:** native, coloured by scheme.
-- **Interlude lines:** a Rich text section with a large heading or text in the Bone scheme.
-- **Newsletter:** the Email signup section.
 - **Collection filters:** native faceted filtering (horizontal layout) and sort.
-- **Size picker:** variant picker set to pills.
-- **Visit section:** Image with text with the store photo, heading, hours as text and two buttons.
+- **Size picker:** variant picker set to pills (sold-out styling differs).
+- **Footer:** native columns in the Night scheme.
 
 ### Needs custom code
-- **Uppercase display face:** Big Shoulders Display must be uploaded as a theme asset with an `@font-face` rule if it is not in Shopify's font library; uppercase headings, weight 900 and line-height under 0.9 need custom CSS regardless (Spotlight has no heading-case or heading line-height setting, and its heading scale stops short of 96px).
-- **Opposing scroll type hero:** the pinned 250svh runway, the scroll-linked opposing rows, the right-aligned portrait on the forest field, and the reduced-motion static state. This needs a custom section (Liquid, CSS and a small script).
-- **Motion system:** the reveal observer, the shared scroll engine, the scrubbed band, footer and parallax effects, fly-to-bag, Quick add, the store-photo cursor follow, the live open pill and View Transitions all need a custom theme script. A few hundred lines of vanilla JS can be loaded once in `theme.liquid`. Theme sections then carry the `data-reveal` attributes.
-- **Alpha cut-outs on stone tiles:** the soft drop-shadow on product flats, the multiply blend for on-model photos, and contain-fit with percentage padding versus cover-fit chosen per product.
+- **Display type:** Host Grotesk as a theme asset with `@font-face` if Shopify does not list it; headings at 600 with -0.04em tracking, leading under 1, and the 96px top of the scale need custom CSS (Spotlight has no heading tracking or line-height setting).
+- **Transparent-over-hero header:** the header floating over the hero with a white (inverted) logo and white type, turning solid bone once the hero scrolls away, plus hide-on-scroll-down. Spotlight's header is always solid.
+- **Full-bleed hero with overlay copy:** a full-viewport photo pulled up under the header, the bottom fade, and the headline, line and two white pills pinned bottom-left. Image banner gets close, but not the pull-up under the header or the exact fade and type.
+- **Edge-to-edge category tiles:** four tiles with 2px gaps, the centred flat with its drop-shadow, and the underlined uppercase label laid bottom-left. Collection list cards add padding, rounded or framed cards and labels beneath.
+- **Concrete tile surface:** the concrete ground with its radial top light and grain, the contact drop-shadow on flats, the multiply blend for on-model photos, and contain-with-padding versus cover-fit chosen per product.
+- **2-up photo cards with overlay pills:** two full-bleed portraits (and the two story cards) 2px apart, each with a bottom fade, a headline, line and white pill laid bottom-left. Native Collage or Image with text cards do not overlay copy this way.
+- **Inline pill newsletter in a photo card:** the email field and Subscribe button inside one white pill, laid over the newsletter photo, with the success swap and error shake. The native Email signup section renders a separate field and button on a plain ground.
+- **Live open-status pill:** the Orlando open or closed status from store hours in Orlando time, repainted every minute, with the pulsing dot. Needs a small script.
+- **Quick add:** the size pills that rise over the bottom of a product tile on hover and add without leaving the grid. Spotlight's quick add opens a modal.
+- **Product morph and fly-to-bag:** the View Transitions morph from tile to PDP gallery, the ghost that arcs into the header bag, the count pop, the grid FLIP and the count rolls.
+- **Pill size selectors:** the bottom-up ink fill on selection and the hatched sold-out state; the quick-add size pills.
+- **Ruled store list:** city rows with hairlines that draw in, tabular hours, an arrowed Directions link, the hover wipe and the cursor-following store photo. Multicolumn renders cards, not ruled rows.
 - **Name and price on one row:** native cards stack the price under the name.
-- **Image zoom on hover:** the native hover effects lift the card; a slow image scale needs CSS.
-- **Shop by piece colour-blocks:** per-tile background colours, the centred cut-out, and the label, count and arrow laid over each panel. Collection list cards cannot take a different scheme per tile or overlay the label this way.
-- **Floating buy card:** the feature card overlapping the product tile (Featured product is native; the overlap is not).
-- **Campaign band:** the night-framed photo and the ruled list of picks with thumbnails and prices.
-- **Ruled store list:** display-capital city rows with hairlines, tabular hours and an arrowed directions link; Multicolumn renders cards, not ruled rows.
-- **Mantra footer:** the giant "And the world will be yours." closer inside the footer. A Rich text section in the Night scheme placed just above the footer is the nearest native workaround.
-- **Arrows on buttons and links, filter chip styling and the sold-out hatch on size pills.**
-- **Motion:** the hero headline rise and the shared easing.
+- **Footer closer:** the large "And the world will be yours." line inside the footer. A Rich text section in the Night scheme just above the footer is the nearest native workaround.
+- **Motion system:** the reveal observer, the shared scroll engine, the hero settle and copy rise, and the reduced-motion handling. A few hundred lines of vanilla JS loaded once in `theme.liquid`; sections then carry `data-reveal` attributes.
