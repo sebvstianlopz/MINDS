@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: a lookbook you can shop. Full-bleed MINDS photography, a transparent header over the hero, concrete-grey product tiles, 2-up image cards, pills as the only rounded shapes, a dark footer. */
+/* Layout: a lookbook you can shop. Full-bleed MINDS photography, a transparent header over the hero, concrete-grey product tiles, 2-up image cards, pills as the only rounded shapes, a light footer that ends in the MINDS wordmark. */
 :root {
   --bone: #ECE8E1;
   --bone-hi: #F6F3EE;
@@ -255,18 +255,18 @@ section.stories-band { padding-bottom: 0; }
 .nw { white-space: nowrap; }
 
 /* Footer */
-footer.site { position: relative; padding-top: clamp(64px, 8vw, 112px); font-size: 14px; }
+footer.site { position: relative; padding-top: clamp(64px, 8vw, 112px); font-size: 14px; background: var(--bone-hi); color: var(--ink); border-top: 1px solid var(--rule); }
 .dark { background: var(--night); color: var(--on-dark); }
-.closer { font: 600 clamp(44px, 6.4vw, 96px)/.95 var(--sans); letter-spacing: -.04em; max-width: 13ch; margin-bottom: clamp(48px, 6vw, 88px); text-wrap: balance; color: var(--on-dark); }
-.fcols { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 36px; border-top: 1px solid rgba(244, 241, 235, .2); }
-.fcols h3 { font: 500 13px/1 var(--sans); letter-spacing: .02em; color: var(--on-dark-2); margin-bottom: 16px; }
+.closer { font: 600 clamp(44px, 6.4vw, 96px)/.95 var(--sans); letter-spacing: -.04em; max-width: 13ch; margin-bottom: clamp(48px, 6vw, 88px); text-wrap: balance; color: var(--ink); }
+.fcols { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 36px; border-top: 1px solid var(--rule); }
+.fcols h3 { font: 500 13px/1 var(--sans); letter-spacing: .02em; color: var(--ink-2); margin-bottom: 16px; }
 .fcols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .fcols a { text-decoration: none; } .fcols a:hover { text-decoration: underline; }
-/* The MINDS wordmark, edge to edge: it pins to the bottom of the screen as the footer arrives, and the footer scrolls up into place above it */
-.wordmark { position: sticky; bottom: 0; z-index: 2; margin-top: clamp(40px, 5vw, 72px); padding: clamp(18px, 2.6vw, 36px) var(--gr) clamp(12px, 1.6vw, 22px) var(--gl); background: var(--night); color: var(--on-dark); }
-.wordmark svg { display: block; width: 100%; height: auto; fill: currentColor; }
+/* The MINDS wordmark, edge to edge. It stays hidden as the footer arrives, then rises out of the page's bottom edge with the scroll and is whole at the very end (footerWordmark in JS). */
+.wordmark { overflow: hidden; margin-top: clamp(40px, 5vw, 72px); padding: clamp(10px, 1.4vw, 20px) var(--gr) clamp(12px, 1.6vw, 22px) var(--gl); color: var(--ink); }
+.wordmark svg { display: block; width: 100%; height: auto; fill: currentColor; will-change: transform; }
 .social { display: flex; gap: 4px; margin-top: 18px; margin-left: -10px; }
-.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; color: var(--on-dark-2); }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; color: var(--ink-2); }
 @media (max-width: 749px) { .fcols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fcols > div:first-child { grid-column: 1 / -1; } }
 
 /* Collection */
@@ -434,12 +434,12 @@ main { animation: in .45s var(--ease); }
 
 <main id="main" tabindex="-1"></main>
 
-<footer class="site dark">
+<footer class="site">
   <div class="wrap">
     <p class="closer" aria-hidden="true">And the world will be yours.</p>
     <div class="fcols" data-reveal="fade">
       <div>
-        <p style="max-width:34ch;color:var(--on-dark-2)">Streetwear designed by MINDS. Five stores across Florida and Puerto Rico.</p>
+        <p style="max-width:34ch;color:var(--ink-2)">Streetwear designed by MINDS. Five stores across Florida and Puerto Rico.</p>
         <div class="social">
           <a class="iconbtn" href="https://www.instagram.com/minds_tm" aria-label="MINDS on Instagram"><svg class="icon"><use href="#i-ig"/></svg></a>
           <a class="iconbtn" href="https://www.tiktok.com/@minds__tm" aria-label="MINDS on TikTok"><svg class="icon"><use href="#i-tt"/></svg></a>
@@ -760,6 +760,21 @@ main { animation: in .45s var(--ease); }
     });
     return () => { io.disconnect(); offPassed(); };
   }
+
+  // Footer wordmark: hidden as the footer arrives, it rises out of the bottom edge with the scroll and is whole at the page end
+  (function footerWordmark() {
+    const box = document.querySelector(".wordmark"), mark = box && box.querySelector("svg");
+    if (!mark) return;
+    Scroll.add(() => {
+      if (RM.matches) { mark.style.transform = ""; return; }
+      const vh = window.innerHeight, y = window.scrollY;
+      const start = box.getBoundingClientRect().top + y - vh;              // the wordmark's box reaches the bottom of the screen
+      const end = document.documentElement.scrollHeight - vh;               // the page end
+      const p = end > start + 1 ? clamp01((y - start) / (end - start)) : 1;
+      const e = 1 - Math.pow(1 - p, 3);
+      mark.style.transform = "translateY(" + ((1 - e) * 104).toFixed(2) + "%)";
+    });
+  })();
 
   // Header: hide on scroll down after the hero, show on scroll up
   (function headerAutoHide() {
