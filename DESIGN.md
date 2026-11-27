@@ -352,7 +352,7 @@ The hero is a pinned frame inside a 250svh scroll runway.
 - **Reduced motion:** the runway collapses to one frame and the rows sit still, starting near the left edge.
 
 ### Homepage opening
-The homepage opens directly on the studio hero (opposing scroll type). There is no loading screen and no 3D intro: the line-art intro loader and the 3D "Inside your mind" journey with its brain-shaped reveal were both removed at the owner's request. The journey lives on as a separate experience (`experience/`).
+The homepage opens directly on the studio hero (opposing scroll type). There is no loading screen and no 3D intro: the line-art intro loader and the 3D "Inside your mind" journey with its brain-shaped reveal were both removed at the owner's request. The journey's code is kept in `experience/` but is no longer published anywhere.
 
 ### Motion
 One easing for everything: `cubic-bezier(.2, .8, .2, 1)`. Entrances take 600–900ms, hovers 250–400ms and staggers 60–120ms.

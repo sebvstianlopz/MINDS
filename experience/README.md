@@ -3,7 +3,7 @@
 A scroll-driven 3D experience for MINDS, built in stages. **Four scenes: "The Mind", "Enter the Mind", "Neural Universe" and "Fashion Inside Your Mind".** (Scene 05, "Discover MINDS" with the floating collection, was removed at the owner's request.)
 It runs in two places:
 - **As the store homepage** (removed): the journey was briefly the top of the store prototype's homepage, opening into the store through a brain-shaped reveal. The owner asked for the original storefront back, so the store no longer loads it. `npm run build:embed` (`src/embed.jsx`, `vite.embed.config.js`, `scripts/build-embed.mjs`) still builds `../prototype/mind.js` if it's ever wanted again; the store would also need its homepage slot and reveal code restored (see git history, commits `e532217` to `3e667aa`).
-- **Standalone**, at its own artifact link (`npm run build` → `artifact/`): the full page with its own header, collection grid and footer. Its store links open the store artifact URL.
+- **Standalone** (`npm run build` → `artifact/`): the full page with its own header, collection grid and footer. Its store links open the store artifact URL. **Not published:** its artifact link was taken down at the owner's request. The code stays here, and publishing `artifact/index.html` again would create a new link.
 
 ## Stack
 - React 18 + Vite 5 (JavaScript/JSX; the repo has no TypeScript)
