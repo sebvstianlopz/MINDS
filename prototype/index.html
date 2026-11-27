@@ -136,6 +136,13 @@ section.band { padding-block: var(--section); }
 .cat span { position: absolute; left: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); font: 600 14px/1 var(--sans); letter-spacing: .05em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 7px; text-decoration-thickness: 1.5px; }
 @media (max-width: 599px) { .cat span { font-size: 13px; } }
 
+/* Campaign film: the owner's video, full-bleed under the tiles. Plays muted only while on screen; pause and sound pills bottom-right. Phones crop to the sharp vertical film in the middle of the frame. */
+.film { position: relative; margin-top: 2px; aspect-ratio: 16 / 9; max-height: 90svh; width: 100%; overflow: hidden; background: #0E1A1C; }
+.film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.film-ctl { position: absolute; right: clamp(12px, 2vw, 28px); bottom: clamp(12px, 2vw, 28px); display: flex; gap: 8px; }
+.film-ctl .btn { min-height: 40px; padding: 0 18px; font-size: 14px; }
+@media (max-width: 749px) { .film { aspect-ratio: 4 / 5; max-height: none; } }
+
 /* Product tiles */
 .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 12px; }
 @media (max-width: 989px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 8px; } }
@@ -573,6 +580,13 @@ main { animation: in .45s var(--ease); }
     '<section aria-label="Shop by category"><div class="cats">' +
       catTile("Shorts", "minds-shorts-1-0") + catTile("Pants", "minds-pants-9-0") + catTile("Tops", "endlesshine-purple-0") + catTile("Caps", "minds-archive-cap-0") +
     '</div></section>' +
+    '<section class="film" aria-label="MINDS campaign film">' +
+      '<video muted loop playsinline preload="metadata" poster="img/minds-campaign-poster.webp" aria-label="MINDS campaign film: the new season worn in the Orlando store and around the city"><source src="media/minds-campaign.mp4" type="video/mp4"></video>' +
+      '<div class="film-ctl">' +
+        '<button class="btn light" type="button" data-film="play" aria-pressed="false">Pause</button>' +
+        '<button class="btn light" type="button" data-film="sound" aria-pressed="false">Sound on</button>' +
+      '</div>' +
+    '</section>' +
     '<section class="band" aria-labelledby="naTitle"><div class="wrap">' +
       '<div class="sec-head"><h2 id="naTitle" data-reveal="fade">New arrivals</h2><a class="link" href="#new" data-reveal="fade" style="--d:120ms">Shop all new ' + arrow() + '</a></div>' +
       '<div class="grid">' + NEW.map(p => card(p, { reveal: true })).join("") + '</div>' +
@@ -798,6 +812,45 @@ main { animation: in .45s var(--ease); }
     header.addEventListener("focusin", () => document.body.classList.remove("hdr-hide"));
   })();
 
+  // Campaign film: plays muted only while on screen; the visitor's Pause sticks for the visit; never autoplays under reduced motion
+  let filmPausedByUser = false, filmPlayedByUser = false;
+  function mountFilm() {
+    const sec = main.querySelector(".film");
+    if (!sec) return null;
+    const v = sec.querySelector("video"), playBtn = sec.querySelector('[data-film="play"]'), soundBtn = sec.querySelector('[data-film="sound"]');
+    let inView = false;
+    const stopped = () => filmPausedByUser || (RM.matches && !filmPlayedByUser);
+    const paint = () => {
+      const playing = !v.paused;
+      playBtn.textContent = playing ? "Pause" : "Play";
+      playBtn.setAttribute("aria-pressed", String(!playing));
+      soundBtn.textContent = v.muted ? "Sound on" : "Sound off";
+      soundBtn.setAttribute("aria-pressed", String(!v.muted));
+    };
+    const sync = () => {
+      if (inView && !document.hidden && !stopped()) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      else if (!v.paused) v.pause();
+    };
+    const io = new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }, { threshold: 0.35 });
+    io.observe(sec);
+    const onVis = () => sync();
+    document.addEventListener("visibilitychange", onVis);
+    const onClick = e => {
+      const b = e.target.closest("[data-film]"); if (!b) return;
+      if (b.dataset.film === "play") {
+        if (v.paused) { filmPausedByUser = false; filmPlayedByUser = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else { filmPausedByUser = true; filmPlayedByUser = false; v.pause(); }
+      } else {
+        v.muted = !v.muted;
+        if (!v.muted && v.paused) { filmPausedByUser = false; filmPlayedByUser = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      }
+    };
+    sec.addEventListener("click", onClick);
+    ["play", "pause", "volumechange"].forEach(t => v.addEventListener(t, paint));
+    paint();
+    return () => { io.disconnect(); document.removeEventListener("visibilitychange", onVis); sec.removeEventListener("click", onClick); v.pause(); };
+  }
+
   // Live store status for MINDS Orlando (Florida Mall hours, Orlando time)
   function mountOpenPill() {
     const pill = main.querySelector("#openPill");
@@ -937,7 +990,7 @@ main { animation: in .45s var(--ease); }
     else if (!toProduct && fromProduct && savedY[key] != null) window.scrollTo(0, savedY[key]);
     else window.scrollTo(0, 0);
     document.body.classList.remove("hdr-hide");
-    const offs = [mountReveals(), mountOpenPill(), mountStorePeek()].filter(Boolean);
+    const offs = [mountReveals(), mountFilm(), mountOpenPill(), mountStorePeek()].filter(Boolean);
     teardown = () => offs.forEach(f => f());
     Scroll.req();
     if (useVT) {

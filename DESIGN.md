@@ -242,7 +242,7 @@ components:
 
 MINDS is shown the way a lookbook shows a season: one photograph per idea, edge to edge, with the interface stepping back to a few words and white pills. The page is a warm bone ground; the clothes sit on soft concrete-grey tiles, each flat casting its own contact shadow. Type is a single grotesk (Host Grotesk) at 600 with tight negative tracking, always in sentence case, laid bottom-left over photographs on a soft dark fade.
 
-The homepage reads top to bottom as photo, tiles, grid, photo, photo: a full-screen campaign photo under a transparent header, four edge-to-edge category tiles, a contained grid of new arrivals, a 2-up pair of full-bleed portraits, and a 2-up pair of story cards (the Orlando store and the newsletter), then a ruled list of the other stores and a dark footer. Full-bleed blocks are separated by 2px hairline gaps of the bone page, never by margins. MINDS green has shrunk to a signal: the bag count and the pickup store icon, with a brighter signal green for the live "Open now" dot.
+The homepage reads top to bottom as photo, tiles, film, grid, photo, photo: a full-screen campaign photo under a transparent header, four edge-to-edge category tiles, the full-bleed MINDS campaign film, a contained grid of new arrivals, a 2-up pair of full-bleed portraits, and a 2-up pair of story cards (the Orlando store and the newsletter), then a ruled list of the other stores and a light footer that ends in the MINDS wordmark. Full-bleed blocks are separated by 2px hairline gaps of the bone page, never by margins. MINDS green has shrunk to a signal: the bag count and the pickup store icon, with a brighter signal green for the live "Open now" dot.
 
 The system refuses the dense streetwear homepage of colour-block bands, badges and stacked banners. It replaces the earlier "Campaign Studio" world (condensed capitals, forest-green bands, square buttons), which was retired on 27 Nov 2026.
 
@@ -404,6 +404,12 @@ A 30px white pill beneath the Orlando store heading: a status dot and "Open now 
 ### Ruled Store List (signature)
 A rule above, then rows divided by hairlines that draw in from the left with an 80ms stagger: a 24px city, place in graphite, tabular hours in one "10am to 8pm" format, and "Directions" with an arrow. Hover wipes in bone-light from the left and shifts the city 4px; on mouse devices a store photo follows the cursor with eased lag.
 
+### Campaign film
+The owner's MINDS campaign video (`prototype/media/minds-campaign.mp4`, re-encoded from the 1920×1080 original to 4.8 MB, with a 4s still as its poster) runs full-bleed directly under the category tiles, 2px below them. It is 16:9 on desktop and tablet (capped at 90svh). On phones (≤749px) it is cropped to 4:5 around the centre, because the footage is a vertical film framed by blurred side panels, so the phone shows the sharp film rather than a thin strip. No copy is laid over it; the film ends on its own MINDS card.
+- **Playback:** muted, looping and inline, and only while at least 35% of it is on screen. It pauses when scrolled away or when the tab is hidden.
+- **Controls:** two compact white pills bottom-right (40px, `.btn.light`): Pause/Play and Sound on/off, both with `aria-pressed`. A visitor's Pause holds for the rest of the visit. Sound never starts without a tap.
+- **Reduced motion:** no autoplay; the poster shows until Play is pressed, and then it plays.
+
 ### Footer
 A light footer on `bone-hi` with ink text and a `rule` hairline above it, matching the owner's reference. It opens with the Display Closer line in ink, then a `rule` hairline and four columns: a one-line description with social icons, Shop, Help and Contact (column heads in `ink-2`). A legal row in `ink-2` follows.
 
@@ -471,6 +477,7 @@ The owner chose "Design freely", so the prototype is not limited to Spotlight 13
 - **Pill size selectors:** the bottom-up ink fill on selection and the hatched sold-out state; the quick-add size pills.
 - **Ruled store list:** city rows with hairlines that draw in, tabular hours, an arrowed Directions link, the hover wipe and the cursor-following store photo. Multicolumn renders cards, not ruled rows.
 - **Name and price on one row:** native cards stack the price under the name.
+- **Campaign film:** a native Video section can autoplay muted and loop, but the on-screen-only playback, the sticky Pause, the sound pill and the phone crop to the centre need a custom section (a few lines of JS and CSS).
 - **Footer wordmark reveal:** the full-width MINDS wordmark SVG at the end of the footer, clipped by its box and raised with the scroll (a few lines of JS on the shared scroll engine). Needs the SVG as a theme asset or snippet and a custom footer section.
 - **Footer closer:** the large "And the world will be yours." line inside the footer. A Rich text section in the Bone Light scheme just above the footer is the nearest native workaround.
 - **Motion system:** the reveal observer, the shared scroll engine, the hero settle and copy rise, and the reduced-motion handling. A few hundred lines of vanilla JS loaded once in `theme.liquid`; sections then carry `data-reveal` attributes.
